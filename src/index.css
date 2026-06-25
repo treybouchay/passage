@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Creamy linen */
+  --bg: #F5F0E6;
+  --surface: #FFFCF7;
+
+  /* Greens */
+  --accent: #396D54;
+  --accent-deep: #2A5540;
+  --accent-soft: #D4E8DC;
+  --sage: #8FAF9C;
+  --sage-light: #B8CEBF;
+  --forest-muted: #5E826E;
+
+  /* Text */
+  --text-primary: #2E4036;
+  --text-secondary: #4A6356;
+  --text-muted: #7A9488;
+  --line: #C8D9CE;
+
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text-primary);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
