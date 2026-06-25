@@ -672,6 +672,71 @@ export const passages: Passage[] = [
     keywords: ['help', 'help me', 'hold my hand', 'burden', 'load', 'afraid', 'cannot do alone', 'support', 'carry', 'with me', 'lighten'],
     reflection: 'God\'s help is not distant advice—it is taking your hand and walking with you.',
   },
+  // —— Strength ——
+  {
+    id: 'eph-6-10',
+    reference: 'Ephesians 6:10',
+    text: 'Finally, be strong in the Lord and in his mighty power.',
+    themes: ['strength', 'power', 'courage', 'faith'],
+    keywords: ['strength', 'strong', 'power', 'mighty', 'courage', 'weak', 'need strength', 'empowered', 'capable'],
+    reflection: 'Strength here is not self-generated—it is drawn from the Lord’s mighty power at work in you.',
+  },
+  {
+    id: 'deut-31-6',
+    reference: 'Deuteronomy 31:6',
+    text: 'Be strong and courageous. Do not be afraid or terrified because of them, for the Lord your God goes with you; he will never leave you nor forsake you.',
+    themes: ['strength', 'courage', 'fear', 'presence'],
+    keywords: ['strength', 'strong', 'courage', 'courageous', 'afraid', 'fear', 'forsaken', 'alone', 'with me', 'never leave'],
+    reflection: 'Courage is rooted in companionship—God goes with you and does not abandon you.',
+  },
+  {
+    id: 'psalm-28-7',
+    reference: 'Psalm 28:7',
+    text: 'The Lord is my strength and my shield; my heart trusts in him, and he helps me. My heart leaps for joy, and with my song I praise him.',
+    themes: ['strength', 'trust', 'protection', 'joy'],
+    keywords: ['strength', 'strong', 'shield', 'trust', 'helps me', 'help', 'protected', 'praise', 'heart'],
+    reflection: 'When God is your strength and shield, trust becomes the ground under your feet.',
+  },
+  {
+    id: 'isa-40-29',
+    reference: 'Isaiah 40:29',
+    text: 'He gives strength to the weary and increases the power of the weak.',
+    themes: ['strength', 'weariness', 'weakness', 'renewal'],
+    keywords: ['strength', 'strong', 'weary', 'tired', 'weak', 'exhausted', 'power', 'renew', 'depleted', 'no energy'],
+    reflection: 'Weariness is not a disqualifier—God specifically gives strength to the worn out.',
+  },
+  {
+    id: 'psalm-46-1',
+    reference: 'Psalm 46:1',
+    text: 'God is our refuge and strength, an ever-present help in trouble.',
+    themes: ['strength', 'refuge', 'trouble', 'help'],
+    keywords: ['strength', 'strong', 'refuge', 'help', 'trouble', 'hard time', 'present', 'safe', 'support'],
+    reflection: 'Strength and refuge are not far off—God is ever-present help when trouble comes.',
+  },
+  {
+    id: 'hab-3-19',
+    reference: 'Habakkuk 3:19',
+    text: 'The Sovereign Lord is my strength; he makes my feet like the feet of a deer, he enables me to tread on the heights.',
+    themes: ['strength', 'endurance', 'hope', 'perseverance'],
+    keywords: ['strength', 'strong', 'endure', 'heights', 'keep going', 'sure footed', 'persevere', 'climb', 'hard path'],
+    reflection: 'God does not only sustain you on flat ground—He enables you to keep going on difficult terrain.',
+  },
+  {
+    id: 'psalm-18-32',
+    reference: 'Psalm 18:32',
+    text: 'It is God who arms me with strength and keeps my way secure.',
+    themes: ['strength', 'security', 'protection', 'guidance'],
+    keywords: ['strength', 'strong', 'arms me', 'secure', 'protected', 'way', 'path', 'equipped', 'ready'],
+    reflection: 'The strength you need for the road ahead is something God arms you with—not something you manufacture alone.',
+  },
+  {
+    id: '2-cor-4-16',
+    reference: '2 Corinthians 4:16',
+    text: 'Therefore we do not lose heart. Though outwardly we are wasting away, yet inwardly we are being renewed day by day.',
+    themes: ['strength', 'renewal', 'hope', 'perseverance'],
+    keywords: ['strength', 'lose heart', 'renewed', 'renewal', 'wasting away', 'inward', 'day by day', 'keep going', 'inner strength'],
+    reflection: 'Outward exhaustion can be real—and inward renewal from God can run on a different timeline.',
+  },
 ]
 
 export const moodSuggestions = [
@@ -692,4 +757,6 @@ export const moodSuggestions = [
   'Heartbroken',
   'Exhausted',
   'Tempted',
+  'Weak',
+  'Strength',
 ]
