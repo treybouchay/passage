@@ -370,7 +370,7 @@ export function TraceGesture({ onComplete }: TraceGestureProps) {
           />
         </div>
       </div>
-      {!celebrating && <p className="trace-hint">trace the cross to begin</p>}
+        {!celebrating && <p className="trace-hint">trace the cross to begin.</p>}
     </div>
   )
 }
