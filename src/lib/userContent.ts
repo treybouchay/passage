@@ -6,7 +6,27 @@ const FAVORITES_KEY = 'passage:favorites'
 export interface SavedPrayer {
   id: string
   text: string
+  themes: string[]
+  createdAt: number
   updatedAt: number
+}
+
+function normalizePrayer(
+  raw: Partial<SavedPrayer> & Pick<SavedPrayer, 'id' | 'text'>,
+): SavedPrayer {
+  const fromId = raw.id.startsWith('prayer-') ? Number(raw.id.slice(7)) : NaN
+  const updatedAt = raw.updatedAt ?? (Number.isFinite(fromId) ? fromId : Date.now())
+  const createdAt = raw.createdAt ?? updatedAt
+  const themes = Array.isArray(raw.themes) ? raw.themes : []
+  return { id: raw.id, text: raw.text, themes, createdAt, updatedAt }
+}
+
+export function formatPrayerDate(timestamp: number): string {
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(timestamp))
 }
 
 export type FavoriteItem =
@@ -28,19 +48,23 @@ function writeJson(key: string, value: unknown): void {
 }
 
 export function loadPrayers(): SavedPrayer[] {
-  return readJson<SavedPrayer[]>(PRAYERS_KEY, [])
+  return readJson<Array<Partial<SavedPrayer> & Pick<SavedPrayer, 'id' | 'text'>>>(
+    PRAYERS_KEY,
+    [],
+  ).map(normalizePrayer)
 }
 
-export function savePrayer(text: string, id?: string): SavedPrayer[] {
+export function savePrayer(text: string, id?: string, themes: string[] = []): SavedPrayer[] {
   const trimmed = text.trim()
   if (!trimmed) return loadPrayers()
 
   const prayers = loadPrayers()
   const now = Date.now()
+  const uniqueThemes = [...new Set(themes)]
 
   if (id) {
     const next = prayers.map((p) =>
-      p.id === id ? { ...p, text: trimmed, updatedAt: now } : p,
+      p.id === id ? { ...p, text: trimmed, themes: uniqueThemes, updatedAt: now } : p,
     )
     writeJson(PRAYERS_KEY, next)
     return next
@@ -49,6 +73,8 @@ export function savePrayer(text: string, id?: string): SavedPrayer[] {
   const prayer: SavedPrayer = {
     id: `prayer-${now}`,
     text: trimmed,
+    themes: uniqueThemes,
+    createdAt: now,
     updatedAt: now,
   }
   const next = [prayer, ...prayers]

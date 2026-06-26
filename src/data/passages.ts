@@ -900,7 +900,92 @@ export const passages: Passage[] = [
     keywords: ['kind', 'kindness', 'cruel', 'cruelty', 'benefit', 'wisdom', 'harsh', 'mean', 'treat others', 'consequences'],
     reflection: 'Kindness is not weakness—it is wisdom that blesses both the giver and those around you.',
   },
+  // —— Family ——
+  {
+    id: 'josh-24-15',
+    reference: 'Joshua 24:15',
+    text: 'But if serving the Lord seems undesirable to you, then choose for yourselves this day whom you will serve, whether the gods your ancestors served beyond the Euphrates, or the gods of the Amorites, in whose land you are living. But as for me and my household, we will serve the Lord.',
+    themes: ['family', 'faith', 'leadership', 'decisions'],
+    keywords: ['family', 'household', 'home', 'serve god', 'serve the lord', 'lead my family', 'spiritual leader', 'choose', 'decision'],
+    reflection: 'Leading a household in faith is a daily choice—not a one-time declaration, but a lived commitment.',
+  },
+  {
+    id: 'deut-6-6-7',
+    reference: 'Deuteronomy 6:6–7',
+    text: 'These commandments that I give you today are to be on your hearts. Impress them on your children. Talk about them when you sit at home and when you walk along the road, when you lie down and when you get up.',
+    themes: ['family', 'parenting', 'faith', 'teaching'],
+    keywords: ['children', 'kids', 'parent', 'parenting', 'teach', 'family', 'home', 'raise', 'raising', 'pass on faith', 'disciple'],
+    reflection: 'Faith in the home is not a single lesson—it is woven into ordinary moments throughout the day.',
+  },
+  {
+    id: 'eph-6-1-4',
+    reference: 'Ephesians 6:1–4',
+    text: 'Children, obey your parents in the Lord, for this is right. "Honor your father and mother"—which is the first commandment with a promise—"so that it may go well with you and that you may enjoy long life on the earth." Fathers, do not exasperate your children; instead, bring them up in the training and instruction of the Lord.',
+    themes: ['family', 'parenting', 'children', 'honor'],
+    keywords: ['children', 'kids', 'parent', 'parenting', 'obey', 'honor', 'father', 'mother', 'exasperate', 'frustrated with kids', 'raising children'],
+    reflection: 'God cares about both sides of the parent-child relationship—honor from children and gentleness from parents.',
+  },
+  {
+    id: 'prov-22-6',
+    reference: 'Proverbs 22:6',
+    text: 'Start children off on the way they should go, and even when they are old they will not turn from it.',
+    themes: ['family', 'parenting', 'children', 'guidance'],
+    keywords: ['children', 'kids', 'parent', 'parenting', 'raise', 'raising', 'train', 'way they should go', 'young', 'foundation'],
+    reflection: 'The early years of guidance plant seeds that can bear fruit for a lifetime—even when the path is not straight.',
+  },
+  {
+    id: 'psalm-127-3-5',
+    reference: 'Psalm 127:3–5',
+    text: 'Children are a heritage from the Lord, offspring a reward from him. Like arrows in the hands of a warrior are children born in one\'s youth. Blessed is the man whose quiver is full of them.',
+    themes: ['family', 'parenting', 'children', 'blessing'],
+    keywords: ['children', 'kids', 'parent', 'parenting', 'heritage', 'gift', 'reward', 'blessing', 'new baby', 'pregnant', 'offspring'],
+    reflection: 'Children are named a heritage and reward—not a burden to endure, but a gift from God.',
+  },
+  {
+    id: 'col-3-18-21',
+    reference: 'Colossians 3:18–21',
+    text: 'Wives, submit yourselves to your husbands, as is fitting in the Lord. Husbands, love your wives and do not be harsh with them. Children, obey your parents in everything, for this pleases the Lord. Fathers, do not embitter your children, or they will become discouraged.',
+    themes: ['family', 'marriage', 'parenting', 'relationships'],
+    keywords: ['marriage', 'husband', 'wife', 'spouse', 'children', 'parent', 'parenting', 'family', 'harsh', 'discouraged', 'home life'],
+    reflection: 'God\'s design for the home calls each member to love, gentleness, and mutual honor.',
+  },
+  {
+    id: 'gen-2-24',
+    reference: 'Genesis 2:24',
+    text: 'That is why a man leaves his father and mother and is united to his wife, and they become one flesh.',
+    themes: ['family', 'marriage', 'unity', 'covenant'],
+    keywords: ['marriage', 'husband', 'wife', 'spouse', 'united', 'one flesh', 'wedding', 'covenant', 'leave and cleave', 'newlywed'],
+    reflection: 'Marriage is a covenant of unity—a new household formed through leaving, cleaving, and becoming one.',
+  },
+  {
+    id: 'prov-17-6',
+    reference: 'Proverbs 17:6',
+    text: 'Children\'s children are a crown to the aged, and parents are the pride of their children.',
+    themes: ['family', 'generations', 'grandparents', 'blessing'],
+    keywords: ['grandchildren', 'grandparents', 'grandma', 'grandpa', 'generations', 'family', 'crown', 'pride', 'legacy', 'aging parents'],
+    reflection: 'Family spans generations—grandchildren bring joy to the aged, and parents are meant to be a source of pride.',
+  },
+  {
+    id: '1-tim-5-8',
+    reference: '1 Timothy 5:8',
+    text: 'Anyone who does not provide for their relatives, and especially for their own household, has denied the faith and is worse than an unbeliever.',
+    themes: ['family', 'provision', 'responsibility', 'care'],
+    keywords: ['provide', 'provision', 'family', 'household', 'relatives', 'care for family', 'support', 'responsibility', 'caring for parents', 'breadwinner'],
+    reflection: 'Caring for your household is not optional in the faith—it is a tangible expression of love and responsibility.',
+  },
+  {
+    id: 'mal-2-15',
+    reference: 'Malachi 2:15',
+    text: 'Has not the one God made you? You belong to him in body and spirit. And what does the one God seek? Godly offspring. So be on your guard, and do not be unfaithful to the wife of your youth.',
+    themes: ['family', 'marriage', 'faithfulness', 'parenting'],
+    keywords: ['marriage', 'wife', 'husband', 'faithful', 'faithfulness', 'offspring', 'children', 'godly family', 'youth', 'covenant'],
+    reflection: 'God desires faithfulness in marriage and a home that nurtures godly offspring—not perfection, but covenant loyalty.',
+  },
 ]
+
+export const allThemes = [
+  ...new Set(passages.flatMap((passage) => passage.themes)),
+].sort()
 
 export const moodSuggestions = [
   'Anxious',
@@ -926,4 +1011,7 @@ export const moodSuggestions = [
   'Need forgiveness',
   'Need kindness',
   'Hard to be kind',
+  'Family',
+  'Parenting',
+  'Marriage',
 ]

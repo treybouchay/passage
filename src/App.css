@@ -610,6 +610,36 @@
   border-bottom-width: 2px;
 }
 
+.prayer-theme-picker {
+  margin-top: 1.25rem;
+}
+
+.prayer-theme-picker-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.65rem;
+}
+
+.prayer-theme-picker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+  max-height: 9rem;
+  overflow-y: auto;
+  padding-bottom: 0.25rem;
+}
+
+.prayer-saved-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
 .prayer-form-actions {
   display: flex;
   justify-content: flex-end;
@@ -717,6 +747,164 @@
   color: var(--text-muted);
   margin: 0;
   padding: 1.5rem 0;
+}
+
+.favorites-filters {
+  margin-bottom: 2rem;
+}
+
+.favorites-filters-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-align: left;
+}
+
+.favorites-filters-toggle:hover .favorites-filters-toggle-label {
+  color: var(--accent);
+}
+
+.favorites-filters-toggle-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  transition: color 0.15s;
+}
+
+.favorites-filters-active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.favorites-filter-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.1rem;
+}
+
+.favorites-filters-chevron {
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: auto;
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, border-color 0.15s;
+}
+
+.favorites-filters-toggle:hover .favorites-filters-chevron {
+  border-color: var(--accent);
+}
+
+.favorites-filters-chevron--open {
+  transform: rotate(-135deg);
+}
+
+.favorites-filters-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1.1rem;
+}
+
+.favorites-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.favorites-filter-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+}
+
+.favorites-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+}
+
+.favorites-filter-chip {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.1rem 0 0.25rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.favorites-filter-chip:hover {
+  color: var(--text-secondary);
+}
+
+.favorites-filter-chip--active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.favorites-filter-chip--active:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.passage-themes {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.passage-theme-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.prayer-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.prayer-date {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  text-transform: lowercase;
 }
 
 .favorites-groups {
