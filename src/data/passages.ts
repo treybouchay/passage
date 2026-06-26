@@ -835,6 +835,71 @@ export const passages: Passage[] = [
     keywords: ['forgive', 'forgiveness', 'prodigal', 'return', 'father', 'welcome home', 'ran to me', 'celebrate', 'lost', 'found', 'wayward', 'came back'],
     reflection: 'The Father does not wait with arms crossed—He runs to welcome the one who turns home.',
   },
+  // —— Kindness ——
+  {
+    id: 'eph-4-32',
+    reference: 'Ephesians 4:32',
+    text: 'Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.',
+    themes: ['kindness', 'compassion', 'forgiveness', 'relationships'],
+    keywords: ['kind', 'kindness', 'compassion', 'compassionate', 'forgive', 'others', 'relationships', 'hard to forgive', 'show grace', 'gentle'],
+    reflection: 'Kindness toward others flows from the forgiveness you have already received in Christ.',
+  },
+  {
+    id: 'col-3-12',
+    reference: 'Colossians 3:12',
+    text: 'Therefore, as God\'s chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience.',
+    themes: ['kindness', 'compassion', 'humility', 'identity'],
+    keywords: ['kind', 'kindness', 'compassion', 'gentle', 'gentleness', 'humility', 'patient', 'clothe', 'put on', 'dearly loved', 'chosen'],
+    reflection: 'Kindness is something you put on—not because you earned love, but because you are dearly loved.',
+  },
+  {
+    id: 'gal-5-22',
+    reference: 'Galatians 5:22',
+    text: 'But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness.',
+    themes: ['kindness', 'fruit of the spirit', 'character', 'growth'],
+    keywords: ['kind', 'kindness', 'fruit', 'spirit', 'grow', 'character', 'not kind enough', 'want to change', 'goodness', 'patience'],
+    reflection: 'Kindness is not manufactured by willpower alone—it grows as fruit of the Spirit at work in you.',
+  },
+  {
+    id: 'tit-3-4-5',
+    reference: 'Titus 3:4–5',
+    text: 'But when the kindness and love of God our Savior appeared, he saved us, not because of righteous things we had done, but because of his mercy.',
+    themes: ['kindness', 'love', 'mercy', 'salvation'],
+    keywords: ['kind', 'kindness', 'love', 'mercy', 'savior', 'saved', 'unworthy', 'not enough', 'grace', 'appeared'],
+    reflection: 'God\'s kindness appeared—not as a reward for your goodness, but as mercy that saves.',
+  },
+  {
+    id: 'rom-2-4',
+    reference: 'Romans 2:4',
+    text: 'Or do you show contempt for the riches of his kindness, forbearance and patience, not realizing that God\'s kindness is intended to lead you to repentance?',
+    themes: ['kindness', 'mercy', 'repentance', 'patience'],
+    keywords: ['kind', 'kindness', 'patience', 'forbearance', 'repent', 'repentance', 'guilt', 'mercy', 'second chance', 'turn back'],
+    reflection: 'God\'s kindness is not soft on sin—it is patient, and it invites you toward repentance.',
+  },
+  {
+    id: 'luke-6-35',
+    reference: 'Luke 6:35',
+    text: 'But love your enemies, do good to them, and lend to them without expecting to get anything back. Then your reward will be great, and you will be children of the Most High, because he is kind to the ungrateful and wicked.',
+    themes: ['kindness', 'love', 'enemies', 'generosity'],
+    keywords: ['kind', 'kindness', 'enemies', 'ungrateful', 'do good', 'hard to love', 'difficult people', 'generous', 'give', 'cruel world'],
+    reflection: 'God is kind even to the ungrateful—and He calls you to reflect that same costly kindness.',
+  },
+  {
+    id: 'psalm-145-9',
+    reference: 'Psalm 145:9',
+    text: 'The Lord is good to all; he has compassion on all he has made.',
+    themes: ['kindness', 'compassion', 'goodness', 'creation'],
+    keywords: ['kind', 'kindness', 'good', 'compassion', 'compassionate', 'all', 'cares', 'made', 'creation', 'gentle god'],
+    reflection: 'God\'s compassion is not narrow—He is good to all He has made, including you.',
+  },
+  {
+    id: 'prov-11-17',
+    reference: 'Proverbs 11:17',
+    text: 'Those who are kind benefit themselves, but the cruel bring ruin on themselves.',
+    themes: ['kindness', 'wisdom', 'character', 'relationships'],
+    keywords: ['kind', 'kindness', 'cruel', 'cruelty', 'benefit', 'wisdom', 'harsh', 'mean', 'treat others', 'consequences'],
+    reflection: 'Kindness is not weakness—it is wisdom that blesses both the giver and those around you.',
+  },
 ]
 
 export const moodSuggestions = [
@@ -859,4 +924,6 @@ export const moodSuggestions = [
   'Strength',
   'Unloved',
   'Need forgiveness',
+  'Need kindness',
+  'Hard to be kind',
 ]

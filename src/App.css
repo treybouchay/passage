@@ -1,5 +1,15 @@
 .app {
   width: 100%;
+  min-height: 100vh;
+}
+
+.app--with-sidebar {
+  display: flex;
+}
+
+.app-body {
+  flex: 1;
+  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   padding: 29px 1.25rem 4rem;
@@ -9,12 +19,21 @@
   flex-direction: column;
 }
 
+.app-body--with-sidebar {
+  max-width: none;
+  margin: 0;
+  margin-left: 4.75rem;
+  padding: 29px 1.25rem 4rem;
+  padding-left: 1.25rem;
+}
+
 .header {
   margin-bottom: 2.5rem;
   align-self: flex-start;
   width: 100%;
   overflow: visible;
-  padding-top: env(safe-area-inset-top, 0);
+  padding-top: max(29px, env(safe-area-inset-top, 0px) + 16px);
+  padding-left: max(1.25rem, 39px);
 }
 
 .logo {
@@ -41,10 +60,14 @@
 }
 
 @media (min-width: 640px) {
-  .app {
-    max-width: none;
+  .app-body {
     padding: 29px 2.5rem 4rem;
     padding-left: max(2.5rem, 39px);
+  }
+
+  .app-body--with-sidebar {
+    padding-left: 2.5rem;
+    margin-left: 5.25rem;
   }
 
   .header {
@@ -53,14 +76,24 @@
     left: 39px;
     width: auto;
     margin-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
     z-index: 10;
   }
 
-  .main {
+  .app-body .main,
+  .app-body--with-sidebar .main {
     max-width: 480px;
     margin: 0 auto;
     width: 100%;
     padding-top: 3rem;
+  }
+
+  .side-nav {
+    width: 5.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 7rem;
   }
 }
 
@@ -69,6 +102,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.main--top {
+  justify-content: flex-start;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .main--top {
+    padding-top: 1rem;
+  }
 }
 
 .home {
@@ -362,6 +406,19 @@
   animation: fadeUp 0.45s ease both;
 }
 
+.passage-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.passage-card-header .passage-ref {
+  margin-bottom: 0;
+  flex: 1;
+}
+
 .passage-card:nth-child(2) {
   border-left-color: var(--sage);
   animation-delay: 0.08s;
@@ -413,6 +470,343 @@
   margin: 0;
 }
 
+/* ── Halo favorite ── */
+
+.favorite-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: -0.35rem -0.35rem 0 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.favorite-btn:hover {
+  background: var(--accent-soft);
+}
+
+.favorite-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.favorite-btn--active {
+  transform: scale(1.03);
+}
+
+.halo-icon {
+  display: block;
+}
+
+.halo-icon__ring {
+  stroke: var(--sage-light);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke 0.2s, stroke-width 0.2s;
+}
+
+.halo-icon__rays {
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.halo-icon__ray {
+  stroke: var(--accent);
+  stroke-width: 1.35;
+  stroke-linecap: butt;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 0.2s ease, stroke 0.2s ease;
+}
+
+.halo-icon--active .halo-icon__ring {
+  stroke: var(--accent);
+  stroke-width: 1.65;
+}
+
+.halo-icon--active .halo-icon__rays {
+  opacity: 1;
+}
+
+.halo-icon--active .halo-icon__ray {
+  opacity: 1;
+}
+
+.halo-icon--active .halo-icon__ray:nth-child(1) { transition-delay: 0ms; }
+.halo-icon--active .halo-icon__ray:nth-child(2) { transition-delay: 25ms; }
+.halo-icon--active .halo-icon__ray:nth-child(3) { transition-delay: 25ms; }
+.halo-icon--active .halo-icon__ray:nth-child(4) { transition-delay: 50ms; }
+.halo-icon--active .halo-icon__ray:nth-child(5) { transition-delay: 50ms; }
+.halo-icon--active .halo-icon__ray:nth-child(6) { transition-delay: 75ms; }
+.halo-icon--active .halo-icon__ray:nth-child(7) { transition-delay: 75ms; }
+
+/* ── Section pages ── */
+
+.section-title {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--accent-deep);
+  margin: 0 0 0.65rem;
+}
+
+.section-lead {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 1.75rem;
+}
+
+.prayer-section,
+.favorites-section {
+  width: 100%;
+  animation: fadeIn 0.4s ease;
+}
+
+.prayer-form {
+  margin-bottom: 2.5rem;
+}
+
+.prayer-input {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.85rem 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--sage-light);
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.prayer-input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.prayer-input:focus {
+  border-bottom-color: var(--accent);
+  border-bottom-width: 2px;
+}
+
+.prayer-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.prayer-save-btn,
+.prayer-secondary-btn {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, opacity 0.15s;
+}
+
+.prayer-save-btn {
+  color: var(--surface);
+  background: var(--accent);
+  border: none;
+}
+
+.prayer-save-btn:hover:not(:disabled) {
+  background: var(--accent-deep);
+}
+
+.prayer-save-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.prayer-secondary-btn {
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--line);
+}
+
+.prayer-secondary-btn:hover {
+  color: var(--accent);
+  border-color: var(--sage);
+}
+
+.saved-prayers-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem;
+}
+
+.saved-prayer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.passage-card--prayer {
+  border-left-color: var(--forest-muted);
+}
+
+.passage-text--prayer {
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.prayer-card-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.prayer-text-btn {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.prayer-text-btn:hover {
+  color: var(--accent);
+}
+
+.prayer-text-btn--danger:hover {
+  color: #8b4a4a;
+}
+
+.favorites-empty {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+  padding: 1.5rem 0;
+}
+
+.favorites-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.favorites-group-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem;
+}
+
+.favorites-group-empty {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Side nav ── */
+
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4.75rem;
+  padding: 6.5rem 0.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  z-index: 20;
+}
+
+.side-nav-inner {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.side-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.side-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.side-nav-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  display: block;
+}
+
+.side-nav-btn:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.side-nav-btn--active {
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+}
+
+.side-nav-btn--active .side-nav-icon {
+  color: var(--accent-deep);
+}
+
+.side-nav-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -426,9 +820,13 @@
 }
 
 @media (max-width: 480px) {
-  .app {
+  .app-body {
     padding-top: max(29px, env(safe-area-inset-top, 0px) + 16px);
     padding-left: max(1.25rem, 24px);
+  }
+
+  .app-body--with-sidebar {
+    padding-left: 1rem;
   }
 
   .header {
