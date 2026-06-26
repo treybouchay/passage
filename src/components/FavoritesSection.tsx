@@ -171,8 +171,7 @@ export function FavoritesSection({
                     <div className="passage-list">
                       {filteredPassages.map(({ passage }) => (
                         <article key={passage.id} className="passage-card">
-                          <div className="passage-card-header">
-                            <cite className="passage-ref">{passage.reference}</cite>
+                          <div className="passage-card-header passage-card-header--end">
                             <FavoriteButton
                               active
                               onToggle={() => onToggleFavorite(passage.id)}
@@ -181,6 +180,7 @@ export function FavoritesSection({
                           </div>
                           <blockquote className="passage-text">{passage.text}</blockquote>
                           <p className="passage-reflection">{passage.reflection}</p>
+                          <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
                           <ul className="passage-themes" aria-label="Themes">
                             {passage.themes.map((theme) => (
                               <li key={theme}>
@@ -207,15 +207,12 @@ export function FavoritesSection({
                       {filteredPrayers.map(({ prayer }) => (
                         <article key={prayer.id} className="passage-card passage-card--prayer">
                           <div className="passage-card-header">
-                            <div className="prayer-card-meta">
-                              <span className="passage-ref">my prayer</span>
-                              <time
-                                className="prayer-date"
-                                dateTime={new Date(prayer.createdAt).toISOString()}
-                              >
-                                {formatPrayerDate(prayer.createdAt)}
-                              </time>
-                            </div>
+                            <time
+                              className="prayer-date"
+                              dateTime={new Date(prayer.createdAt).toISOString()}
+                            >
+                              {formatPrayerDate(prayer.createdAt)}
+                            </time>
                             <FavoriteButton
                               active
                               onToggle={() => onToggleFavorite(prayer.id)}

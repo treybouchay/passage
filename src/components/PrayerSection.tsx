@@ -169,15 +169,12 @@ export function PrayerSection({
                 <li key={prayer.id}>
                   <article className="passage-card passage-card--prayer">
                     <div className="passage-card-header">
-                      <div className="prayer-card-meta">
-                        <span className="passage-ref">my prayer</span>
-                        <time
-                          className="prayer-date"
-                          dateTime={new Date(prayer.createdAt).toISOString()}
-                        >
-                          {formatPrayerDate(prayer.createdAt)}
-                        </time>
-                      </div>
+                      <time
+                        className="prayer-date"
+                        dateTime={new Date(prayer.createdAt).toISOString()}
+                      >
+                        {formatPrayerDate(prayer.createdAt)}
+                      </time>
                       <FavoriteButton
                         active={favoriteIds.includes(prayer.id)}
                         onToggle={() => onToggleFavorite(prayer.id)}
