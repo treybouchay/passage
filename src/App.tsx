@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { SideNav, type AppView } from './components/SideNav'
 import { FavoriteButton } from './components/FavoriteButton'
 import { FavoritesSection } from './components/FavoritesSection'
@@ -23,13 +23,6 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false)
   const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoriteIds())
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (unlocked && view === 'passages' && !hasSearched && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [unlocked, hasSearched, view])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -84,7 +77,6 @@ function App() {
                     </label>
                     <div className="input-line-wrap">
                       <input
-                        ref={inputRef}
                         id="feelings"
                         type="text"
                         className="input-line"

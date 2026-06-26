@@ -50,11 +50,13 @@ export function PrayerSection({
   return (
     <section className="prayer-section" aria-labelledby="prayer-heading">
       <h2 id="prayer-heading" className="section-title">
-        your prayer
+        {editingId ? 'update prayer' : 'your prayer'}
       </h2>
-      <p className="section-lead">
-        Write what is on your heart. Save prayers to return to them—or mark them with the halo to keep them close.
-      </p>
+      {!editingId ? (
+        <p className="section-lead">
+          Write what is on your heart. Save prayers to return to them—or mark them with the halo to keep them close.
+        </p>
+      ) : null}
 
       <form className="prayer-form" onSubmit={handleSave}>
         <label htmlFor="prayer-draft" className="sr-only">
@@ -87,7 +89,7 @@ export function PrayerSection({
         </div>
       </form>
 
-      {prayers.length > 0 ? (
+      {prayers.length > 0 && !editingId ? (
         <div className="saved-prayers">
           <h3 className="saved-prayers-title">saved prayers</h3>
           <ul className="saved-prayer-list">

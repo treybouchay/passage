@@ -681,6 +681,7 @@
 .passage-text--prayer {
   font-style: italic;
   margin-bottom: 0.75rem;
+  white-space: pre-wrap;
 }
 
 .prayer-card-actions {
