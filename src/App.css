@@ -317,6 +317,14 @@
   align-items: center;
 }
 
+.suggestions--home {
+  --suggestion-row-height: 1.45rem;
+  max-height: calc(
+    3 * var(--suggestion-row-height) + 2 * 0.5rem + 0.15rem
+  );
+  overflow: hidden;
+}
+
 .suggestions li + li::before {
   content: '·';
   margin: 0 0.65rem;
@@ -329,6 +337,7 @@
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 500;
+  line-height: var(--suggestion-row-height, 1.45rem);
   letter-spacing: 0.03em;
   color: var(--text-muted);
   background: none;
@@ -623,21 +632,12 @@
   margin-top: 1.25rem;
 }
 
-.prayer-theme-picker-label {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: lowercase;
-  color: var(--text-secondary);
-  margin-bottom: 0.65rem;
-}
-
 .prayer-theme-picker-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem 1.1rem;
-  max-height: 9rem;
+  padding-top: 1.1rem;
+  max-height: 11rem;
   overflow-y: auto;
   padding-bottom: 0.25rem;
 }
@@ -723,9 +723,14 @@
   white-space: pre-wrap;
 }
 
+.passage-card--prayer .passage-themes {
+  margin-top: 0.85rem;
+}
+
 .prayer-card-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 1.35rem;
 }
 
 .prayer-text-btn {
@@ -900,6 +905,12 @@
   background: var(--accent-soft);
   border-radius: 999px;
   padding: 0.2rem 0.55rem;
+}
+
+.favorites-section .passage-theme-tag {
+  color: var(--accent);
+  background: rgba(57, 109, 84, 0.1);
+  border: none;
 }
 
 .prayer-date {

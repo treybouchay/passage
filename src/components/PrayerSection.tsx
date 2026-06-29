@@ -31,6 +31,7 @@ export function PrayerSection({
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
   const [editingId, setEditingId] = useState<string | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
+  const [themesOpen, setThemesOpen] = useState(false)
 
   const prayerThemes = useMemo(() => {
     const themes = new Set<string>()
@@ -102,20 +103,49 @@ export function PrayerSection({
         />
 
         <div className="prayer-theme-picker">
-          <span className="prayer-theme-picker-label">themes</span>
-          <div className="prayer-theme-picker-chips" role="group" aria-label="Tag prayer themes">
-            {allThemes.map((theme) => (
-              <button
-                key={theme}
-                type="button"
-                className={`favorites-filter-chip${selectedThemes.includes(theme) ? ' favorites-filter-chip--active' : ''}`}
-                aria-pressed={selectedThemes.includes(theme)}
-                onClick={() => setSelectedThemes((themes) => toggleTheme(themes, theme))}
-              >
-                {theme}
-              </button>
-            ))}
-          </div>
+          <button
+            type="button"
+            className="favorites-filters-toggle"
+            aria-expanded={themesOpen}
+            aria-controls="prayer-theme-picker-panel"
+            onClick={() => setThemesOpen((open) => !open)}
+          >
+            <span className="favorites-filters-toggle-label">themes</span>
+            {selectedThemes.length > 0 ? (
+              <span className="favorites-filters-active" aria-label="Selected themes">
+                {selectedThemes.map((theme) => (
+                  <span key={theme} className="favorites-filter-tag">
+                    {theme}
+                  </span>
+                ))}
+              </span>
+            ) : null}
+            <span
+              className={`favorites-filters-chevron${themesOpen ? ' favorites-filters-chevron--open' : ''}`}
+              aria-hidden
+            />
+          </button>
+
+          {themesOpen ? (
+            <div
+              id="prayer-theme-picker-panel"
+              className="prayer-theme-picker-chips"
+              role="group"
+              aria-label="Tag prayer themes"
+            >
+              {allThemes.map((theme) => (
+                <button
+                  key={theme}
+                  type="button"
+                  className={`favorites-filter-chip${selectedThemes.includes(theme) ? ' favorites-filter-chip--active' : ''}`}
+                  aria-pressed={selectedThemes.includes(theme)}
+                  onClick={() => setSelectedThemes((themes) => toggleTheme(themes, theme))}
+                >
+                  {theme}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div className="prayer-form-actions">

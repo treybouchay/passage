@@ -1015,3 +1015,41 @@ export const moodSuggestions = [
   'Parenting',
   'Marriage',
 ]
+
+export const themeSuggestions = [
+  'Grieving',
+  'Need peace',
+  'Longing to belong',
+  'Need hope',
+  'Waiting',
+  'Suffering',
+  'Need trust',
+  'Need mercy',
+  'Need courage',
+  'Seeking clarity',
+  'In conflict',
+  'Betrayed',
+  'Comparing myself',
+  'Battling',
+  'Weary',
+  'Need rest',
+  'Lost',
+  'Need guidance',
+]
+
+export const homeSuggestionPool = [...moodSuggestions, ...themeSuggestions]
+
+const HOME_SUGGESTION_LINE_COUNT = 3
+const HOME_SUGGESTION_LINE_CAPACITY = 5
+
+export function pickHomeSuggestions(
+  suggestions: string[] = homeSuggestionPool,
+  lineCount = HOME_SUGGESTION_LINE_COUNT,
+): string[] {
+  const shuffled = [...suggestions]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled.slice(0, lineCount * HOME_SUGGESTION_LINE_CAPACITY)
+}

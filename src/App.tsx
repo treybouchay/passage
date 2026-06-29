@@ -5,7 +5,7 @@ import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
 import { PrayerSection } from './components/PrayerSection'
 import { TraceGesture } from './components/TraceGesture'
-import { moodSuggestions } from './data/passages'
+import { pickHomeSuggestions } from './data/passages'
 import { matchPassages, type MatchedPassage } from './lib/matchPassages'
 import {
   loadFavoriteIds,
@@ -23,6 +23,7 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false)
   const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoriteIds())
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
+  const [homeSuggestions] = useState(() => pickHomeSuggestions())
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -88,8 +89,8 @@ function App() {
                       <span className="input-line-bar" aria-hidden="true" />
                     </div>
 
-                    <ul className="suggestions">
-                      {moodSuggestions.map((mood) => (
+                    <ul className="suggestions suggestions--home" aria-label="Mood suggestions">
+                      {homeSuggestions.map((mood) => (
                         <li key={mood}>
                           <button
                             type="button"
