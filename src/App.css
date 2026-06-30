@@ -901,16 +901,10 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: lowercase;
-  color: var(--text-secondary);
-  background: var(--accent-soft);
-  border-radius: 999px;
-  padding: 0.2rem 0.55rem;
-}
-
-.favorites-section .passage-theme-tag {
   color: var(--accent);
   background: rgba(57, 109, 84, 0.1);
-  border: none;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
 }
 
 .prayer-date {
