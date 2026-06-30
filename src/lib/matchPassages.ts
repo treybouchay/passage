@@ -91,7 +91,10 @@ function relatedPassages(
     .map((p) => toMatched(p))
 }
 
-export function matchPassages(input: string, limit = 3): MatchedPassage[] {
+export const MATCH_RESULT_COUNT = 6
+export const RESULTS_PER_PAGE = 3
+
+export function matchPassages(input: string, limit = MATCH_RESULT_COUNT): MatchedPassage[] {
   const trimmed = input.trim()
   if (!trimmed) return []
 

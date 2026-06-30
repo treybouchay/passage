@@ -6,7 +6,7 @@ import { Logo } from './components/Logo'
 import { PrayerSection } from './components/PrayerSection'
 import { TraceGesture } from './components/TraceGesture'
 import { pickHomeSuggestions } from './data/passages'
-import { matchPassages, type MatchedPassage } from './lib/matchPassages'
+import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matchPassages'
 import {
   loadFavoriteIds,
   loadPrayers,
@@ -24,23 +24,33 @@ function App() {
   const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoriteIds())
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
   const [homeSuggestions] = useState(() => pickHomeSuggestions())
+  const [resultsPage, setResultsPage] = useState(1)
+
+  const totalResultPages = Math.ceil(results.length / RESULTS_PER_PAGE)
+  const pagedResults = results.slice(
+    (resultsPage - 1) * RESULTS_PER_PAGE,
+    resultsPage * RESULTS_PER_PAGE,
+  )
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!input.trim()) return
     setResults(matchPassages(input))
+    setResultsPage(1)
     setHasSearched(true)
   }
 
   function handleSuggestion(mood: string) {
     setInput(mood.toLowerCase())
     setResults(matchPassages(mood))
+    setResultsPage(1)
     setHasSearched(true)
   }
 
   function handleClearSearch() {
     setInput('')
     setResults([])
+    setResultsPage(1)
     setHasSearched(false)
   }
 
@@ -120,7 +130,7 @@ function App() {
                 </div>
 
                 <div className="passage-list">
-                  {results.map((passage) => (
+                  {pagedResults.map((passage) => (
                     <article key={passage.id} className="passage-card">
                       <div className="passage-card-header passage-card-header--end">
                         <FavoriteButton
@@ -134,6 +144,25 @@ function App() {
                     </article>
                   ))}
                 </div>
+
+                {totalResultPages > 1 ? (
+                  <nav className="results-pagination" aria-label="Passage pages">
+                    {Array.from({ length: totalResultPages }, (_, index) => {
+                      const page = index + 1
+                      return (
+                        <button
+                          key={page}
+                          type="button"
+                          className={`results-page-btn${resultsPage === page ? ' results-page-btn--active' : ''}`}
+                          aria-current={resultsPage === page ? 'page' : undefined}
+                          onClick={() => setResultsPage(page)}
+                        >
+                          {page}
+                        </button>
+                      )
+                    })}
+                  </nav>
+                ) : null}
               </section>
             )
           ) : null}
