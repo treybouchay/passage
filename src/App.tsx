@@ -132,16 +132,16 @@ function App() {
                 <div className="passage-list">
                   {pagedResults.map((passage) => (
                     <article key={passage.id} className="passage-card">
-                      <div className="passage-card-header passage-card-header--end">
-                        <FavoriteButton
-                          active={favoriteIds.includes(passage.id)}
-                          onToggle={() => handleToggleFavorite(passage.id)}
-                        />
-                      </div>
-                      <blockquote className="passage-text">{passage.text}</blockquote>
-                      <p className="passage-reflection">{passage.reflection}</p>
-                      <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
-                    </article>
+                        <div className="passage-card-header passage-card-header--end">
+                          <FavoriteButton
+                            active={favoriteIds.includes(passage.id)}
+                            onToggle={() => handleToggleFavorite(passage.id)}
+                          />
+                        </div>
+                        <blockquote className="passage-text">{passage.text}</blockquote>
+                        <p className="passage-reflection">{passage.reflection}</p>
+                        <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
+                      </article>
                   ))}
                 </div>
 

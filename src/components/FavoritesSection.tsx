@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 import { FavoriteButton } from './FavoriteButton'
+import { PassageWallpaperTrigger } from './PassageWallpaperModal'
+import { canGenerateWallpaper } from '../lib/formatVerseLines'
 import { formatPrayerDate, resolveFavorites, type SavedPrayer } from '../lib/userContent'
 
 type TypeFilter = 'all' | 'passages' | 'prayers'
@@ -169,7 +171,7 @@ export function FavoritesSection({
                     <p className="favorites-group-empty">No favorite passages yet.</p>
                   ) : (
                     <div className="passage-list">
-                      {filteredPassages.map(({ passage }) => (
+                      {filteredPassages.map(({ passage }, index) => (
                         <article key={passage.id} className="passage-card">
                           <div className="passage-card-header passage-card-header--end">
                             <FavoriteButton
@@ -188,6 +190,11 @@ export function FavoritesSection({
                               </li>
                             ))}
                           </ul>
+                          {canGenerateWallpaper(passage.text) ? (
+                            <div className="passage-card-actions">
+                              <PassageWallpaperTrigger passage={passage} colorIndex={index} />
+                            </div>
+                          ) : null}
                         </article>
                       ))}
                     </div>
