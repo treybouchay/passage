@@ -44,19 +44,18 @@ export const PassageWallpaper = forwardRef<HTMLDivElement, PassageWallpaperProps
               ))}
             </div>
             <p className="passage-wallpaper-ref">{passage.reference}</p>
+            <div className="passage-wallpaper-brand">
+              <img
+                src="/icons/logo-hands-figma.svg"
+                alt=""
+                className="passage-wallpaper-logo"
+                width={variant === 'mobile' ? 22 : 28}
+                height={variant === 'mobile' ? 38 : 48}
+                draggable={false}
+              />
+              <span className="passage-wallpaper-wordmark">passage</span>
+            </div>
           </div>
-        </div>
-
-        <div className="passage-wallpaper-brand">
-          <img
-            src="/icons/logo-hands-figma.svg"
-            alt=""
-            className="passage-wallpaper-logo"
-            width={variant === 'mobile' ? 22 : 28}
-            height={variant === 'mobile' ? 38 : 48}
-            draggable={false}
-          />
-          <span className="passage-wallpaper-wordmark">passage</span>
         </div>
       </div>
     )
