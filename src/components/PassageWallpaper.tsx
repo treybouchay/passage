@@ -36,14 +36,16 @@ export const PassageWallpaper = forwardRef<HTMLDivElement, PassageWallpaperProps
       >
         <div className="passage-wallpaper-body">
           <div className="passage-wallpaper-content">
-            <div className="passage-wallpaper-verse" aria-label={passage.text}>
-              {lines.map((line, lineIndex) => (
-                <p key={lineIndex} className="passage-wallpaper-line">
-                  {line.text}
-                </p>
-              ))}
+            <div className="passage-wallpaper-quote">
+              <div className="passage-wallpaper-verse" aria-label={passage.text}>
+                {lines.map((line, lineIndex) => (
+                  <p key={lineIndex} className="passage-wallpaper-line">
+                    {line.text}
+                  </p>
+                ))}
+              </div>
+              <p className="passage-wallpaper-ref">{passage.reference}</p>
             </div>
-            <p className="passage-wallpaper-ref">{passage.reference}</p>
             <div className="passage-wallpaper-brand">
               <img
                 src="/icons/logo-hands-figma.svg"

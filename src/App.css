@@ -1487,11 +1487,14 @@
 }
 
 .passage-wallpaper-brand {
+  position: absolute;
+  right: 0;
+  top: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  margin-top: 40px;
+  margin-top: 256px;
 }
 
 .passage-wallpaper--desktop .passage-wallpaper-brand {
@@ -1524,11 +1527,18 @@
 }
 
 .passage-wallpaper-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: max-content;
   max-width: 82%;
+}
+
+.passage-wallpaper-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .passage-wallpaper-verse {
