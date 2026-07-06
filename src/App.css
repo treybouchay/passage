@@ -732,6 +732,223 @@
   border-color: var(--sage);
 }
 
+.prayer-secondary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.prayer-card-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(46, 64, 54, 0.28);
+  backdrop-filter: blur(2px);
+}
+
+.prayer-card-modal-panel {
+  width: min(100%, 22rem);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  padding: 1.35rem 1.25rem 1.5rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
+  box-shadow: 0 18px 48px rgba(46, 64, 54, 0.12);
+}
+
+.prayer-card-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.prayer-card-modal-title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+}
+
+.prayer-card-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  font-size: 1.35rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--sage);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.prayer-card-modal-close:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.prayer-card-modal-lead {
+  margin: 0 0 1.25rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.prayer-share-card {
+  width: 100%;
+  padding: 1.15rem 1rem 1.1rem;
+  background: #ebe3d2;
+  border-left: 2px solid var(--forest-muted);
+  border-radius: 0.2rem;
+}
+
+.prayer-share-card--compact .prayer-share-card-text {
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prayer-share-card--compact .prayer-share-card-brand {
+  margin-bottom: 0.75rem;
+}
+
+.saved-library {
+  margin-top: 0.5rem;
+}
+
+.saved-library-tabs {
+  display: flex;
+  gap: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.saved-library-panel {
+  animation: fadeIn 0.3s ease;
+}
+
+.saved-cards {
+  margin-bottom: 0;
+}
+
+.saved-cards-lead {
+  margin: -0.65rem 0 1.25rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.saved-card-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.saved-card-thumb {
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.saved-card-thumb:hover {
+  transform: translateY(-2px);
+}
+
+.saved-card-thumb:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 0.2rem;
+}
+
+.prayer-share-card-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.prayer-share-card-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.prayer-share-card-wordmark {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--accent-deep);
+}
+
+.prayer-share-card-text {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.prayer-share-card-date {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  text-transform: lowercase;
+}
+
+.prayer-share-card-themes {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.prayer-card-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.prayer-card-modal-share {
+  padding: 0.55rem 1.15rem;
+}
+
+.prayer-card-modal-status {
+  margin: 0.85rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: lowercase;
+}
+
 .saved-prayers-title {
   font-size: 0.72rem;
   font-weight: 600;

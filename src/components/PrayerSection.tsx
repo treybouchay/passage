@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import { allThemes } from '../data/passages'
 import { FavoriteButton } from './FavoriteButton'
+import { PrayerCardModal } from './PrayerCardModal'
+import { SavedPrayerCards } from './SavedPrayerCards'
+import { loadSavedPrayerCardIds, removeSavedPrayerCard } from '../lib/savedPrayerCards'
 import {
   deletePrayer,
   formatPrayerDate,
@@ -21,6 +24,8 @@ function toggleTheme(themes: string[], theme: string): string[] {
     : [...themes, theme]
 }
 
+type LibraryTab = 'prayers' | 'cards'
+
 export function PrayerSection({
   favoriteIds,
   onToggleFavorite,
@@ -32,6 +37,9 @@ export function PrayerSection({
   const [editingId, setEditingId] = useState<string | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
   const [themesOpen, setThemesOpen] = useState(false)
+  const [cardPrayer, setCardPrayer] = useState<SavedPrayer | null>(null)
+  const [savedCardIds, setSavedCardIds] = useState<string[]>(() => loadSavedPrayerCardIds())
+  const [libraryTab, setLibraryTab] = useState<LibraryTab>('prayers')
 
   const prayerThemes = useMemo(() => {
     const themes = new Set<string>()
@@ -47,6 +55,11 @@ export function PrayerSection({
     if (!themeFilter) return prayers
     return prayers.filter((prayer) => prayer.themes.includes(themeFilter))
   }, [prayers, themeFilter])
+
+  const savedCards = useMemo(() => {
+    const idSet = new Set(savedCardIds)
+    return prayers.filter((prayer) => idSet.has(prayer.id))
+  }, [prayers, savedCardIds])
 
   function resetForm() {
     setDraft('')
@@ -73,8 +86,12 @@ export function PrayerSection({
     const next = deletePrayer(id)
     setPrayers(next)
     onPrayersChange(next)
+    setSavedCardIds(removeSavedPrayerCard(id))
     if (editingId === id) {
       resetForm()
+    }
+    if (cardPrayer?.id === id) {
+      setCardPrayer(null)
     }
   }
 
@@ -161,92 +178,151 @@ export function PrayerSection({
       </form>
 
       {prayers.length > 0 && !editingId ? (
-        <div className="saved-prayers">
-          <h3 className="saved-prayers-title">saved prayers</h3>
+        <div className="saved-library">
+          <div className="saved-library-tabs" role="tablist" aria-label="Saved prayers and cards">
+            <button
+              type="button"
+              role="tab"
+              id="saved-library-tab-prayers"
+              aria-selected={libraryTab === 'prayers'}
+              aria-controls="saved-library-panel-prayers"
+              className={`favorites-filter-chip${libraryTab === 'prayers' ? ' favorites-filter-chip--active' : ''}`}
+              onClick={() => setLibraryTab('prayers')}
+            >
+              prayers
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id="saved-library-tab-cards"
+              aria-selected={libraryTab === 'cards'}
+              aria-controls="saved-library-panel-cards"
+              className={`favorites-filter-chip${libraryTab === 'cards' ? ' favorites-filter-chip--active' : ''}`}
+              onClick={() => setLibraryTab('cards')}
+            >
+              cards
+            </button>
+          </div>
 
-          {prayerThemes.length > 0 ? (
-            <div className="prayer-saved-filters" role="group" aria-label="Filter saved prayers by theme">
-              <span className="favorites-filter-label">theme</span>
-              <div className="favorites-filter-chips">
-                <button
-                  type="button"
-                  className={`favorites-filter-chip${themeFilter === null ? ' favorites-filter-chip--active' : ''}`}
-                  aria-pressed={themeFilter === null}
-                  onClick={() => setThemeFilter(null)}
-                >
-                  all
-                </button>
-                {prayerThemes.map((theme) => (
-                  <button
-                    key={theme}
-                    type="button"
-                    className={`favorites-filter-chip${themeFilter === theme ? ' favorites-filter-chip--active' : ''}`}
-                    aria-pressed={themeFilter === theme}
-                    onClick={() => setThemeFilter(theme)}
-                  >
-                    {theme}
-                  </button>
-                ))}
-              </div>
+          {libraryTab === 'prayers' ? (
+            <div
+              id="saved-library-panel-prayers"
+              role="tabpanel"
+              aria-labelledby="saved-library-tab-prayers"
+              className="saved-library-panel"
+            >
+              {prayerThemes.length > 0 ? (
+                <div className="prayer-saved-filters" role="group" aria-label="Filter saved prayers by theme">
+                  <span className="favorites-filter-label">theme</span>
+                  <div className="favorites-filter-chips">
+                    <button
+                      type="button"
+                      className={`favorites-filter-chip${themeFilter === null ? ' favorites-filter-chip--active' : ''}`}
+                      aria-pressed={themeFilter === null}
+                      onClick={() => setThemeFilter(null)}
+                    >
+                      all
+                    </button>
+                    {prayerThemes.map((theme) => (
+                      <button
+                        key={theme}
+                        type="button"
+                        className={`favorites-filter-chip${themeFilter === theme ? ' favorites-filter-chip--active' : ''}`}
+                        aria-pressed={themeFilter === theme}
+                        onClick={() => setThemeFilter(theme)}
+                      >
+                        {theme}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {filteredPrayers.length === 0 ? (
+                <p className="favorites-group-empty">No prayers match this theme.</p>
+              ) : (
+                <ul className="saved-prayer-list">
+                  {filteredPrayers.map((prayer) => (
+                    <li key={prayer.id}>
+                      <article className="passage-card passage-card--prayer">
+                        <div className="passage-card-header">
+                          <time
+                            className="prayer-date"
+                            dateTime={new Date(prayer.createdAt).toISOString()}
+                          >
+                            {formatPrayerDate(prayer.createdAt)}
+                          </time>
+                          <FavoriteButton
+                            active={favoriteIds.includes(prayer.id)}
+                            onToggle={() => onToggleFavorite(prayer.id)}
+                            label={
+                              favoriteIds.includes(prayer.id)
+                                ? 'Remove prayer from favorites'
+                                : 'Add prayer to favorites'
+                            }
+                          />
+                        </div>
+                        <p className="passage-text passage-text--prayer">{prayer.text}</p>
+                        {prayer.themes.length > 0 ? (
+                          <ul className="passage-themes" aria-label="Themes">
+                            {prayer.themes.map((theme) => (
+                              <li key={theme}>
+                                <span className="passage-theme-tag">{theme}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                        <div className="prayer-card-actions">
+                          <button
+                            type="button"
+                            className="prayer-text-btn"
+                            onClick={() => setCardPrayer(prayer)}
+                          >
+                            {savedCardIds.includes(prayer.id) ? 'card saved' : 'card'}
+                          </button>
+                          <button
+                            type="button"
+                            className="prayer-text-btn"
+                            onClick={() => handleEdit(prayer)}
+                          >
+                            edit
+                          </button>
+                          <button
+                            type="button"
+                            className="prayer-text-btn prayer-text-btn--danger"
+                            onClick={() => handleDelete(prayer.id)}
+                          >
+                            delete
+                          </button>
+                        </div>
+                      </article>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          ) : null}
-
-          {filteredPrayers.length === 0 ? (
-            <p className="favorites-group-empty">No prayers match this theme.</p>
           ) : (
-            <ul className="saved-prayer-list">
-              {filteredPrayers.map((prayer) => (
-                <li key={prayer.id}>
-                  <article className="passage-card passage-card--prayer">
-                    <div className="passage-card-header">
-                      <time
-                        className="prayer-date"
-                        dateTime={new Date(prayer.createdAt).toISOString()}
-                      >
-                        {formatPrayerDate(prayer.createdAt)}
-                      </time>
-                      <FavoriteButton
-                        active={favoriteIds.includes(prayer.id)}
-                        onToggle={() => onToggleFavorite(prayer.id)}
-                        label={
-                          favoriteIds.includes(prayer.id)
-                            ? 'Remove prayer from favorites'
-                            : 'Add prayer to favorites'
-                        }
-                      />
-                    </div>
-                    <p className="passage-text passage-text--prayer">{prayer.text}</p>
-                    {prayer.themes.length > 0 ? (
-                      <ul className="passage-themes" aria-label="Themes">
-                        {prayer.themes.map((theme) => (
-                          <li key={theme}>
-                            <span className="passage-theme-tag">{theme}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                    <div className="prayer-card-actions">
-                      <button
-                        type="button"
-                        className="prayer-text-btn"
-                        onClick={() => handleEdit(prayer)}
-                      >
-                        edit
-                      </button>
-                      <button
-                        type="button"
-                        className="prayer-text-btn prayer-text-btn--danger"
-                        onClick={() => handleDelete(prayer.id)}
-                      >
-                        delete
-                      </button>
-                    </div>
-                  </article>
-                </li>
-              ))}
-            </ul>
+            <div
+              id="saved-library-panel-cards"
+              role="tabpanel"
+              aria-labelledby="saved-library-tab-cards"
+              className="saved-library-panel"
+            >
+              <SavedPrayerCards cards={savedCards} onViewCard={setCardPrayer} />
+            </div>
           )}
         </div>
+      ) : null}
+
+      {cardPrayer ? (
+        <PrayerCardModal
+          prayer={cardPrayer}
+          onClose={() => setCardPrayer(null)}
+          onCardSaved={(prayerId) => {
+            setSavedCardIds((ids) => (ids.includes(prayerId) ? ids : [...ids, prayerId]))
+            setLibraryTab('cards')
+          }}
+        />
       ) : null}
     </section>
   )
