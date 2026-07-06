@@ -171,7 +171,7 @@ export function FavoritesSection({
                     <p className="favorites-group-empty">No favorite passages yet.</p>
                   ) : (
                     <div className="passage-list">
-                      {filteredPassages.map(({ passage }, index) => (
+                      {filteredPassages.map(({ passage }) => (
                         <article key={passage.id} className="passage-card">
                           <div className="passage-card-header passage-card-header--end">
                             <FavoriteButton
@@ -192,7 +192,7 @@ export function FavoritesSection({
                           </ul>
                           {canGenerateWallpaper(passage.text) ? (
                             <div className="passage-card-actions">
-                              <PassageWallpaperTrigger passage={passage} colorIndex={index} />
+                              <PassageWallpaperTrigger passage={passage} />
                             </div>
                           ) : null}
                         </article>

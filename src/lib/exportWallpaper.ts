@@ -18,11 +18,13 @@ export function downloadWallpaper(
   blob: Blob,
   passageId: string,
   variant: 'mobile' | 'desktop',
+  colorStyle: 'passage' | 'mono' = 'passage',
 ): void {
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
-  link.download = `passage-${passageId}-${variant}.png`
+  const colorSuffix = colorStyle === 'mono' ? '-black' : ''
+  link.download = `passage-${passageId}-${variant}${colorSuffix}.png`
   link.click()
   URL.revokeObjectURL(url)
 }

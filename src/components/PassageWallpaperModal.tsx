@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import type { Passage } from '../data/passages'
 import { downloadWallpaper, renderWallpaperPng } from '../lib/exportWallpaper'
 import { canGenerateWallpaper } from '../lib/formatVerseLines'
-import { getPassageColorScheme } from '../lib/passageColorScheme'
+import { getPassageColorScheme, type WallpaperColorStyle } from '../lib/passageColorScheme'
 import {
   PassageWallpaper,
   WALLPAPER_SIZES,
@@ -12,20 +12,19 @@ import {
 
 interface PassageWallpaperModalProps {
   passage: Passage
-  colorIndex: number
   onClose: () => void
 }
 
 export function PassageWallpaperModal({
   passage,
-  colorIndex,
   onClose,
 }: PassageWallpaperModalProps) {
   const exportRef = useRef<HTMLDivElement>(null)
   const [variant, setVariant] = useState<WallpaperVariant>('mobile')
+  const [colorStyle, setColorStyle] = useState<WallpaperColorStyle>('passage')
   const [isSaving, setIsSaving] = useState(false)
   const [status, setStatus] = useState<string | null>(null)
-  const scheme = getPassageColorScheme(colorIndex)
+  const scheme = getPassageColorScheme(colorStyle)
   const size = WALLPAPER_SIZES[variant]
   const previewScale = Math.min(1, 220 / size.width, 340 / size.height)
 
@@ -51,7 +50,7 @@ export function PassageWallpaperModal({
     try {
       if (!exportRef.current) return
       const blob = await renderWallpaperPng(exportRef.current, scheme.background)
-      downloadWallpaper(blob, passage.id, variant)
+      downloadWallpaper(blob, passage.id, variant, colorStyle)
       setStatus('wallpaper saved to your device')
     } catch {
       setStatus('could not save wallpaper — try again')
@@ -106,6 +105,25 @@ export function PassageWallpaperModal({
           </button>
         </div>
 
+        <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper color">
+          <button
+            type="button"
+            className={`wallpaper-variant-btn${colorStyle === 'passage' ? ' wallpaper-variant-btn--active' : ''}`}
+            onClick={() => setColorStyle('passage')}
+            aria-pressed={colorStyle === 'passage'}
+          >
+            green
+          </button>
+          <button
+            type="button"
+            className={`wallpaper-variant-btn${colorStyle === 'mono' ? ' wallpaper-variant-btn--active' : ''}`}
+            onClick={() => setColorStyle('mono')}
+            aria-pressed={colorStyle === 'mono'}
+          >
+            black
+          </button>
+        </div>
+
         <div className="wallpaper-preview-wrap">
           <div
             className="wallpaper-preview"
@@ -122,7 +140,12 @@ export function PassageWallpaperModal({
                 transform: `scale(${previewScale})`,
               }}
             >
-              <PassageWallpaper passage={passage} variant={variant} scheme={scheme} />
+              <PassageWallpaper
+                passage={passage}
+                variant={variant}
+                scheme={scheme}
+                colorStyle={colorStyle}
+              />
             </div>
           </div>
         </div>
@@ -147,6 +170,7 @@ export function PassageWallpaperModal({
           passage={passage}
           variant={variant}
           scheme={scheme}
+          colorStyle={colorStyle}
         />
       </div>
     </div>,
@@ -156,10 +180,9 @@ export function PassageWallpaperModal({
 
 interface PassageWallpaperTriggerProps {
   passage: Passage
-  colorIndex: number
 }
 
-export function PassageWallpaperTrigger({ passage, colorIndex }: PassageWallpaperTriggerProps) {
+export function PassageWallpaperTrigger({ passage }: PassageWallpaperTriggerProps) {
   const [open, setOpen] = useState(false)
 
   if (!canGenerateWallpaper(passage.text)) {
@@ -178,7 +201,6 @@ export function PassageWallpaperTrigger({ passage, colorIndex }: PassageWallpape
       {open ? (
         <PassageWallpaperModal
           passage={passage}
-          colorIndex={colorIndex}
           onClose={() => setOpen(false)}
         />
       ) : null}

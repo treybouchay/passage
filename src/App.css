@@ -1417,6 +1417,10 @@
   margin-bottom: 1rem;
 }
 
+.wallpaper-variant-toggle + .wallpaper-variant-toggle {
+  margin-top: -0.5rem;
+}
+
 .wallpaper-variant-btn {
   flex: 1;
   padding: 0.45rem 0.75rem;
@@ -1488,7 +1492,7 @@
 
 .passage-wallpaper-brand {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 100%;
   display: flex;
   flex-direction: row;
@@ -1506,6 +1510,10 @@
   flex-shrink: 0;
   filter: brightness(0) saturate(100%) invert(32%) sepia(18%) saturate(742%)
     hue-rotate(106deg) brightness(92%) contrast(88%);
+}
+
+.passage-wallpaper--mono .passage-wallpaper-logo {
+  filter: brightness(0);
 }
 
 .passage-wallpaper-wordmark {

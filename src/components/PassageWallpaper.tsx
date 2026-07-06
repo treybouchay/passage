@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import type { Passage } from '../data/passages'
 import { formatVerseLines } from '../lib/formatVerseLines'
-import type { PassageColorScheme } from '../lib/passageColorScheme'
+import type { PassageColorScheme, WallpaperColorStyle } from '../lib/passageColorScheme'
 
 export const WALLPAPER_SIZES = {
   mobile: { width: 1080, height: 1920 },
@@ -14,17 +14,18 @@ interface PassageWallpaperProps {
   passage: Passage
   variant: WallpaperVariant
   scheme: PassageColorScheme
+  colorStyle?: WallpaperColorStyle
 }
 
 export const PassageWallpaper = forwardRef<HTMLDivElement, PassageWallpaperProps>(
-  function PassageWallpaper({ passage, variant, scheme }, ref) {
+  function PassageWallpaper({ passage, variant, scheme, colorStyle = 'passage' }, ref) {
     const { width, height } = WALLPAPER_SIZES[variant]
     const lines = formatVerseLines(passage.text)
 
     return (
       <div
         ref={ref}
-        className={`passage-wallpaper passage-wallpaper--${variant}`}
+        className={`passage-wallpaper passage-wallpaper--${variant}${colorStyle === 'mono' ? ' passage-wallpaper--mono' : ''}`}
         style={{
           width: `${width}px`,
           height: `${height}px`,
