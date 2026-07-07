@@ -45,6 +45,7 @@ export function FavoritesSection({
     return [...themes].sort()
   }, [favoritePrayers])
 
+  // Theme chips are limited to themes on favorited passages/prayers only — not the full library.
   const availableThemes = useMemo(() => {
     const themes = new Set([...passageThemes, ...prayerThemes])
     return [...themes].sort()

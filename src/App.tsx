@@ -15,8 +15,26 @@ import {
 } from './lib/userContent'
 import './App.css'
 
+const UNLOCK_SESSION_KEY = 'passage:unlocked'
+
+function loadUnlocked(): boolean {
+  try {
+    return sessionStorage.getItem(UNLOCK_SESSION_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+function persistUnlocked(): void {
+  try {
+    sessionStorage.setItem(UNLOCK_SESSION_KEY, 'true')
+  } catch {
+    // sessionStorage unavailable (e.g. private browsing quota)
+  }
+}
+
 function App() {
-  const [unlocked, setUnlocked] = useState(false)
+  const [unlocked, setUnlocked] = useState(() => loadUnlocked())
   const [view, setView] = useState<AppView>('passages')
   const [input, setInput] = useState('')
   const [results, setResults] = useState<MatchedPassage[]>([])
@@ -31,7 +49,6 @@ function App() {
     (resultsPage - 1) * RESULTS_PER_PAGE,
     resultsPage * RESULTS_PER_PAGE,
   )
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!input.trim()) return
@@ -80,39 +97,46 @@ function App() {
             !hasSearched ? (
               <section className="home">
                 {!unlocked ? (
-                  <TraceGesture onComplete={() => setUnlocked(true)} />
+                  <TraceGesture
+                    onComplete={() => {
+                      persistUnlocked()
+                      setUnlocked(true)
+                    }}
+                  />
                 ) : (
-                  <form className="input-line-form" onSubmit={handleSubmit}>
-                    <label htmlFor="feelings" className="sr-only">
-                      How are you feeling?
-                    </label>
-                    <div className="input-line-wrap">
-                      <input
-                        id="feelings"
-                        type="text"
-                        className="input-line"
-                        placeholder="how are you feeling?"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        autoComplete="off"
-                      />
-                      <span className="input-line-bar" aria-hidden="true" />
-                    </div>
+                  <>
+                    <form className="input-line-form" onSubmit={handleSubmit}>
+                      <label htmlFor="feelings" className="sr-only">
+                        How are you feeling?
+                      </label>
+                      <div className="input-line-wrap">
+                        <input
+                          id="feelings"
+                          type="text"
+                          className="input-line"
+                          placeholder="how are you feeling?"
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          autoComplete="off"
+                        />
+                        <span className="input-line-bar" aria-hidden="true" />
+                      </div>
 
-                    <ul className="suggestions suggestions--home" aria-label="Mood suggestions">
-                      {homeSuggestions.map((mood) => (
-                        <li key={mood}>
-                          <button
-                            type="button"
-                            className="suggestion"
-                            onClick={() => handleSuggestion(mood)}
-                          >
-                            {mood.toLowerCase()}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </form>
+                      <ul className="suggestions suggestions--home" aria-label="Mood suggestions">
+                        {homeSuggestions.map((mood) => (
+                          <li key={mood}>
+                            <button
+                              type="button"
+                              className="suggestion"
+                              onClick={() => handleSuggestion(mood)}
+                            >
+                              {mood.toLowerCase()}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </form>
+                  </>
                 )}
               </section>
             ) : (
