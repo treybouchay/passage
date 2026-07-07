@@ -1492,7 +1492,7 @@
 
 .passage-wallpaper-brand {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 100%;
   display: flex;
   flex-direction: row;
