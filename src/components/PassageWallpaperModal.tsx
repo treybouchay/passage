@@ -13,6 +13,10 @@ import {
   WALLPAPER_SIZES,
   type WallpaperVariant,
 } from './PassageWallpaper'
+import { FramedPrintPreview } from './FramedPrintPreview'
+import { FRAME_STYLES, PRINT_SIZES, type FrameStyle, type PrintSize } from '../lib/framedPrint'
+
+type PreviewMode = 'digital' | 'framed'
 
 function linesToText(lines: string[]): string {
   return lines.join('\n')
@@ -41,6 +45,9 @@ export function PassageWallpaperModal({
     [passage.text],
   )
   const [variant, setVariant] = useState<WallpaperVariant>('mobile')
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('digital')
+  const [printSize, setPrintSize] = useState<PrintSize>('8x10')
+  const [frameStyle, setFrameStyle] = useState<FrameStyle>('oak')
   const [colorStyle, setColorStyle] = useState<WallpaperColorStyle>('passage')
   const [lineText, setLineText] = useState(() => linesToText(autoLines))
   const [spacing, setSpacing] = useState<WallpaperSpacing>(DEFAULT_WALLPAPER_SPACING)
@@ -51,6 +58,7 @@ export function PassageWallpaperModal({
   const previewScale = Math.min(1, 220 / size.width, 340 / size.height)
   const previewLines = useMemo(() => textToLines(lineText), [lineText])
   const exportLines = useMemo(() => nonEmptyLines(previewLines), [previewLines])
+  const layoutKey = `${lineText}-${spacing.lineGap}-${spacing.referenceGap}-${spacing.logoGap}-${colorStyle}`
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -86,6 +94,9 @@ export function PassageWallpaperModal({
     setIsSaving(true)
     setStatus(null)
     try {
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      })
       if (!exportRef.current) return
       const blob = await renderWallpaperPng(exportRef.current, scheme.background)
       downloadWallpaper(blob, passage.id, variant, colorStyle)
@@ -121,27 +132,78 @@ export function PassageWallpaperModal({
         </div>
 
         <p className="wallpaper-modal-lead">
-          Scripture only — no reflection or tags. Edit line breaks and spacing, then save.
+          Scripture only — no reflection or tags. Edit line breaks and spacing, then save or preview
+          framed.
         </p>
 
-        <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper size">
+        <div className="wallpaper-variant-toggle" role="group" aria-label="Preview type">
           <button
             type="button"
-            className={`wallpaper-variant-btn${variant === 'mobile' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setVariant('mobile')}
-            aria-pressed={variant === 'mobile'}
+            className={`wallpaper-variant-btn${previewMode === 'digital' ? ' wallpaper-variant-btn--active' : ''}`}
+            onClick={() => setPreviewMode('digital')}
+            aria-pressed={previewMode === 'digital'}
           >
-            mobile
+            digital
           </button>
           <button
             type="button"
-            className={`wallpaper-variant-btn${variant === 'desktop' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setVariant('desktop')}
-            aria-pressed={variant === 'desktop'}
+            className={`wallpaper-variant-btn${previewMode === 'framed' ? ' wallpaper-variant-btn--active' : ''}`}
+            onClick={() => setPreviewMode('framed')}
+            aria-pressed={previewMode === 'framed'}
           >
-            desktop
+            framed
           </button>
         </div>
+
+        {previewMode === 'digital' ? (
+          <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper size">
+            <button
+              type="button"
+              className={`wallpaper-variant-btn${variant === 'mobile' ? ' wallpaper-variant-btn--active' : ''}`}
+              onClick={() => setVariant('mobile')}
+              aria-pressed={variant === 'mobile'}
+            >
+              mobile
+            </button>
+            <button
+              type="button"
+              className={`wallpaper-variant-btn${variant === 'desktop' ? ' wallpaper-variant-btn--active' : ''}`}
+              onClick={() => setVariant('desktop')}
+              aria-pressed={variant === 'desktop'}
+            >
+              desktop
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="wallpaper-variant-toggle" role="group" aria-label="Print size">
+              {(Object.keys(PRINT_SIZES) as PrintSize[]).map((sizeKey) => (
+                <button
+                  key={sizeKey}
+                  type="button"
+                  className={`wallpaper-variant-btn${printSize === sizeKey ? ' wallpaper-variant-btn--active' : ''}`}
+                  onClick={() => setPrintSize(sizeKey)}
+                  aria-pressed={printSize === sizeKey}
+                >
+                  {PRINT_SIZES[sizeKey].label}
+                </button>
+              ))}
+            </div>
+            <div className="wallpaper-variant-toggle" role="group" aria-label="Frame style">
+              {(Object.keys(FRAME_STYLES) as FrameStyle[]).map((styleKey) => (
+                <button
+                  key={styleKey}
+                  type="button"
+                  className={`wallpaper-variant-btn${frameStyle === styleKey ? ' wallpaper-variant-btn--active' : ''}`}
+                  onClick={() => setFrameStyle(styleKey)}
+                  aria-pressed={frameStyle === styleKey}
+                >
+                  {FRAME_STYLES[styleKey].label}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper color">
           <button
@@ -224,43 +286,62 @@ export function PassageWallpaperModal({
         </div>
 
         <div className="wallpaper-preview-wrap">
-          <div
-            className="wallpaper-preview"
-            style={{
-              width: `${Math.round(size.width * previewScale)}px`,
-              height: `${Math.round(size.height * previewScale)}px`,
-            }}
-          >
+          {previewMode === 'digital' ? (
             <div
-              className="wallpaper-preview-inner"
+              className="wallpaper-preview"
               style={{
-                width: `${size.width}px`,
-                height: `${size.height}px`,
-                transform: `scale(${previewScale})`,
+                width: `${Math.round(size.width * previewScale)}px`,
+                height: `${Math.round(size.height * previewScale)}px`,
               }}
             >
-              <PassageWallpaper
-                key={lineText}
-                reference={passage.reference}
-                lines={previewLines}
-                variant={variant}
-                scheme={scheme}
-                spacing={spacing}
-                colorStyle={colorStyle}
-              />
+              <div
+                className="wallpaper-preview-inner"
+                style={{
+                  width: `${size.width}px`,
+                  height: `${size.height}px`,
+                  transform: `scale(${previewScale})`,
+                }}
+              >
+                <PassageWallpaper
+                  key={layoutKey}
+                  reference={passage.reference}
+                  lines={previewLines}
+                  variant={variant}
+                  scheme={scheme}
+                  spacing={spacing}
+                  colorStyle={colorStyle}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <FramedPrintPreview
+              reference={passage.reference}
+              lines={previewLines}
+              printSize={printSize}
+              frameStyle={frameStyle}
+              scheme={scheme}
+              spacing={spacing}
+              colorStyle={colorStyle}
+              layoutKey={layoutKey}
+            />
+          )}
         </div>
 
         <div className="wallpaper-modal-actions">
-          <button
-            type="button"
-            className="prayer-save-btn"
-            onClick={handleSave}
-            disabled={isSaving}
-          >
-            {isSaving ? 'saving…' : 'save wallpaper'}
-          </button>
+          {previewMode === 'digital' ? (
+            <button
+              type="button"
+              className="prayer-save-btn"
+              onClick={handleSave}
+              disabled={isSaving}
+            >
+              {isSaving ? 'saving…' : 'save wallpaper'}
+            </button>
+          ) : (
+            <button type="button" className="wallpaper-order-btn" disabled>
+              order print — coming soon
+            </button>
+          )}
         </div>
 
         {status ? <p className="wallpaper-modal-status">{status}</p> : null}
@@ -269,8 +350,9 @@ export function PassageWallpaperModal({
       <div className="wallpaper-export-target" aria-hidden="true">
         <PassageWallpaper
           ref={exportRef}
+          key={`export-${layoutKey}-${variant}`}
           reference={passage.reference}
-          lines={exportLines}
+          lines={previewLines}
           variant={variant}
           scheme={scheme}
           spacing={spacing}

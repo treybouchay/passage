@@ -9,6 +9,14 @@ export async function renderWallpaperPng(
     pixelRatio: 1,
     cacheBust: true,
     backgroundColor,
+    includeStyleProperties: [
+      'gap',
+      'margin',
+      'margin-top',
+      'margin-right',
+      'margin-bottom',
+      'margin-left',
+    ],
   })
   const response = await fetch(dataUrl)
   return response.blob()
