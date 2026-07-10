@@ -5,11 +5,11 @@ export interface VerseLine {
 /** Matches the reference wallpaper (Ephesians 4:32): short all-caps lines. */
 const WORDS_PER_LINE = 3
 
-/** ~95 chars / 7 lines in the reference layout; 130 keeps James 1:5, excludes James 1:2–4. */
-export const WALLPAPER_MAX_CHARACTERS = 130
+/** Auto-layout limit; longer passages can still be trimmed in the editor. */
+export const WALLPAPER_MAX_CHARACTERS = 200
 
-/** Fits comfortably when centered on a 1080×1920 canvas with reference spacing. */
-export const WALLPAPER_MAX_LINES = 14
+/** Fits phone and 8×10 print canvases with default spacing. */
+export const WALLPAPER_MAX_LINES = 20
 
 export function cleanPassageText(text: string): string {
   return text.replace(/^[“"']|[”"']$/g, '').replace(/[“”]/g, '').trim()

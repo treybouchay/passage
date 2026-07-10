@@ -8,15 +8,18 @@ import {
   DEFAULT_WALLPAPER_SPACING,
   type WallpaperSpacing,
 } from '../lib/wallpaperSpacing'
+import { BibleTranslationTabs } from './BibleTranslationTabs'
 import {
-  PassageWallpaper,
-  WALLPAPER_SIZES,
-  type WallpaperVariant,
-} from './PassageWallpaper'
+  BIBLE_TRANSLATIONS,
+  fetchBibleTranslation,
+  type BibleTranslation,
+} from '../lib/bibleTranslations'
+import { PassageWallpaper, type WallpaperVariant } from './PassageWallpaper'
+import { DigitalWallpaperPreview } from './DigitalWallpaperPreview'
 import { FramedPrintPreview } from './FramedPrintPreview'
 import { FRAME_STYLES, PRINT_SIZES, type FrameStyle, type PrintSize } from '../lib/framedPrint'
 
-type PreviewMode = 'digital' | 'framed'
+type WallpaperTab = 'framed' | 'phone'
 
 function linesToText(lines: string[]): string {
   return lines.join('\n')
@@ -40,12 +43,15 @@ export function PassageWallpaperModal({
   onClose,
 }: PassageWallpaperModalProps) {
   const exportRef = useRef<HTMLDivElement>(null)
+  const [translation, setTranslation] = useState<BibleTranslation>('niv')
+  const [scriptureText, setScriptureText] = useState(passage.text)
+  const [translationLoading, setTranslationLoading] = useState(false)
   const autoLines = useMemo(
-    () => formatVerseLines(passage.text).map((line) => line.text),
-    [passage.text],
+    () => formatVerseLines(scriptureText).map((line) => line.text),
+    [scriptureText],
   )
+  const [tab, setTab] = useState<WallpaperTab>('framed')
   const [variant, setVariant] = useState<WallpaperVariant>('mobile')
-  const [previewMode, setPreviewMode] = useState<PreviewMode>('digital')
   const [printSize, setPrintSize] = useState<PrintSize>('8x10')
   const [frameStyle, setFrameStyle] = useState<FrameStyle>('oak')
   const [colorStyle, setColorStyle] = useState<WallpaperColorStyle>('passage')
@@ -54,11 +60,9 @@ export function PassageWallpaperModal({
   const [isSaving, setIsSaving] = useState(false)
   const [status, setStatus] = useState<string | null>(null)
   const scheme = getPassageColorScheme(colorStyle)
-  const size = WALLPAPER_SIZES[variant]
-  const previewScale = Math.min(1, 220 / size.width, 340 / size.height)
   const previewLines = useMemo(() => textToLines(lineText), [lineText])
   const exportLines = useMemo(() => nonEmptyLines(previewLines), [previewLines])
-  const layoutKey = `${lineText}-${spacing.lineGap}-${spacing.referenceGap}-${spacing.logoGap}-${colorStyle}`
+  const layoutKey = `${translation}-${lineText}-${spacing.lineGap}-${spacing.referenceGap}-${spacing.logoGap}-${colorStyle}`
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -75,6 +79,43 @@ export function PassageWallpaperModal({
       document.body.style.overflow = previousOverflow
     }
   }, [])
+
+  useEffect(() => {
+    setStatus(null)
+  }, [tab])
+
+  function applyAutoLayout(text: string) {
+    const lines = formatVerseLines(text).map((line) => line.text)
+    setLineText(linesToText(lines))
+    setSpacing(DEFAULT_WALLPAPER_SPACING)
+  }
+
+  async function handleTranslationChange(next: BibleTranslation) {
+    if (next === translation || translationLoading) return
+
+    setTranslation(next)
+    setStatus(null)
+
+    if (next === 'niv') {
+      setScriptureText(passage.text)
+      applyAutoLayout(passage.text)
+      return
+    }
+
+    setTranslationLoading(true)
+    try {
+      const text = await fetchBibleTranslation(passage.reference, next)
+      setScriptureText(text)
+      applyAutoLayout(text)
+    } catch {
+      setTranslation('niv')
+      setScriptureText(passage.text)
+      applyAutoLayout(passage.text)
+      setStatus(`could not load ${BIBLE_TRANSLATIONS[next].label} — showing NIV`)
+    } finally {
+      setTranslationLoading(false)
+    }
+  }
 
   function handleResetLayout() {
     setLineText(linesToText(autoLines))
@@ -100,7 +141,7 @@ export function PassageWallpaperModal({
       if (!exportRef.current) return
       const blob = await renderWallpaperPng(exportRef.current, scheme.background)
       downloadWallpaper(blob, passage.id, variant, colorStyle)
-      setStatus('wallpaper saved to your device')
+      setStatus('wallpaper saved')
     } catch {
       setStatus('could not save wallpaper — try again')
     } finally {
@@ -119,230 +160,251 @@ export function PassageWallpaperModal({
       >
         <div className="wallpaper-modal-header">
           <h3 id="wallpaper-modal-title" className="wallpaper-modal-title">
-            wallpaper
+            create
           </h3>
           <button
             type="button"
             className="wallpaper-modal-close"
             onClick={onClose}
-            aria-label="Close wallpaper"
+            aria-label="Close"
           >
             ×
           </button>
         </div>
 
-        <p className="wallpaper-modal-lead">
-          Scripture only — no reflection or tags. Edit line breaks and spacing, then save or preview
-          framed.
-        </p>
-
-        <div className="wallpaper-variant-toggle" role="group" aria-label="Preview type">
+        <div className="wallpaper-tabs" role="tablist" aria-label="Preview type">
           <button
             type="button"
-            className={`wallpaper-variant-btn${previewMode === 'digital' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setPreviewMode('digital')}
-            aria-pressed={previewMode === 'digital'}
-          >
-            digital
-          </button>
-          <button
-            type="button"
-            className={`wallpaper-variant-btn${previewMode === 'framed' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setPreviewMode('framed')}
-            aria-pressed={previewMode === 'framed'}
+            role="tab"
+            id="wallpaper-tab-framed"
+            aria-selected={tab === 'framed'}
+            aria-controls="wallpaper-panel-framed"
+            className={`wallpaper-tab${tab === 'framed' ? ' wallpaper-tab--active' : ''}`}
+            onClick={() => setTab('framed')}
           >
             framed
           </button>
-        </div>
-
-        {previewMode === 'digital' ? (
-          <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper size">
-            <button
-              type="button"
-              className={`wallpaper-variant-btn${variant === 'mobile' ? ' wallpaper-variant-btn--active' : ''}`}
-              onClick={() => setVariant('mobile')}
-              aria-pressed={variant === 'mobile'}
-            >
-              mobile
-            </button>
-            <button
-              type="button"
-              className={`wallpaper-variant-btn${variant === 'desktop' ? ' wallpaper-variant-btn--active' : ''}`}
-              onClick={() => setVariant('desktop')}
-              aria-pressed={variant === 'desktop'}
-            >
-              desktop
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className="wallpaper-variant-toggle" role="group" aria-label="Print size">
-              {(Object.keys(PRINT_SIZES) as PrintSize[]).map((sizeKey) => (
-                <button
-                  key={sizeKey}
-                  type="button"
-                  className={`wallpaper-variant-btn${printSize === sizeKey ? ' wallpaper-variant-btn--active' : ''}`}
-                  onClick={() => setPrintSize(sizeKey)}
-                  aria-pressed={printSize === sizeKey}
-                >
-                  {PRINT_SIZES[sizeKey].label}
-                </button>
-              ))}
-            </div>
-            <div className="wallpaper-variant-toggle" role="group" aria-label="Frame style">
-              {(Object.keys(FRAME_STYLES) as FrameStyle[]).map((styleKey) => (
-                <button
-                  key={styleKey}
-                  type="button"
-                  className={`wallpaper-variant-btn${frameStyle === styleKey ? ' wallpaper-variant-btn--active' : ''}`}
-                  onClick={() => setFrameStyle(styleKey)}
-                  aria-pressed={frameStyle === styleKey}
-                >
-                  {FRAME_STYLES[styleKey].label}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-
-        <div className="wallpaper-variant-toggle" role="group" aria-label="Wallpaper color">
           <button
             type="button"
-            className={`wallpaper-variant-btn${colorStyle === 'passage' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setColorStyle('passage')}
-            aria-pressed={colorStyle === 'passage'}
+            role="tab"
+            id="wallpaper-tab-phone"
+            aria-selected={tab === 'phone'}
+            aria-controls="wallpaper-panel-phone"
+            className={`wallpaper-tab${tab === 'phone' ? ' wallpaper-tab--active' : ''}`}
+            onClick={() => setTab('phone')}
           >
-            green
-          </button>
-          <button
-            type="button"
-            className={`wallpaper-variant-btn${colorStyle === 'mono' ? ' wallpaper-variant-btn--active' : ''}`}
-            onClick={() => setColorStyle('mono')}
-            aria-pressed={colorStyle === 'mono'}
-          >
-            black
+            phone
           </button>
         </div>
 
-        <div className="wallpaper-editor">
-          <div className="wallpaper-editor-block">
-            <label className="wallpaper-editor-label" htmlFor="wallpaper-line-editor">
-              lines
-            </label>
-            <textarea
-              id="wallpaper-line-editor"
-              className="wallpaper-line-editor"
-              value={lineText}
-              onChange={(event) => setLineText(event.target.value)}
-              rows={6}
-              spellCheck={false}
-            />
-            <p className="wallpaper-editor-hint">One line per row. Press enter to add a break.</p>
+        <BibleTranslationTabs
+          translation={translation}
+          onChange={handleTranslationChange}
+          disabled={translationLoading}
+          className="wallpaper-tabs wallpaper-tabs--version"
+        />
+
+        <div
+          id={tab === 'framed' ? 'wallpaper-panel-framed' : 'wallpaper-panel-phone'}
+          role="tabpanel"
+          aria-labelledby={tab === 'framed' ? 'wallpaper-tab-framed' : 'wallpaper-tab-phone'}
+          className="wallpaper-tab-panel"
+        >
+          <div
+            className={`wallpaper-preview-wrap wallpaper-preview-wrap--hero${translationLoading ? ' wallpaper-preview-wrap--loading' : ''}`}
+          >
+            {translationLoading ? (
+              <p className="wallpaper-preview-loading">loading translation…</p>
+            ) : null}
+            {tab === 'framed' ? (
+              <FramedPrintPreview
+                reference={passage.reference}
+                lines={previewLines}
+                printSize={printSize}
+                frameStyle={frameStyle}
+                scheme={scheme}
+                spacing={spacing}
+                colorStyle={colorStyle}
+                layoutKey={layoutKey}
+                showCaption={false}
+              />
+            ) : (
+              <DigitalWallpaperPreview
+                reference={passage.reference}
+                lines={previewLines}
+                variant={variant}
+                scheme={scheme}
+                spacing={spacing}
+                colorStyle={colorStyle}
+                layoutKey={layoutKey}
+              />
+            )}
           </div>
 
-          <fieldset className="wallpaper-spacing-fields">
-            <legend className="wallpaper-editor-label">spacing (px)</legend>
-            <label className="wallpaper-spacing-field">
-              <span>between lines</span>
-              <input
-                type="number"
-                min={0}
-                max={120}
-                value={spacing.lineGap}
-                onChange={(event) =>
-                  handleSpacingChange('lineGap', Number(event.target.value) || 0)
-                }
-              />
-            </label>
-            <label className="wallpaper-spacing-field">
-              <span>before reference</span>
-              <input
-                type="number"
-                min={0}
-                max={400}
-                value={spacing.referenceGap}
-                onChange={(event) =>
-                  handleSpacingChange('referenceGap', Number(event.target.value) || 0)
-                }
-              />
-            </label>
-            <label className="wallpaper-spacing-field">
-              <span>before logo</span>
-              <input
-                type="number"
-                min={0}
-                max={600}
-                value={spacing.logoGap}
-                onChange={(event) =>
-                  handleSpacingChange('logoGap', Number(event.target.value) || 0)
-                }
-              />
-            </label>
-          </fieldset>
+          <div className="wallpaper-options">
+            {tab === 'framed' ? (
+              <>
+                <div className="wallpaper-option-row">
+                  <span className="wallpaper-option-label">size</span>
+                  <div className="wallpaper-option-chips" role="group" aria-label="Print size">
+                    {(Object.keys(PRINT_SIZES) as PrintSize[]).map((sizeKey) => (
+                      <button
+                        key={sizeKey}
+                        type="button"
+                        className={`wallpaper-chip${printSize === sizeKey ? ' wallpaper-chip--active' : ''}`}
+                        onClick={() => setPrintSize(sizeKey)}
+                        aria-pressed={printSize === sizeKey}
+                      >
+                        {PRINT_SIZES[sizeKey].label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="wallpaper-option-row">
+                  <span className="wallpaper-option-label">frame</span>
+                  <div className="wallpaper-option-chips" role="group" aria-label="Frame style">
+                    {(Object.keys(FRAME_STYLES) as FrameStyle[]).map((styleKey) => (
+                      <button
+                        key={styleKey}
+                        type="button"
+                        className={`wallpaper-chip${frameStyle === styleKey ? ' wallpaper-chip--active' : ''}`}
+                        onClick={() => setFrameStyle(styleKey)}
+                        aria-pressed={frameStyle === styleKey}
+                      >
+                        {FRAME_STYLES[styleKey].label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="wallpaper-option-row">
+                <span className="wallpaper-option-label">size</span>
+                <div className="wallpaper-option-chips" role="group" aria-label="Wallpaper size">
+                  <button
+                    type="button"
+                    className={`wallpaper-chip${variant === 'mobile' ? ' wallpaper-chip--active' : ''}`}
+                    onClick={() => setVariant('mobile')}
+                    aria-pressed={variant === 'mobile'}
+                  >
+                    mobile
+                  </button>
+                  <button
+                    type="button"
+                    className={`wallpaper-chip${variant === 'desktop' ? ' wallpaper-chip--active' : ''}`}
+                    onClick={() => setVariant('desktop')}
+                    aria-pressed={variant === 'desktop'}
+                  >
+                    desktop
+                  </button>
+                </div>
+              </div>
+            )}
 
-          <button type="button" className="wallpaper-reset-btn" onClick={handleResetLayout}>
-            reset layout
-          </button>
-        </div>
-
-        <div className="wallpaper-preview-wrap">
-          {previewMode === 'digital' ? (
-            <div
-              className="wallpaper-preview"
-              style={{
-                width: `${Math.round(size.width * previewScale)}px`,
-                height: `${Math.round(size.height * previewScale)}px`,
-              }}
-            >
-              <div
-                className="wallpaper-preview-inner"
-                style={{
-                  width: `${size.width}px`,
-                  height: `${size.height}px`,
-                  transform: `scale(${previewScale})`,
-                }}
-              >
-                <PassageWallpaper
-                  key={layoutKey}
-                  reference={passage.reference}
-                  lines={previewLines}
-                  variant={variant}
-                  scheme={scheme}
-                  spacing={spacing}
-                  colorStyle={colorStyle}
-                />
+            <div className="wallpaper-option-row">
+              <span className="wallpaper-option-label">ink</span>
+              <div className="wallpaper-option-chips" role="group" aria-label="Ink color">
+                <button
+                  type="button"
+                  className={`wallpaper-chip${colorStyle === 'passage' ? ' wallpaper-chip--active' : ''}`}
+                  onClick={() => setColorStyle('passage')}
+                  aria-pressed={colorStyle === 'passage'}
+                >
+                  green
+                </button>
+                <button
+                  type="button"
+                  className={`wallpaper-chip${colorStyle === 'mono' ? ' wallpaper-chip--active' : ''}`}
+                  onClick={() => setColorStyle('mono')}
+                  aria-pressed={colorStyle === 'mono'}
+                >
+                  black
+                </button>
               </div>
             </div>
-          ) : (
-            <FramedPrintPreview
-              reference={passage.reference}
-              lines={previewLines}
-              printSize={printSize}
-              frameStyle={frameStyle}
-              scheme={scheme}
-              spacing={spacing}
-              colorStyle={colorStyle}
-              layoutKey={layoutKey}
-            />
-          )}
+          </div>
+
+          <div className="wallpaper-modal-actions">
+            {tab === 'framed' ? (
+              <button type="button" className="wallpaper-order-btn" disabled>
+                order print — coming soon
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="prayer-save-btn wallpaper-save-btn"
+                onClick={handleSave}
+                disabled={isSaving || translationLoading}
+              >
+                {isSaving ? 'saving…' : 'save wallpaper'}
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="wallpaper-modal-actions">
-          {previewMode === 'digital' ? (
-            <button
-              type="button"
-              className="prayer-save-btn"
-              onClick={handleSave}
-              disabled={isSaving}
-            >
-              {isSaving ? 'saving…' : 'save wallpaper'}
+        <details className="wallpaper-customize">
+          <summary className="wallpaper-customize-summary">customize layout</summary>
+          <div className="wallpaper-editor">
+            <div className="wallpaper-editor-block">
+              <label className="wallpaper-editor-label" htmlFor="wallpaper-line-editor">
+                lines
+              </label>
+              <textarea
+                id="wallpaper-line-editor"
+                className="wallpaper-line-editor"
+                value={lineText}
+                onChange={(event) => setLineText(event.target.value)}
+                rows={5}
+                spellCheck={false}
+              />
+              <p className="wallpaper-editor-hint">One line per row.</p>
+            </div>
+
+            <fieldset className="wallpaper-spacing-fields">
+              <legend className="wallpaper-editor-label">spacing (px)</legend>
+              <label className="wallpaper-spacing-field">
+                <span>between lines</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={120}
+                  value={spacing.lineGap}
+                  onChange={(event) =>
+                    handleSpacingChange('lineGap', Number(event.target.value) || 0)
+                  }
+                />
+              </label>
+              <label className="wallpaper-spacing-field">
+                <span>before reference</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={400}
+                  value={spacing.referenceGap}
+                  onChange={(event) =>
+                    handleSpacingChange('referenceGap', Number(event.target.value) || 0)
+                  }
+                />
+              </label>
+              <label className="wallpaper-spacing-field">
+                <span>before logo</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={600}
+                  value={spacing.logoGap}
+                  onChange={(event) =>
+                    handleSpacingChange('logoGap', Number(event.target.value) || 0)
+                  }
+                />
+              </label>
+            </fieldset>
+
+            <button type="button" className="wallpaper-reset-btn" onClick={handleResetLayout}>
+              reset layout
             </button>
-          ) : (
-            <button type="button" className="wallpaper-order-btn" disabled>
-              order print — coming soon
-            </button>
-          )}
-        </div>
+          </div>
+        </details>
 
         {status ? <p className="wallpaper-modal-status">{status}</p> : null}
       </div>

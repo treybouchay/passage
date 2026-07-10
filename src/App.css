@@ -509,6 +509,75 @@
   quotes: none;
 }
 
+.passage-text--loading {
+  opacity: 0.55;
+}
+
+.bible-translation-tabs {
+  display: flex;
+  gap: 1.35rem;
+  padding: 0 0.1rem;
+}
+
+.bible-translation-tab {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 0 0 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.bible-translation-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: transparent;
+  border-radius: 1px;
+  transition: background 0.15s;
+}
+
+.bible-translation-tab:hover:not(:disabled) {
+  color: var(--text-secondary);
+}
+
+.bible-translation-tab--active {
+  color: var(--accent-deep);
+}
+
+.bible-translation-tab--active::after {
+  background: var(--accent);
+}
+
+.bible-translation-tab:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.passage-translation-bar {
+  margin-bottom: 1.1rem;
+}
+
+.passage-translation-bar--group {
+  margin-bottom: 0.85rem;
+}
+
+.wallpaper-tabs .bible-translation-tab,
+.wallpaper-tabs--version .bible-translation-tab {
+  font-size: 0.68rem;
+}
+
 .passage-ref {
   display: block;
   font-family: var(--font-body);
@@ -1412,6 +1481,182 @@
   color: var(--text-muted);
 }
 
+.wallpaper-tabs {
+  display: flex;
+  gap: 1.35rem;
+  margin-bottom: 0.9rem;
+  padding: 0 0.1rem;
+}
+
+.wallpaper-tabs--version {
+  margin-top: -0.15rem;
+  margin-bottom: 0.85rem;
+}
+
+.wallpaper-tab {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 0 0 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.wallpaper-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: transparent;
+  border-radius: 1px;
+  transition: background 0.15s;
+}
+
+.wallpaper-tab:hover {
+  color: var(--text-secondary);
+}
+
+.wallpaper-tab--active {
+  color: var(--accent-deep);
+}
+
+.wallpaper-tab--active::after {
+  background: var(--accent);
+}
+
+.wallpaper-tab-panel {
+  animation: wallpaperTabIn 0.2s ease;
+}
+
+@keyframes wallpaperTabIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.digital-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 15rem;
+  padding: 1.35rem 0.75rem;
+}
+
+.digital-preview-screen {
+  overflow: hidden;
+  border-radius: 0.2rem;
+  box-shadow: 0 8px 24px rgba(46, 64, 54, 0.12);
+}
+
+.digital-preview-art {
+  transform-origin: top left;
+}
+
+.wallpaper-save-btn {
+  width: 100%;
+}
+
+.wallpaper-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
+}
+
+.wallpaper-option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.wallpaper-option-label {
+  flex: 0 0 2.25rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
+.wallpaper-option-chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.wallpaper-chip {
+  padding: 0.32rem 0.62rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.wallpaper-chip:hover {
+  color: var(--text-secondary);
+  border-color: var(--sage-light);
+}
+
+.wallpaper-chip--active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--sage);
+}
+
+.wallpaper-customize {
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+  border-top: 1px solid var(--line);
+}
+
+.wallpaper-customize-summary {
+  padding: 0.75rem 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.wallpaper-customize-summary::-webkit-details-marker {
+  display: none;
+}
+
+.wallpaper-customize[open] .wallpaper-customize-summary {
+  color: var(--text-secondary);
+  margin-bottom: 0.65rem;
+}
+
+.wallpaper-customize .wallpaper-editor {
+  margin-bottom: 0;
+}
+
 .wallpaper-variant-toggle {
   display: flex;
   gap: 0.5rem;
@@ -1565,6 +1810,40 @@
   margin-bottom: 1rem;
 }
 
+.wallpaper-preview-wrap--hero {
+  margin-bottom: 0.85rem;
+}
+
+.wallpaper-preview-wrap--hero .framed-print-scene {
+  min-height: 15rem;
+  padding: 1.15rem 0.75rem;
+}
+
+.wallpaper-preview-wrap--loading {
+  position: relative;
+}
+
+.wallpaper-preview-wrap--loading .framed-print-preview,
+.wallpaper-preview-wrap--loading .digital-preview {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.wallpaper-preview-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
 .wallpaper-preview {
   flex-shrink: 0;
   overflow: hidden;
@@ -1630,21 +1909,6 @@
   text-transform: lowercase;
   text-align: center;
   color: var(--text-muted);
-}
-
-.wallpaper-order-btn {
-  padding: 0.55rem 1rem;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: lowercase;
-  color: var(--text-muted);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.2rem;
-  cursor: not-allowed;
-  opacity: 0.85;
 }
 
 .wallpaper-export-target {
@@ -1812,6 +2076,52 @@
 .wallpaper-modal-actions {
   display: flex;
   justify-content: flex-end;
+}
+
+.wallpaper-modal-actions--split {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+}
+
+.wallpaper-save-link {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.15s;
+}
+
+.wallpaper-save-link:hover:not(:disabled) {
+  color: var(--accent);
+}
+
+.wallpaper-save-link:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.wallpaper-order-btn {
+  width: 100%;
+  padding: 0.55rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.2rem;
+  cursor: not-allowed;
+  opacity: 0.85;
 }
 
 .wallpaper-modal-status {

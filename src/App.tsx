@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { SideNav, type AppView } from './components/SideNav'
-import { FavoriteButton } from './components/FavoriteButton'
 import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
+import { PassageCard } from './components/PassageCard'
+import { PassageTranslationBar } from './components/PassageTranslationBar'
 import { PrayerSection } from './components/PrayerSection'
 import { TraceGesture } from './components/TraceGesture'
 import { pickHomeSuggestions } from './data/passages'
+import { BibleTranslationProvider } from './lib/bibleTranslationContext'
 import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matchPassages'
 import {
   loadFavoriteIds,
@@ -153,21 +155,20 @@ function App() {
                   </button>
                 </div>
 
-                <div className="passage-list">
-                  {pagedResults.map((passage) => (
-                    <article key={passage.id} className="passage-card">
-                        <div className="passage-card-header passage-card-header--end">
-                          <FavoriteButton
-                            active={favoriteIds.includes(passage.id)}
-                            onToggle={() => handleToggleFavorite(passage.id)}
-                          />
-                        </div>
-                        <blockquote className="passage-text">{passage.text}</blockquote>
-                        <p className="passage-reflection">{passage.reflection}</p>
-                        <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
-                      </article>
-                  ))}
-                </div>
+                <BibleTranslationProvider>
+                  <PassageTranslationBar className="passage-translation-bar" />
+
+                  <div className="passage-list">
+                    {pagedResults.map((passage) => (
+                      <PassageCard
+                        key={passage.id}
+                        passage={passage}
+                        favoriteActive={favoriteIds.includes(passage.id)}
+                        onToggleFavorite={handleToggleFavorite}
+                      />
+                    ))}
+                  </div>
+                </BibleTranslationProvider>
 
                 {totalResultPages > 1 ? (
                   <nav className="results-pagination" aria-label="Passage pages">

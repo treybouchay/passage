@@ -18,6 +18,7 @@ interface FramedPrintPreviewProps {
   spacing: WallpaperSpacing
   colorStyle: WallpaperColorStyle
   layoutKey: string
+  showCaption?: boolean
 }
 
 export function FramedPrintPreview({
@@ -29,6 +30,7 @@ export function FramedPrintPreview({
   spacing,
   colorStyle,
   layoutKey,
+  showCaption = true,
 }: FramedPrintPreviewProps) {
   const { width, height, label } = PRINT_SIZES[printSize]
   const frame = FRAME_STYLES[frameStyle]
@@ -82,9 +84,11 @@ export function FramedPrintPreview({
           </div>
         </div>
       </div>
-      <p className="framed-print-caption">
-        {label} · {frame.label} frame
-      </p>
+      {showCaption ? (
+        <p className="framed-print-caption">
+          {label} · {frame.label} frame
+        </p>
+      ) : null}
     </div>
   )
 }

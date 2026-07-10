@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 import { FavoriteButton } from './FavoriteButton'
-import { PassageWallpaperTrigger } from './PassageWallpaperModal'
-import { canGenerateWallpaper } from '../lib/formatVerseLines'
+import { PassageCard } from './PassageCard'
+import { PassageTranslationBar } from './PassageTranslationBar'
 import { formatPrayerDate, resolveFavorites, type SavedPrayer } from '../lib/userContent'
+import { BibleTranslationProvider } from '../lib/bibleTranslationContext'
 
 type TypeFilter = 'all' | 'passages' | 'prayers'
 
@@ -171,34 +172,22 @@ export function FavoritesSection({
                   {filteredPassages.length === 0 ? (
                     <p className="favorites-group-empty">No favorite passages yet.</p>
                   ) : (
-                    <div className="passage-list">
-                      {filteredPassages.map(({ passage }) => (
-                        <article key={passage.id} className="passage-card">
-                          <div className="passage-card-header passage-card-header--end">
-                            <FavoriteButton
-                              active
-                              onToggle={() => onToggleFavorite(passage.id)}
-                              label="Remove from favorites"
-                            />
-                          </div>
-                          <blockquote className="passage-text">{passage.text}</blockquote>
-                          <p className="passage-reflection">{passage.reflection}</p>
-                          <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
-                          <ul className="passage-themes" aria-label="Themes">
-                            {passage.themes.map((theme) => (
-                              <li key={theme}>
-                                <span className="passage-theme-tag">{theme}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          {canGenerateWallpaper(passage.text) ? (
-                            <div className="passage-card-actions">
-                              <PassageWallpaperTrigger passage={passage} />
-                            </div>
-                          ) : null}
-                        </article>
-                      ))}
-                    </div>
+                    <BibleTranslationProvider>
+                      <PassageTranslationBar className="passage-translation-bar passage-translation-bar--group" />
+                      <div className="passage-list">
+                        {filteredPassages.map(({ passage }) => (
+                          <PassageCard
+                            key={passage.id}
+                            passage={passage}
+                            favoriteActive
+                            onToggleFavorite={onToggleFavorite}
+                            favoriteLabel="Remove from favorites"
+                            showThemes
+                            showWallpaper
+                          />
+                        ))}
+                      </div>
+                    </BibleTranslationProvider>
                   )}
                 </section>
               ) : null}
