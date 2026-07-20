@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
+import type { Passage } from '../data/passages'
 import { FavoriteButton } from './FavoriteButton'
 import { PassageCard } from './PassageCard'
+import { PassagePreviewModal, PrayerPassageLink } from './PassagePreviewModal'
 import { PassageTranslationBar } from './PassageTranslationBar'
 import { formatPrayerDate, resolveFavorites, type SavedPrayer } from '../lib/userContent'
 import { BibleTranslationProvider } from '../lib/bibleTranslationContext'
@@ -11,16 +13,19 @@ interface FavoritesSectionProps {
   favoriteIds: string[]
   prayers: SavedPrayer[]
   onToggleFavorite: (id: string) => void
+  onPray?: (passage: Passage) => void
 }
 
 export function FavoritesSection({
   favoriteIds,
   prayers,
   onToggleFavorite,
+  onPray,
 }: FavoritesSectionProps) {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [previewPrayer, setPreviewPrayer] = useState<SavedPrayer | null>(null)
 
   const items = resolveFavorites(favoriteIds, prayers)
   const favoritePassages = items.filter((item) => item.kind === 'passage')
@@ -184,6 +189,7 @@ export function FavoritesSection({
                             favoriteLabel="Remove from favorites"
                             showThemes
                             showWallpaper
+                            onPray={onPray}
                           />
                         ))}
                       </div>
@@ -217,6 +223,13 @@ export function FavoritesSection({
                             />
                           </div>
                           <p className="passage-text passage-text--prayer">{prayer.text}</p>
+                          {prayer.passageReference ? (
+                            <PrayerPassageLink
+                              passageId={prayer.passageId}
+                              passageReference={prayer.passageReference}
+                              onOpen={() => setPreviewPrayer(prayer)}
+                            />
+                          ) : null}
                           {prayer.themes.length > 0 ? (
                             <ul className="passage-themes" aria-label="Themes">
                               {prayer.themes.map((theme) => (
@@ -236,6 +249,14 @@ export function FavoritesSection({
           )}
         </>
       )}
+
+      {previewPrayer?.passageReference ? (
+        <PassagePreviewModal
+          passageId={previewPrayer.passageId}
+          passageReference={previewPrayer.passageReference}
+          onClose={() => setPreviewPrayer(null)}
+        />
+      ) : null}
     </section>
   )
 }

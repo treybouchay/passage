@@ -715,6 +715,156 @@
   margin-bottom: 2.5rem;
 }
 
+.prayer-passage-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  padding: 0.55rem 0.65rem;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--sage) 35%, transparent);
+  border-radius: 0.25rem;
+}
+
+.prayer-passage-link-text {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.prayer-passage-link-label {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
+.prayer-passage-link-ref {
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prayer-passage-link-clear {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--sage);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.prayer-passage-link-clear:hover {
+  color: var(--accent);
+  background: var(--surface);
+}
+
+.prayer-linked-ref {
+  display: block;
+  margin: 0.55rem 0 0;
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--accent);
+}
+
+.prayer-linked-ref--btn {
+  padding: 0;
+  font-family: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.prayer-linked-ref--btn:hover {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.passage-preview-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) 1rem
+    max(1rem, env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background: rgba(46, 64, 54, 0.28);
+  backdrop-filter: blur(2px);
+}
+
+.passage-preview-panel {
+  width: min(100%, 26rem);
+  margin: auto;
+  flex-shrink: 0;
+  padding: 1.25rem 1.2rem 1.4rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
+  box-shadow: 0 18px 48px rgba(46, 64, 54, 0.12);
+}
+
+.passage-preview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.95rem;
+}
+
+.passage-preview-ref {
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--accent);
+}
+
+.passage-preview-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.passage-preview-reflection {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.passage-preview-missing {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+}
+
 .prayer-input {
   width: 100%;
   min-height: 9rem;
@@ -985,6 +1135,16 @@
   line-height: 1.7;
   color: var(--text-primary);
   white-space: pre-wrap;
+}
+
+.prayer-share-card-ref {
+  display: block;
+  margin: -0.35rem 0 0.75rem;
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }
 
 .prayer-share-card-date {
@@ -1569,6 +1729,7 @@
 
 .wallpaper-save-btn {
   width: 100%;
+  white-space: nowrap;
 }
 
 .wallpaper-options {
@@ -1913,8 +2074,10 @@
 
 .wallpaper-export-target {
   position: fixed;
-  left: -10000px;
+  left: 0;
   top: 0;
+  z-index: -1;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -2078,6 +2241,13 @@
   justify-content: flex-end;
 }
 
+.wallpaper-modal-actions--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+  width: 100%;
+}
+
 .wallpaper-modal-actions--split {
   flex-direction: column;
   align-items: stretch;
@@ -2122,6 +2292,80 @@
   border-radius: 0.2rem;
   cursor: not-allowed;
   opacity: 0.85;
+}
+
+.wallpaper-order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.wallpaper-checkout {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.wallpaper-checkout-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
+.wallpaper-order-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.wallpaper-order-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+}
+
+.wallpaper-order-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.45rem 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.2rem;
+}
+
+.wallpaper-order-hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.wallpaper-order-hint code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+}
+
+.order-notice {
+  margin: 0;
+  padding: 0.65rem 1rem;
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  border-bottom: 1px solid var(--line);
+  text-transform: lowercase;
 }
 
 .wallpaper-modal-status {

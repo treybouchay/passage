@@ -7,8 +7,17 @@ export interface SavedPrayer {
   id: string
   text: string
   themes: string[]
+  passageId?: string
+  passageReference?: string
   createdAt: number
   updatedAt: number
+}
+
+export interface SavePrayerOptions {
+  id?: string
+  themes?: string[]
+  passageId?: string
+  passageReference?: string
 }
 
 function normalizePrayer(
@@ -18,7 +27,15 @@ function normalizePrayer(
   const updatedAt = raw.updatedAt ?? (Number.isFinite(fromId) ? fromId : Date.now())
   const createdAt = raw.createdAt ?? updatedAt
   const themes = Array.isArray(raw.themes) ? raw.themes : []
-  return { id: raw.id, text: raw.text, themes, createdAt, updatedAt }
+  return {
+    id: raw.id,
+    text: raw.text,
+    themes,
+    passageId: raw.passageId,
+    passageReference: raw.passageReference,
+    createdAt,
+    updatedAt,
+  }
 }
 
 export function formatPrayerDate(timestamp: number): string {
@@ -54,17 +71,37 @@ export function loadPrayers(): SavedPrayer[] {
   ).map(normalizePrayer)
 }
 
-export function savePrayer(text: string, id?: string, themes: string[] = []): SavedPrayer[] {
+export function savePrayer(
+  text: string,
+  idOrOptions?: string | SavePrayerOptions,
+  themesArg: string[] = [],
+): SavedPrayer[] {
+  const options: SavePrayerOptions =
+    typeof idOrOptions === 'string' || idOrOptions === undefined
+      ? { id: idOrOptions, themes: themesArg }
+      : idOrOptions
+
   const trimmed = text.trim()
   if (!trimmed) return loadPrayers()
 
   const prayers = loadPrayers()
   const now = Date.now()
-  const uniqueThemes = [...new Set(themes)]
+  const uniqueThemes = [...new Set(options.themes ?? [])]
+  const passageId = options.passageId
+  const passageReference = options.passageReference
 
-  if (id) {
+  if (options.id) {
     const next = prayers.map((p) =>
-      p.id === id ? { ...p, text: trimmed, themes: uniqueThemes, updatedAt: now } : p,
+      p.id === options.id
+        ? {
+            ...p,
+            text: trimmed,
+            themes: uniqueThemes,
+            passageId: options.passageId,
+            passageReference: options.passageReference,
+            updatedAt: now,
+          }
+        : p,
     )
     writeJson(PRAYERS_KEY, next)
     return next
@@ -74,6 +111,8 @@ export function savePrayer(text: string, id?: string, themes: string[] = []): Sa
     id: `prayer-${now}`,
     text: trimmed,
     themes: uniqueThemes,
+    passageId,
+    passageReference,
     createdAt: now,
     updatedAt: now,
   }

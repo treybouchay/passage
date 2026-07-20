@@ -1,12 +1,14 @@
-import { useMemo, useState } from 'react'
-import { allThemes } from '../data/passages'
+import { useEffect, useMemo, useState } from 'react'
+import { allThemes, type Passage } from '../data/passages'
 import { FavoriteButton } from './FavoriteButton'
+import { PassagePreviewModal, PrayerPassageLink } from './PassagePreviewModal'
 import { PrayerCardModal } from './PrayerCardModal'
 import { SavedPrayerCards } from './SavedPrayerCards'
 import { loadSavedPrayerCardIds, removeSavedPrayerCard } from '../lib/savedPrayerCards'
 import {
   deletePrayer,
   formatPrayerDate,
+  getPassageById,
   loadPrayers,
   savePrayer,
   type SavedPrayer,
@@ -16,6 +18,8 @@ interface PrayerSectionProps {
   favoriteIds: string[]
   onToggleFavorite: (id: string) => void
   onPrayersChange: (prayers: SavedPrayer[]) => void
+  seedPassage?: Passage | null
+  onSeedConsumed?: () => void
 }
 
 function toggleTheme(themes: string[], theme: string): string[] {
@@ -30,16 +34,29 @@ export function PrayerSection({
   favoriteIds,
   onToggleFavorite,
   onPrayersChange,
+  seedPassage = null,
+  onSeedConsumed,
 }: PrayerSectionProps) {
   const [draft, setDraft] = useState('')
   const [selectedThemes, setSelectedThemes] = useState<string[]>([])
+  const [linkedPassage, setLinkedPassage] = useState<Passage | null>(null)
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
   const [editingId, setEditingId] = useState<string | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
   const [themesOpen, setThemesOpen] = useState(false)
   const [cardPrayer, setCardPrayer] = useState<SavedPrayer | null>(null)
+  const [previewPrayer, setPreviewPrayer] = useState<SavedPrayer | null>(null)
   const [savedCardIds, setSavedCardIds] = useState<string[]>(() => loadSavedPrayerCardIds())
   const [libraryTab, setLibraryTab] = useState<LibraryTab>('prayers')
+
+  useEffect(() => {
+    if (!seedPassage) return
+    setLinkedPassage(seedPassage)
+    setSelectedThemes(seedPassage.themes.slice(0, 2))
+    setEditingId(null)
+    setDraft('')
+    onSeedConsumed?.()
+  }, [seedPassage, onSeedConsumed])
 
   const prayerThemes = useMemo(() => {
     const themes = new Set<string>()
@@ -64,13 +81,19 @@ export function PrayerSection({
   function resetForm() {
     setDraft('')
     setSelectedThemes([])
+    setLinkedPassage(null)
     setEditingId(null)
   }
 
   function handleSave(e: React.FormEvent) {
     e.preventDefault()
     if (!draft.trim()) return
-    const next = savePrayer(draft, editingId ?? undefined, selectedThemes)
+    const next = savePrayer(draft, {
+      id: editingId ?? undefined,
+      themes: selectedThemes,
+      passageId: linkedPassage?.id,
+      passageReference: linkedPassage?.reference,
+    })
     setPrayers(next)
     onPrayersChange(next)
     resetForm()
@@ -80,6 +103,20 @@ export function PrayerSection({
     setDraft(prayer.text)
     setSelectedThemes(prayer.themes)
     setEditingId(prayer.id)
+    const fromId = prayer.passageId ? getPassageById(prayer.passageId) : undefined
+    setLinkedPassage(
+      fromId ??
+        (prayer.passageReference
+          ? {
+              id: prayer.passageId ?? '',
+              reference: prayer.passageReference,
+              text: '',
+              reflection: '',
+              themes: prayer.themes,
+              keywords: [],
+            }
+          : null),
+    )
   }
 
   function handleDelete(id: string) {
@@ -98,25 +135,48 @@ export function PrayerSection({
   return (
     <section className="prayer-section" aria-labelledby="prayer-heading">
       <h2 id="prayer-heading" className="section-title">
-        {editingId ? 'update prayer' : 'your prayer'}
+        {editingId ? 'update prayer' : linkedPassage ? 'pray with this passage' : 'your prayer'}
       </h2>
       {!editingId ? (
         <p className="section-lead">
-          Write what is on your heart. Save prayers to return to them—or mark them with the halo to keep them close.
+          {linkedPassage
+            ? 'Write a prayer shaped by this scripture. It will be saved with the passage.'
+            : 'Write what is on your heart. Save prayers to return to them—or mark them with the halo to keep them close.'}
         </p>
       ) : null}
 
       <form className="prayer-form" onSubmit={handleSave}>
+        {linkedPassage ? (
+          <div className="prayer-passage-link">
+            <div className="prayer-passage-link-text">
+              <span className="prayer-passage-link-label">with</span>
+              <cite className="prayer-passage-link-ref">{linkedPassage.reference}</cite>
+            </div>
+            <button
+              type="button"
+              className="prayer-passage-link-clear"
+              onClick={() => setLinkedPassage(null)}
+              aria-label="Remove passage link"
+            >
+              ×
+            </button>
+          </div>
+        ) : null}
         <label htmlFor="prayer-draft" className="sr-only">
           Write your prayer
         </label>
         <textarea
           id="prayer-draft"
           className="prayer-input"
-          placeholder="dear Lord…"
+          placeholder={
+            linkedPassage
+              ? `dear Lord, as I hold ${linkedPassage.reference}…`
+              : 'dear Lord…'
+          }
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           rows={6}
+          autoFocus={Boolean(linkedPassage)}
         />
 
         <div className="prayer-theme-picker">
@@ -263,6 +323,13 @@ export function PrayerSection({
                           />
                         </div>
                         <p className="passage-text passage-text--prayer">{prayer.text}</p>
+                        {prayer.passageReference ? (
+                          <PrayerPassageLink
+                            passageId={prayer.passageId}
+                            passageReference={prayer.passageReference}
+                            onOpen={() => setPreviewPrayer(prayer)}
+                          />
+                        ) : null}
                         {prayer.themes.length > 0 ? (
                           <ul className="passage-themes" aria-label="Themes">
                             {prayer.themes.map((theme) => (
@@ -322,6 +389,14 @@ export function PrayerSection({
             setSavedCardIds((ids) => (ids.includes(prayerId) ? ids : [...ids, prayerId]))
             setLibraryTab('cards')
           }}
+        />
+      ) : null}
+
+      {previewPrayer?.passageReference ? (
+        <PassagePreviewModal
+          passageId={previewPrayer.passageId}
+          passageReference={previewPrayer.passageReference}
+          onClose={() => setPreviewPrayer(null)}
         />
       ) : null}
     </section>

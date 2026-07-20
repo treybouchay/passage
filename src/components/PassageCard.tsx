@@ -11,6 +11,7 @@ interface PassageCardProps {
   favoriteLabel?: string
   showThemes?: boolean
   showWallpaper?: boolean
+  onPray?: (passage: Passage) => void
 }
 
 export function PassageCard({
@@ -20,7 +21,10 @@ export function PassageCard({
   favoriteLabel,
   showThemes = false,
   showWallpaper = false,
+  onPray,
 }: PassageCardProps) {
+  const showActions = Boolean(onPray) || (showWallpaper && canGenerateWallpaper(passage.text))
+
   return (
     <article className="passage-card">
       <div className="passage-card-header passage-card-header--end">
@@ -42,9 +46,20 @@ export function PassageCard({
           ))}
         </ul>
       ) : null}
-      {showWallpaper && canGenerateWallpaper(passage.text) ? (
+      {showActions ? (
         <div className="passage-card-actions">
-          <PassageWallpaperTrigger passage={passage} />
+          {onPray ? (
+            <button
+              type="button"
+              className="prayer-text-btn"
+              onClick={() => onPray(passage)}
+            >
+              pray
+            </button>
+          ) : null}
+          {showWallpaper && canGenerateWallpaper(passage.text) ? (
+            <PassageWallpaperTrigger passage={passage} />
+          ) : null}
         </div>
       ) : null}
     </article>

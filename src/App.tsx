@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { SideNav, type AppView } from './components/SideNav'
 import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
@@ -6,8 +6,9 @@ import { PassageCard } from './components/PassageCard'
 import { PassageTranslationBar } from './components/PassageTranslationBar'
 import { PrayerSection } from './components/PrayerSection'
 import { TraceGesture } from './components/TraceGesture'
-import { pickHomeSuggestions } from './data/passages'
+import { pickHomeSuggestions, type Passage } from './data/passages'
 import { BibleTranslationProvider } from './lib/bibleTranslationContext'
+import { useOrderReturnNotice } from './lib/useOrderReturnNotice'
 import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matchPassages'
 import {
   loadFavoriteIds,
@@ -45,6 +46,12 @@ function App() {
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
   const [homeSuggestions] = useState(() => pickHomeSuggestions())
   const [resultsPage, setResultsPage] = useState(1)
+  const [prayerSeed, setPrayerSeed] = useState<Passage | null>(null)
+  const orderNotice = useOrderReturnNotice()
+
+  const clearPrayerSeed = useCallback(() => {
+    setPrayerSeed(null)
+  }, [])
 
   const totalResultPages = Math.ceil(results.length / RESULTS_PER_PAGE)
   const pagedResults = results.slice(
@@ -78,7 +85,15 @@ function App() {
   }
 
   function handleViewChange(next: AppView) {
+    if (next !== 'prayer') {
+      setPrayerSeed(null)
+    }
     setView(next)
+  }
+
+  function handlePrayFromPassage(passage: Passage) {
+    setPrayerSeed(passage)
+    setView('prayer')
   }
 
   return (
@@ -88,6 +103,8 @@ function App() {
       <header className="header">
         <Logo />
       </header>
+
+      {orderNotice ? <p className="order-notice">{orderNotice}</p> : null}
 
       <div className={`app-body${unlocked ? ' app-body--with-sidebar' : ''}`}>
         <main
@@ -165,6 +182,7 @@ function App() {
                         passage={passage}
                         favoriteActive={favoriteIds.includes(passage.id)}
                         onToggleFavorite={handleToggleFavorite}
+                        onPray={handlePrayFromPassage}
                       />
                     ))}
                   </div>
@@ -197,6 +215,8 @@ function App() {
               favoriteIds={favoriteIds}
               onToggleFavorite={handleToggleFavorite}
               onPrayersChange={setPrayers}
+              seedPassage={prayerSeed}
+              onSeedConsumed={clearPrayerSeed}
             />
           ) : null}
 
@@ -205,6 +225,7 @@ function App() {
               favoriteIds={favoriteIds}
               prayers={prayers}
               onToggleFavorite={handleToggleFavorite}
+              onPray={handlePrayFromPassage}
             />
           ) : null}
         </main>

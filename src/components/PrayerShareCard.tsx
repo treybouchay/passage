@@ -25,6 +25,9 @@ export const PrayerShareCard = forwardRef<HTMLDivElement, PrayerShareCardProps>(
           <span className="prayer-share-card-wordmark">passage</span>
         </div>
         <p className="prayer-share-card-text">{prayer.text}</p>
+        {prayer.passageReference ? (
+          <cite className="prayer-share-card-ref">{prayer.passageReference}</cite>
+        ) : null}
         <time
           className="prayer-share-card-date"
           dateTime={new Date(prayer.createdAt).toISOString()}
