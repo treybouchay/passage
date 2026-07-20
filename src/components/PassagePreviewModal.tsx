@@ -47,9 +47,9 @@ export function PassagePreviewModal({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="passage-preview-header">
-          <span id="passage-preview-title" className="sr-only">
+          <cite id="passage-preview-title" className="passage-ref">
             {reference}
-          </span>
+          </cite>
           <button
             type="button"
             className="wallpaper-modal-close"
@@ -66,7 +66,6 @@ export function PassagePreviewModal({
             <article className="passage-card passage-card--preview">
               <PassageText passage={passage} />
               <p className="passage-reflection">{passage.reflection}</p>
-              <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
               {passage.themes.length > 0 ? (
                 <ul className="passage-themes" aria-label="Themes">
                   {passage.themes.map((theme) => (

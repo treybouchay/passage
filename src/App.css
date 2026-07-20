@@ -817,29 +817,58 @@
 }
 
 .passage-preview-panel {
-  width: min(100%, 26rem);
+  width: min(100%, 20rem);
   margin: auto;
   flex-shrink: 0;
-  padding: 1.25rem 1.2rem 1.4rem;
+  padding: 1.15rem 1.15rem 1.25rem;
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 1.25rem;
+  border-radius: 1.1rem;
   box-shadow: 0 18px 48px rgba(46, 64, 54, 0.12);
 }
 
 .passage-preview-header {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
-  margin-bottom: 0.35rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.passage-preview-header .passage-ref {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .passage-preview-panel .passage-card--preview {
   animation: none;
+  padding-left: 0.65rem;
+}
+
+.passage-preview-panel .passage-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 0.65rem;
+}
+
+.passage-preview-panel .passage-reflection {
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.passage-preview-panel .passage-ref--footer {
+  margin-top: 0.65rem;
+  font-size: 0.78rem;
 }
 
 .passage-preview-panel .passage-translation-bar--preview {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.passage-preview-panel .bible-translation-tab {
+  font-size: 0.66rem;
+  padding-bottom: 0.45rem;
 }
 
 .passage-preview-missing {
