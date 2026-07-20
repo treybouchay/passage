@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import type { Passage } from '../data/passages'
+import { BibleTranslationProvider } from '../lib/bibleTranslationContext'
 import { getPassageById } from '../lib/userContent'
+import { PassageText } from './PassageText'
+import { PassageTranslationBar } from './PassageTranslationBar'
 
 interface PassagePreviewModalProps {
   passageId?: string
@@ -44,9 +47,9 @@ export function PassagePreviewModal({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="passage-preview-header">
-          <cite id="passage-preview-title" className="passage-preview-ref">
+          <span id="passage-preview-title" className="sr-only">
             {reference}
-          </cite>
+          </span>
           <button
             type="button"
             className="wallpaper-modal-close"
@@ -58,12 +61,23 @@ export function PassagePreviewModal({
         </div>
 
         {passage ? (
-          <>
-            <p className="passage-preview-text">{passage.text}</p>
-            {passage.reflection ? (
-              <p className="passage-preview-reflection">{passage.reflection}</p>
-            ) : null}
-          </>
+          <BibleTranslationProvider>
+            <PassageTranslationBar className="passage-translation-bar passage-translation-bar--preview" />
+            <article className="passage-card passage-card--preview">
+              <PassageText passage={passage} />
+              <p className="passage-reflection">{passage.reflection}</p>
+              <cite className="passage-ref passage-ref--footer">{passage.reference}</cite>
+              {passage.themes.length > 0 ? (
+                <ul className="passage-themes" aria-label="Themes">
+                  {passage.themes.map((theme) => (
+                    <li key={theme}>
+                      <span className="passage-theme-tag">{theme}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          </BibleTranslationProvider>
         ) : (
           <p className="passage-preview-missing">passage text unavailable</p>
         )}

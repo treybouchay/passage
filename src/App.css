@@ -830,32 +830,16 @@
 .passage-preview-header {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.95rem;
+  justify-content: flex-end;
+  margin-bottom: 0.35rem;
 }
 
-.passage-preview-ref {
-  font-style: normal;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--accent);
+.passage-preview-panel .passage-card--preview {
+  animation: none;
 }
 
-.passage-preview-text {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.02rem;
-  line-height: 1.7;
-  color: var(--text-primary);
-}
-
-.passage-preview-reflection {
-  margin: 1rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: var(--text-muted);
+.passage-preview-panel .passage-translation-bar--preview {
+  margin-bottom: 0.85rem;
 }
 
 .passage-preview-missing {
