@@ -23,16 +23,28 @@ export function PassageCard({
   showWallpaper = false,
   onPray,
 }: PassageCardProps) {
-  const showActions = Boolean(onPray) || (showWallpaper && canGenerateWallpaper(passage.text))
+  const showWallpaperAction = showWallpaper && canGenerateWallpaper(passage.text)
 
   return (
     <article className="passage-card">
       <div className="passage-card-header passage-card-header--end">
-        <FavoriteButton
-          active={favoriteActive}
-          onToggle={() => onToggleFavorite(passage.id)}
-          label={favoriteLabel}
-        />
+        <div className="passage-card-icons">
+          {onPray ? (
+            <button
+              type="button"
+              className="passage-pray-btn"
+              onClick={() => onPray(passage)}
+              aria-label={`Pray with ${passage.reference}`}
+            >
+              <span className="passage-pray-icon" aria-hidden />
+            </button>
+          ) : null}
+          <FavoriteButton
+            active={favoriteActive}
+            onToggle={() => onToggleFavorite(passage.id)}
+            label={favoriteLabel}
+          />
+        </div>
       </div>
       <PassageText passage={passage} />
       <p className="passage-reflection">{passage.reflection}</p>
@@ -46,20 +58,9 @@ export function PassageCard({
           ))}
         </ul>
       ) : null}
-      {showActions ? (
+      {showWallpaperAction ? (
         <div className="passage-card-actions">
-          {onPray ? (
-            <button
-              type="button"
-              className="prayer-text-btn"
-              onClick={() => onPray(passage)}
-            >
-              pray
-            </button>
-          ) : null}
-          {showWallpaper && canGenerateWallpaper(passage.text) ? (
-            <PassageWallpaperTrigger passage={passage} />
-          ) : null}
+          <PassageWallpaperTrigger passage={passage} />
         </div>
       ) : null}
     </article>

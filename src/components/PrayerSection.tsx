@@ -147,18 +147,17 @@ export function PrayerSection({
 
       <form className="prayer-form" onSubmit={handleSave}>
         {linkedPassage ? (
-          <div className="prayer-passage-link">
-            <div className="prayer-passage-link-text">
-              <span className="prayer-passage-link-label">with</span>
-              <cite className="prayer-passage-link-ref">{linkedPassage.reference}</cite>
-            </div>
+          <div className="prayer-passage-link" role="group" aria-label="Linked passage">
             <button
               type="button"
-              className="prayer-passage-link-clear"
+              className="passage-theme-tag passage-theme-tag--removable"
               onClick={() => setLinkedPassage(null)}
-              aria-label="Remove passage link"
+              aria-label={`Remove ${linkedPassage.reference}`}
             >
-              ×
+              <span>{linkedPassage.reference}</span>
+              <span className="passage-theme-tag-x" aria-hidden>
+                ×
+              </span>
             </button>
           </div>
         ) : null}
