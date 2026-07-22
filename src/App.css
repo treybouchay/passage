@@ -476,34 +476,40 @@
 .passage-card-icons {
   display: flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.35rem;
 }
 
 .passage-pray-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  margin: -0.35rem 0 0;
+  gap: 0.35rem;
+  padding: 0.25rem 0.45rem 0.25rem 0.35rem;
+  margin: -0.25rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--sage-light);
   background: none;
   border: none;
-  border-radius: 50%;
+  border-radius: 999px;
   cursor: pointer;
-  color: var(--sage-light);
   transition: background 0.15s, color 0.15s;
 }
 
 .passage-pray-btn:hover {
-  background: var(--accent-soft);
   color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .passage-pray-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.passage-pray-label {
+  line-height: 1;
 }
 
 .passage-pray-icon {
@@ -639,6 +645,7 @@
 
 .passage-card-actions {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
   margin-top: 1.1rem;
 }
@@ -771,9 +778,24 @@
   gap: 0.35rem;
   font-family: var(--font-body);
   border: none;
-  cursor: pointer;
   text-transform: none;
-  transition: background 0.15s, color 0.15s;
+}
+
+.passage-theme-tag-label {
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.passage-theme-tag-label:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .passage-theme-tag--removable:hover {
@@ -781,12 +803,17 @@
 }
 
 .passage-theme-tag-x {
+  padding: 0;
   font-size: 0.85rem;
   line-height: 1;
+  color: inherit;
   opacity: 0.7;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.passage-theme-tag--removable:hover .passage-theme-tag-x {
+.passage-theme-tag-x:hover {
   opacity: 1;
 }
 

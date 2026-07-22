@@ -37,6 +37,7 @@ export function PassageCard({
               aria-label={`Pray with ${passage.reference}`}
             >
               <span className="passage-pray-icon" aria-hidden />
+              <span className="passage-pray-label">pray</span>
             </button>
           ) : null}
           <FavoriteButton

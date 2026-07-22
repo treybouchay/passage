@@ -46,6 +46,7 @@ export function PrayerSection({
   const [themesOpen, setThemesOpen] = useState(false)
   const [cardPrayer, setCardPrayer] = useState<SavedPrayer | null>(null)
   const [previewPrayer, setPreviewPrayer] = useState<SavedPrayer | null>(null)
+  const [previewLinkedPassage, setPreviewLinkedPassage] = useState(false)
   const [savedCardIds, setSavedCardIds] = useState<string[]>(() => loadSavedPrayerCardIds())
   const [libraryTab, setLibraryTab] = useState<LibraryTab>('prayers')
 
@@ -148,17 +149,24 @@ export function PrayerSection({
       <form className="prayer-form" onSubmit={handleSave}>
         {linkedPassage ? (
           <div className="prayer-passage-link" role="group" aria-label="Linked passage">
-            <button
-              type="button"
-              className="passage-theme-tag passage-theme-tag--removable"
-              onClick={() => setLinkedPassage(null)}
-              aria-label={`Remove ${linkedPassage.reference}`}
-            >
-              <span>{linkedPassage.reference}</span>
-              <span className="passage-theme-tag-x" aria-hidden>
+            <span className="passage-theme-tag passage-theme-tag--removable">
+              <button
+                type="button"
+                className="passage-theme-tag-label"
+                onClick={() => setPreviewLinkedPassage(true)}
+                aria-label={`Preview ${linkedPassage.reference}`}
+              >
+                {linkedPassage.reference}
+              </button>
+              <button
+                type="button"
+                className="passage-theme-tag-x"
+                onClick={() => setLinkedPassage(null)}
+                aria-label={`Remove ${linkedPassage.reference}`}
+              >
                 ×
-              </span>
-            </button>
+              </button>
+            </span>
           </div>
         ) : null}
         <label htmlFor="prayer-draft" className="sr-only">
@@ -396,6 +404,14 @@ export function PrayerSection({
           passageId={previewPrayer.passageId}
           passageReference={previewPrayer.passageReference}
           onClose={() => setPreviewPrayer(null)}
+        />
+      ) : null}
+
+      {previewLinkedPassage && linkedPassage ? (
+        <PassagePreviewModal
+          passageId={linkedPassage.id}
+          passageReference={linkedPassage.reference}
+          onClose={() => setPreviewLinkedPassage(false)}
         />
       ) : null}
     </section>
