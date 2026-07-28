@@ -1,10 +1,12 @@
 import type { MatchedSong } from '../lib/matchSongs'
+import { SongLink } from './SongLink'
 
 interface SongRecommendationsProps {
   songs: MatchedSong[]
+  onSeeMore?: () => void
 }
 
-export function SongRecommendations({ songs }: SongRecommendationsProps) {
+export function SongRecommendations({ songs, onSeeMore }: SongRecommendationsProps) {
   if (songs.length === 0) return null
 
   return (
@@ -17,33 +19,15 @@ export function SongRecommendations({ songs }: SongRecommendationsProps) {
       <ul className="song-recs-list">
         {songs.map((song) => (
           <li key={song.id}>
-            <a
-              className="song-rec"
-              href={song.spotifyUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {song.albumArtUrl ? (
-                <img
-                  className="song-rec-art"
-                  src={song.albumArtUrl}
-                  alt=""
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <span className="song-rec-art song-rec-art-placeholder" aria-hidden />
-              )}
-              <span className="song-rec-meta">
-                <span className="song-rec-title">{song.title}</span>
-                <span className="song-rec-artists">{song.artists}</span>
-              </span>
-            </a>
+            <SongLink song={song} />
           </li>
         ))}
       </ul>
+      {onSeeMore ? (
+        <button type="button" className="song-recs-more" onClick={onSeeMore}>
+          see more
+        </button>
+      ) : null}
     </aside>
   )
 }

@@ -3,8 +3,16 @@
     "id": "god-danileigh",
     "title": "G.O.D.",
     "artists": "DaniLeigh",
-    "themes": ["worship", "god"],
-    "keywords": ["god", "worship", "praise", "divine"],
+    "genre": "R&B",
+    "themes": [
+      "presence"
+    ],
+    "keywords": [
+      "god",
+      "worship",
+      "praise",
+      "divine"
+    ],
     "spotifyTrackId": "2VUaCpFcrgpjMZiWvDncE7",
     "spotifyUrl": "https://open.spotify.com/track/2VUaCpFcrgpjMZiWvDncE7",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02d0d22ce406c1cc988e293a1e"
@@ -13,8 +21,17 @@
     "id": "all-of-me-asia-grace",
     "title": "All of Me",
     "artists": "Asia Grace",
-    "themes": ["surrender", "love"],
-    "keywords": ["surrender", "all of me", "give", "devote", "love"],
+    "genre": "R&B",
+    "themes": [
+      "love"
+    ],
+    "keywords": [
+      "surrender",
+      "all of me",
+      "give",
+      "devote",
+      "love"
+    ],
     "spotifyTrackId": "5GJnm9ukSlHk3jsSPTBU45",
     "spotifyUrl": "https://open.spotify.com/track/5GJnm9ukSlHk3jsSPTBU45",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02671b1e3b8722f04e3c429026"
@@ -23,8 +40,16 @@
     "id": "usher-in-the-spirit",
     "title": "usher in the spirit",
     "artists": "Aaron Cole, Tenroc",
-    "themes": ["presence", "holy spirit"],
-    "keywords": ["spirit", "holy spirit", "presence", "usher"],
+    "genre": "Rap",
+    "themes": [
+      "presence"
+    ],
+    "keywords": [
+      "spirit",
+      "holy spirit",
+      "presence",
+      "usher"
+    ],
     "spotifyTrackId": "7mbRGvaiD1NCDAIDqErCBT",
     "spotifyUrl": "https://open.spotify.com/track/7mbRGvaiD1NCDAIDqErCBT",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e026d7e16a409782f9c853f5630"
@@ -33,8 +58,18 @@
     "id": "forever-changed",
     "title": "Forever Changed",
     "artists": "DEON, Eris Ford",
-    "themes": ["grace", "transformation"],
-    "keywords": ["changed", "transformation", "new", "grace", "redeemed"],
+    "genre": "R&B",
+    "themes": [
+      "grace",
+      "salvation"
+    ],
+    "keywords": [
+      "changed",
+      "transformation",
+      "new",
+      "grace",
+      "redeemed"
+    ],
     "spotifyTrackId": "2i4yRtF6lzVpmnbVFY3vxR",
     "spotifyUrl": "https://open.spotify.com/track/2i4yRtF6lzVpmnbVFY3vxR",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e024e7be7ef006936199fc326e3"
@@ -43,8 +78,17 @@
     "id": "let-it-finish-me",
     "title": "Let it Finish Me",
     "artists": "Kai Malachi",
-    "themes": ["surrender", "process"],
-    "keywords": ["surrender", "finish", "process", "work in me", "refine"],
+    "genre": "R&B",
+    "themes": [
+      "trust"
+    ],
+    "keywords": [
+      "surrender",
+      "finish",
+      "process",
+      "work in me",
+      "refine"
+    ],
     "spotifyTrackId": "0ZYA7HMSxpD2APkB6vJJLZ",
     "spotifyUrl": "https://open.spotify.com/track/0ZYA7HMSxpD2APkB6vJJLZ",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e028629f264ed029769cd344f49"
@@ -53,8 +97,18 @@
     "id": "son-of-god",
     "title": "Son of God",
     "artists": "Kai Malachi",
-    "themes": ["jesus", "identity"],
-    "keywords": ["jesus", "son of god", "christ", "identity", "savior"],
+    "genre": "R&B",
+    "themes": [
+      "salvation",
+      "belonging"
+    ],
+    "keywords": [
+      "jesus",
+      "son of god",
+      "christ",
+      "identity",
+      "savior"
+    ],
     "spotifyTrackId": "7M3huOli8F5pDlwy58SXOy",
     "spotifyUrl": "https://open.spotify.com/track/7M3huOli8F5pDlwy58SXOy",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e025eb439b25ca08fd0d1ed5170"
@@ -63,8 +117,19 @@
     "id": "eagles-wings",
     "title": "Eagles Wings (Deluxe)",
     "artists": "Kai Malachi",
-    "themes": ["strength", "hope"],
-    "keywords": ["strength", "hope", "soar", "eagle", "renew", "wait"],
+    "genre": "R&B",
+    "themes": [
+      "strength",
+      "hope"
+    ],
+    "keywords": [
+      "strength",
+      "hope",
+      "soar",
+      "eagle",
+      "renew",
+      "wait"
+    ],
     "spotifyTrackId": "4878Tg0731ZX6YBIabsplG",
     "spotifyUrl": "https://open.spotify.com/track/4878Tg0731ZX6YBIabsplG",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0278397e5172f33bc81dfc66b0"
@@ -73,8 +138,17 @@
     "id": "courts-of-heaven",
     "title": "Courts of Heaven",
     "artists": "Kai Malachi",
-    "themes": ["prayer", "presence"],
-    "keywords": ["prayer", "heaven", "presence", "worship", "courts"],
+    "genre": "Worship",
+    "themes": [
+      "presence"
+    ],
+    "keywords": [
+      "prayer",
+      "heaven",
+      "presence",
+      "worship",
+      "courts"
+    ],
     "spotifyTrackId": "5GO4hSXbDs8JKWmcnBsiQE",
     "spotifyUrl": "https://open.spotify.com/track/5GO4hSXbDs8JKWmcnBsiQE",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e024f9ed97446b4a5f9b37a33aa"
@@ -83,8 +157,19 @@
     "id": "save-my-soul",
     "title": "Save My Soul",
     "artists": "Noah Rinker",
-    "themes": ["salvation", "grace"],
-    "keywords": ["save", "soul", "salvation", "grace", "rescue", "lost"],
+    "genre": "Country",
+    "themes": [
+      "salvation",
+      "grace"
+    ],
+    "keywords": [
+      "save",
+      "soul",
+      "salvation",
+      "grace",
+      "rescue",
+      "lost"
+    ],
     "spotifyTrackId": "7h7dOssdchfLK9GQ2NQBOT",
     "spotifyUrl": "https://open.spotify.com/track/7h7dOssdchfLK9GQ2NQBOT",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02efb0ba19cab95a3c63b9b702"
@@ -93,8 +178,17 @@
     "id": "revolution-claudia",
     "title": "revolution - demo",
     "artists": "Claudia Isaki",
-    "themes": ["purpose", "change"],
-    "keywords": ["purpose", "revolution", "change", "direction", "new"],
+    "genre": "Indie",
+    "themes": [
+      "purpose"
+    ],
+    "keywords": [
+      "purpose",
+      "revolution",
+      "change",
+      "direction",
+      "new"
+    ],
     "spotifyTrackId": "2MtkWX6NmSdPWrNwOCSqTK",
     "spotifyUrl": "https://open.spotify.com/track/2MtkWX6NmSdPWrNwOCSqTK",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e366b7fee7a04460358559c9"
@@ -103,8 +197,18 @@
     "id": "heavens-song",
     "title": "Heaven's Song",
     "artists": "Kelsey Breedlove",
-    "themes": ["worship", "heaven"],
-    "keywords": ["heaven", "worship", "song", "praise", "glory"],
+    "genre": "Worship",
+    "themes": [
+      "joy",
+      "presence"
+    ],
+    "keywords": [
+      "heaven",
+      "worship",
+      "song",
+      "praise",
+      "glory"
+    ],
     "spotifyTrackId": "7jKk4tAXlisGlW1PLYqEIv",
     "spotifyUrl": "https://open.spotify.com/track/7jKk4tAXlisGlW1PLYqEIv",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f9830df58a9192ef12a1b49c"
@@ -113,8 +217,18 @@
     "id": "my-home-claudia",
     "title": "My Home",
     "artists": "Claudia Isaki",
-    "themes": ["belonging", "home"],
-    "keywords": ["home", "belong", "belonging", "rest", "safe"],
+    "genre": "Indie",
+    "themes": [
+      "belonging",
+      "peace"
+    ],
+    "keywords": [
+      "home",
+      "belong",
+      "belonging",
+      "rest",
+      "safe"
+    ],
     "spotifyTrackId": "2M5lsQ3rpbXF8gK8EpK7BM",
     "spotifyUrl": "https://open.spotify.com/track/2M5lsQ3rpbXF8gK8EpK7BM",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e027ec7dedeb561d2a15379bb10"
@@ -123,8 +237,17 @@
     "id": "fire-in-your-eyes",
     "title": "Fire In Your Eyes",
     "artists": "Dâmares Gomes",
-    "themes": ["love", "passion"],
-    "keywords": ["love", "fire", "passion", "eyes", "desire"],
+    "genre": "R&B",
+    "themes": [
+      "love"
+    ],
+    "keywords": [
+      "love",
+      "fire",
+      "passion",
+      "eyes",
+      "desire"
+    ],
     "spotifyTrackId": "78CWkkobTOEBh9JRAwn2lF",
     "spotifyUrl": "https://open.spotify.com/track/78CWkkobTOEBh9JRAwn2lF",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02ea31c8b18e7951d4a9cb0b8f"
@@ -133,8 +256,19 @@
     "id": "splendor-of-life",
     "title": "Splendor of Life",
     "artists": "Sarah Juers, Antoine Bradford",
-    "themes": ["joy", "life"],
-    "keywords": ["joy", "life", "splendor", "alive", "grateful", "happy"],
+    "genre": "Indie",
+    "themes": [
+      "joy",
+      "gratitude"
+    ],
+    "keywords": [
+      "joy",
+      "life",
+      "splendor",
+      "alive",
+      "grateful",
+      "happy"
+    ],
     "spotifyTrackId": "4gblOfNBrtRy5i85e62nbz",
     "spotifyUrl": "https://open.spotify.com/track/4gblOfNBrtRy5i85e62nbz",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0266f64cd2a3a694c199fce37e"
@@ -143,8 +277,21 @@
     "id": "breathe-in-slow",
     "title": "Breathe In Slow",
     "artists": "Rothbury, Kate Gurren, Grace Coleman, Tiff Willmott",
-    "themes": ["anxiety", "peace"],
-    "keywords": ["anxious", "anxiety", "breathe", "peace", "slow", "calm", "worry", "rest"],
+    "genre": "Ambient",
+    "themes": [
+      "anxiety",
+      "peace"
+    ],
+    "keywords": [
+      "anxious",
+      "anxiety",
+      "breathe",
+      "peace",
+      "slow",
+      "calm",
+      "worry",
+      "rest"
+    ],
     "spotifyTrackId": "5NH4newWj93QYYqfl8QFMq",
     "spotifyUrl": "https://open.spotify.com/track/5NH4newWj93QYYqfl8QFMq",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02a487104c62384e4200ab8ef7"
@@ -153,8 +300,17 @@
     "id": "carioca-beach",
     "title": "Carioca Beach",
     "artists": "Claudia Isaki",
-    "themes": ["peace", "rest"],
-    "keywords": ["peace", "rest", "calm", "beach", "quiet"],
+    "genre": "Ambient",
+    "themes": [
+      "peace"
+    ],
+    "keywords": [
+      "peace",
+      "rest",
+      "calm",
+      "beach",
+      "quiet"
+    ],
     "spotifyTrackId": "0YwioEeWzeSesTx6Izszdl",
     "spotifyUrl": "https://open.spotify.com/track/0YwioEeWzeSesTx6Izszdl",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f32e57bacecfab9564c40c0d"
@@ -163,8 +319,19 @@
     "id": "another-in-the-fire",
     "title": "Another In the Fire",
     "artists": "sxxnt., Sara Damon, Brother Joe",
-    "themes": ["trials", "suffering"],
-    "keywords": ["fire", "trial", "trials", "suffering", "with me", "not alone", "hard time"],
+    "genre": "Worship",
+    "themes": [
+      "suffering"
+    ],
+    "keywords": [
+      "fire",
+      "trial",
+      "trials",
+      "suffering",
+      "with me",
+      "not alone",
+      "hard time"
+    ],
     "spotifyTrackId": "4FFfvln3hGIqnenEQPn9Kk",
     "spotifyUrl": "https://open.spotify.com/track/4FFfvln3hGIqnenEQPn9Kk",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0257999dccc85c2d08158b8f48"
@@ -173,8 +340,18 @@
     "id": "gotta-have-faith",
     "title": "Gotta Have Faith",
     "artists": "Emma Nissen",
-    "themes": ["faith", "trust"],
-    "keywords": ["faith", "trust", "believe", "gotta have faith", "uncertain"],
+    "genre": "Country",
+    "themes": [
+      "faith",
+      "trust"
+    ],
+    "keywords": [
+      "faith",
+      "trust",
+      "believe",
+      "gotta have faith",
+      "uncertain"
+    ],
     "spotifyTrackId": "6ALqSPhIPg3EUfUlH4NUux",
     "spotifyUrl": "https://open.spotify.com/track/6ALqSPhIPg3EUfUlH4NUux",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0255642674725fa7a465a688ca"
@@ -183,8 +360,18 @@
     "id": "jesus-youre-beautiful",
     "title": "Jesus, You're Beautiful",
     "artists": "Ben Potter, sxxnt., Freddie Fardon, Hanna Sheets",
-    "themes": ["worship", "jesus"],
-    "keywords": ["jesus", "beautiful", "worship", "adore", "praise"],
+    "genre": "Worship",
+    "themes": [
+      "love",
+      "presence"
+    ],
+    "keywords": [
+      "jesus",
+      "beautiful",
+      "worship",
+      "adore",
+      "praise"
+    ],
     "spotifyTrackId": "1bxnsjOYoyMukiG9bqJYae",
     "spotifyUrl": "https://open.spotify.com/track/1bxnsjOYoyMukiG9bqJYae",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02c4a5fb3af057304dca68104b"
@@ -193,8 +380,19 @@
     "id": "gratitude-sxxnt",
     "title": "Gratitude",
     "artists": "sxxnt., Sara Damon",
-    "themes": ["gratitude", "thanksgiving"],
-    "keywords": ["grateful", "gratitude", "thankful", "thanks", "praise", "happy"],
+    "genre": "Worship",
+    "themes": [
+      "gratitude",
+      "joy"
+    ],
+    "keywords": [
+      "grateful",
+      "gratitude",
+      "thankful",
+      "thanks",
+      "praise",
+      "happy"
+    ],
     "spotifyTrackId": "1IXBIXdb8uDYA9sqBysVp3",
     "spotifyUrl": "https://open.spotify.com/track/1IXBIXdb8uDYA9sqBysVp3",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02cfd8f604bef41228d86dd2ed"
@@ -203,8 +401,17 @@
     "id": "lalalove",
     "title": "Lalalove",
     "artists": "Claudia Isaki",
-    "themes": ["love", "joy"],
-    "keywords": ["love", "joy", "happy", "heart"],
+    "genre": "Indie",
+    "themes": [
+      "love",
+      "joy"
+    ],
+    "keywords": [
+      "love",
+      "joy",
+      "happy",
+      "heart"
+    ],
     "spotifyTrackId": "58iVUvFoRVy5BIOsXfrVxa",
     "spotifyUrl": "https://open.spotify.com/track/58iVUvFoRVy5BIOsXfrVxa",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0212213af2911eb5b8ec3a8008"
@@ -213,8 +420,19 @@
     "id": "i-wont-let-go",
     "title": "I Won't Let Go",
     "artists": "Claudia Isaki",
-    "themes": ["faithfulness", "hope"],
-    "keywords": ["hold on", "wont let go", "faithful", "hope", "cling", "fear"],
+    "genre": "Indie",
+    "themes": [
+      "hope",
+      "faith"
+    ],
+    "keywords": [
+      "hold on",
+      "wont let go",
+      "faithful",
+      "hope",
+      "cling",
+      "fear"
+    ],
     "spotifyTrackId": "55i0eTxgAdbWQcnsOoi4H8",
     "spotifyUrl": "https://open.spotify.com/track/55i0eTxgAdbWQcnsOoi4H8",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e027ec7dedeb561d2a15379bb10"
@@ -223,8 +441,19 @@
     "id": "help-me-to-see-you",
     "title": "Help Me to See You",
     "artists": "G.E.S",
-    "themes": ["guidance", "presence"],
-    "keywords": ["see you", "guidance", "presence", "help me", "lost", "clarity"],
+    "genre": "R&B",
+    "themes": [
+      "guidance",
+      "presence"
+    ],
+    "keywords": [
+      "see you",
+      "guidance",
+      "presence",
+      "help me",
+      "lost",
+      "clarity"
+    ],
     "spotifyTrackId": "5aLreMNLIm9k2nQaYy2Rkk",
     "spotifyUrl": "https://open.spotify.com/track/5aLreMNLIm9k2nQaYy2Rkk",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e028f270334ca5b80cf85642e53"
@@ -233,8 +462,18 @@
     "id": "promise-mykel",
     "title": "Promise.",
     "artists": "Mykel., Myka Young, My Friends",
-    "themes": ["hope", "faithfulness"],
-    "keywords": ["promise", "hope", "faithful", "waiting", "trust"],
+    "genre": "R&B",
+    "themes": [
+      "hope",
+      "faith"
+    ],
+    "keywords": [
+      "promise",
+      "hope",
+      "faithful",
+      "waiting",
+      "trust"
+    ],
     "spotifyTrackId": "03zm2qFnQ5eKV940TcykyH",
     "spotifyUrl": "https://open.spotify.com/track/03zm2qFnQ5eKV940TcykyH",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b41223509a052723a50ee11b"
@@ -243,8 +482,18 @@
     "id": "where-you-go",
     "title": "Where You Go",
     "artists": "YAGIRLLAYC, SHAR",
-    "themes": ["commitment", "follow"],
-    "keywords": ["follow", "where you go", "commitment", "devote", "path"],
+    "genre": "Rap",
+    "themes": [
+      "faith",
+      "trust"
+    ],
+    "keywords": [
+      "follow",
+      "where you go",
+      "commitment",
+      "devote",
+      "path"
+    ],
     "spotifyTrackId": "6Vytvh9DHcr4S5H1qzgGcZ",
     "spotifyUrl": "https://open.spotify.com/track/6Vytvh9DHcr4S5H1qzgGcZ",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e05bba87beab7a5636273790"
@@ -253,8 +502,20 @@
     "id": "oceans-in-my-mind",
     "title": "oceans in my mind",
     "artists": "Who.Is.Ashé",
-    "themes": ["overwhelm", "peace"],
-    "keywords": ["overwhelm", "overwhelmed", "ocean", "mind", "anxious", "peace", "deep"],
+    "genre": "Ambient",
+    "themes": [
+      "anxiety",
+      "peace"
+    ],
+    "keywords": [
+      "overwhelm",
+      "overwhelmed",
+      "ocean",
+      "mind",
+      "anxious",
+      "peace",
+      "deep"
+    ],
     "spotifyTrackId": "5PBgixtnF2hIrTDYl0JUt9",
     "spotifyUrl": "https://open.spotify.com/track/5PBgixtnF2hIrTDYl0JUt9",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b86de6b85315451ea50f8058"
@@ -263,8 +524,19 @@
     "id": "morning-song-give-me-jesus",
     "title": "Morning Song (Give Me Jesus)",
     "artists": "Antoine Bradford",
-    "themes": ["jesus", "devotion"],
-    "keywords": ["jesus", "morning", "give me jesus", "devotion", "worship", "mercy"],
+    "genre": "Worship",
+    "themes": [
+      "presence",
+      "love"
+    ],
+    "keywords": [
+      "jesus",
+      "morning",
+      "give me jesus",
+      "devotion",
+      "worship",
+      "mercy"
+    ],
     "spotifyTrackId": "16QPDgB3IOWhBHCpwmdehK",
     "spotifyUrl": "https://open.spotify.com/track/16QPDgB3IOWhBHCpwmdehK",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02561dbfeaf64774bd47bddda1"
@@ -273,8 +545,18 @@
     "id": "bedside-table",
     "title": "Bedside Table",
     "artists": "Claudia Isaki",
-    "themes": ["rest", "peace"],
-    "keywords": ["rest", "peace", "night", "quiet", "bedside", "still"],
+    "genre": "Indie",
+    "themes": [
+      "peace"
+    ],
+    "keywords": [
+      "rest",
+      "peace",
+      "night",
+      "quiet",
+      "bedside",
+      "still"
+    ],
     "spotifyTrackId": "4tP29y2nwWTdGvo0QR7gpF",
     "spotifyUrl": "https://open.spotify.com/track/4tP29y2nwWTdGvo0QR7gpF",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0212213af2911eb5b8ec3a8008"
@@ -283,7 +565,11 @@
     "id": "do-you-love-me-still",
     "title": "Do You Love Me Still?",
     "artists": "PKYB",
-    "themes": ["love", "doubt", "faithfulness"],
+    "genre": "R&B",
+    "themes": [
+      "love",
+      "faith"
+    ],
     "keywords": [
       "love",
       "still",
@@ -297,5 +583,156 @@
     "spotifyTrackId": "7ro9ypZAHNcbWd2N7Oxpbk",
     "spotifyUrl": "https://open.spotify.com/track/7ro9ypZAHNcbWd2N7Oxpbk",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02856cc3d502de7258ef1ca787"
+  },
+  {
+    "id": "no-striving",
+    "title": "NO STRIVING",
+    "artists": "lena jade",
+    "genre": "Indie",
+    "themes": [
+      "peace",
+      "trust"
+    ],
+    "keywords": [
+      "striving",
+      "rest",
+      "peace",
+      "surrender",
+      "trust",
+      "still",
+      "cease"
+    ],
+    "spotifyTrackId": "2lFAo8LsBkaV31A76hTtZW",
+    "spotifyUrl": "https://open.spotify.com/track/2lFAo8LsBkaV31A76hTtZW",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0228412c6669a0075b51985a24"
+  },
+  {
+    "id": "start-over-claudia",
+    "title": "Start Over",
+    "artists": "Claudia Isaki",
+    "genre": "Indie",
+    "themes": [
+      "grace",
+      "hope"
+    ],
+    "keywords": [
+      "start over",
+      "new beginning",
+      "grace",
+      "hope",
+      "fresh",
+      "renew",
+      "again"
+    ],
+    "spotifyTrackId": "3vCMSIhqU32mFBvTsd0giz",
+    "spotifyUrl": "https://open.spotify.com/track/3vCMSIhqU32mFBvTsd0giz",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f32e57bacecfab9564c40c0d"
+  },
+  {
+    "id": "dear-jesus",
+    "title": "Dear Jesus",
+    "artists": "We The Kingdom",
+    "genre": "Worship",
+    "themes": [
+      "presence",
+      "love"
+    ],
+    "keywords": [
+      "jesus",
+      "dear jesus",
+      "prayer",
+      "worship",
+      "presence",
+      "intimacy"
+    ],
+    "spotifyTrackId": "669PG7je3XBT9PP7POGGiW",
+    "spotifyUrl": "https://open.spotify.com/track/669PG7je3XBT9PP7POGGiW",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0201c92c55a66b5ec975826415"
+  },
+  {
+    "id": "dusty-bibles",
+    "title": "Dusty Bibles",
+    "artists": "Josiah Queen, Avery Anna",
+    "genre": "Country",
+    "themes": [
+      "faith",
+      "guidance"
+    ],
+    "keywords": [
+      "bible",
+      "scripture",
+      "faith",
+      "dusty",
+      "word",
+      "guidance",
+      "return"
+    ],
+    "spotifyTrackId": "4Ax4D1H5St8eDVkFgiKKZ9",
+    "spotifyUrl": "https://open.spotify.com/track/4Ax4D1H5St8eDVkFgiKKZ9",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e7902c2bd26bbba4c183fbb8"
+  },
+  {
+    "id": "god-story",
+    "title": "God Story",
+    "artists": "Anne Wilson",
+    "genre": "Country",
+    "themes": [
+      "purpose",
+      "faith"
+    ],
+    "keywords": [
+      "story",
+      "god story",
+      "purpose",
+      "testimony",
+      "faith",
+      "life"
+    ],
+    "spotifyTrackId": "4PymotViKd6S2o4uShdnUw",
+    "spotifyUrl": "https://open.spotify.com/track/4PymotViKd6S2o4uShdnUw",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e8eb948abfffa93dd16fe17b"
+  },
+  {
+    "id": "heal-our-land",
+    "title": "Heal Our Land",
+    "artists": "Sarah Nathalié",
+    "genre": "Worship",
+    "themes": [
+      "hope",
+      "suffering"
+    ],
+    "keywords": [
+      "heal",
+      "land",
+      "restoration",
+      "hope",
+      "healing",
+      "pray",
+      "nation"
+    ],
+    "spotifyTrackId": "2KAx4sWkuiCNMSkqTEtiKs",
+    "spotifyUrl": "https://open.spotify.com/track/2KAx4sWkuiCNMSkqTEtiKs",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b3629a19c4df202b40984b94"
+  },
+  {
+    "id": "napoli",
+    "title": "Napoli",
+    "artists": "Sarah Juers",
+    "genre": "Indie",
+    "themes": [
+      "peace",
+      "presence"
+    ],
+    "keywords": [
+      "napoli",
+      "peace",
+      "presence",
+      "rest",
+      "beauty",
+      "quiet"
+    ],
+    "spotifyTrackId": "70NhVppdtoUSdYMAfvVQUX",
+    "spotifyUrl": "https://open.spotify.com/track/70NhVppdtoUSdYMAfvVQUX",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02667b18b48d9048f1b87c0e26"
   }
 ]

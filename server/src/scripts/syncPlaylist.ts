@@ -9,8 +9,8 @@
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
- * - Existing themes/keywords are preserved by spotifyTrackId (then title)
- * - New tracks get title-derived default keywords and empty themes
+ * - Existing themes/keywords/genre are preserved by spotifyTrackId (then title)
+ * - New tracks get title-derived default keywords, empty themes, and Indie genre
  */
 
 import { config as loadEnv } from 'dotenv'
@@ -32,6 +32,7 @@ interface PlaylistSong {
   id: string
   title: string
   artists: string
+  genre: string
   themes: string[]
   keywords: string[]
   spotifyUrl: string
@@ -219,6 +220,7 @@ function mergeSongs(
         id,
         title: track.name,
         artists,
+        genre: prev.genre || 'Indie',
         themes: prev.themes,
         keywords: prev.keywords.length ? prev.keywords : defaultKeywords(track.name),
         spotifyTrackId: track.id,
@@ -232,7 +234,8 @@ function mergeSongs(
       id,
       title: track.name,
       artists,
-      // New tracks: empty themes — curate later in playlistSongs.json
+      // New tracks: empty themes / default genre — curate later in playlistSongs.json
+      genre: 'Indie',
       themes: [],
       keywords: defaultKeywords(track.name),
       spotifyTrackId: track.id,
@@ -260,11 +263,11 @@ async function main() {
   await writeFile(OUT_PATH, `${JSON.stringify(songs, null, 2)}\n`, 'utf8')
 
   console.info(`Wrote ${songs.length} songs → src/data/playlistSongs.json`)
-  console.info(`Updated metadata for ${updated} known track(s) (themes/keywords preserved)`)
+  console.info(`Updated metadata for ${updated} known track(s) (themes/keywords/genre preserved)`)
   if (added.length) {
-    console.info(`Added ${added.length} new track(s) with default keywords / empty themes:`)
+    console.info(`Added ${added.length} new track(s) with default keywords / empty themes / Indie genre:`)
     for (const title of added) console.info(`  + ${title}`)
-    console.info('Curate themes/keywords for new tracks in playlistSongs.json as needed.')
+    console.info('Curate themes/keywords/genre for new tracks in playlistSongs.json as needed.')
   } else {
     console.info('No new tracks.')
   }

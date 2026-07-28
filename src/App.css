@@ -471,23 +471,59 @@
 .song-recs-list {
   list-style: none;
   margin: 0;
-  padding: 0 0 0 0.85rem;
-  border-left: 2px solid var(--accent);
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.song-recs-more {
+  margin-top: 1.25rem;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.song-recs-more:hover {
+  color: var(--accent);
 }
 
 .song-rec {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
   text-decoration: none;
   color: inherit;
 }
 
-.song-rec:hover .song-rec-title {
+.song-rec-trigger {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.song-rec-trigger:hover .song-rec-title {
   color: var(--accent);
+}
+
+.song-rec-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .song-rec-art {
@@ -684,19 +720,10 @@
 }
 
 .passage-pray-icon {
-  display: inline-block;
+  display: block;
   width: 18px;
-  height: 17px;
+  height: 18px;
   flex-shrink: 0;
-  background-color: currentColor;
-  mask-image: url('/icons/dove.png');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-image: url('/icons/dove.png');
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
 }
 
 .passage-reflection {
@@ -804,9 +831,34 @@
 }
 
 .prayer-section,
-.favorites-section {
+.favorites-section,
+.music-section {
   width: 100%;
   animation: fadeIn 0.4s ease;
+}
+
+.music-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.music-group-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem;
+}
+
+.music-song-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
 }
 
 .prayer-form {
@@ -968,6 +1020,154 @@
   font-size: 0.82rem;
   color: var(--text-muted);
   text-transform: lowercase;
+}
+
+.song-detail-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) 1rem
+    max(1rem, env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background: rgba(46, 64, 54, 0.28);
+  backdrop-filter: blur(2px);
+}
+
+.song-detail-panel {
+  width: min(100%, 20rem);
+  margin: auto;
+  flex-shrink: 0;
+  padding: 1.15rem 1.15rem 1.35rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  box-shadow: 0 18px 48px rgba(46, 64, 54, 0.12);
+}
+
+.song-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.song-detail-eyebrow {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+}
+
+.song-detail-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.song-detail-art {
+  width: 100%;
+  max-width: 14.5rem;
+  aspect-ratio: 1;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  background: var(--sage-light);
+  box-shadow: 0 1px 2px rgb(45 58 42 / 8%);
+}
+
+.song-detail-art-placeholder {
+  display: block;
+  width: 100%;
+  max-width: 14.5rem;
+  aspect-ratio: 1;
+  background: linear-gradient(145deg, var(--accent-soft) 0%, var(--sage-light) 100%);
+}
+
+.song-detail-title {
+  margin: 1.15rem 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.song-detail-artists {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.song-detail-tags {
+  list-style: none;
+  margin: 0.95rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.song-detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+}
+
+.song-detail-actions .prayer-secondary-btn,
+.song-detail-actions .song-detail-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.song-detail-actions .song-detail-play:hover:not(:disabled) {
+  background: var(--accent-deep);
+}
+
+.song-detail-actions .song-detail-play:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.song-detail-status {
+  margin: 0.75rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: lowercase;
+}
+
+@media (max-width: 380px) {
+  .song-detail-panel {
+    padding: 1rem 1rem 1.2rem;
+  }
+
+  .song-detail-art,
+  .song-detail-art-placeholder {
+    max-width: 100%;
+  }
+
+  .song-detail-title {
+    font-size: 1.15rem;
+  }
 }
 
 .prayer-input {

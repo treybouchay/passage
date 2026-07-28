@@ -1,6 +1,7 @@
 import { FavoriteButton } from './FavoriteButton'
 import { PassageWallpaperTrigger } from './PassageWallpaperModal'
 import { PassageText } from './PassageText'
+import { OliveBranchIcon } from '../icons/OliveBranchIcon'
 import { canGenerateWallpaper } from '../lib/formatVerseLines'
 import type { Passage } from '../data/passages'
 
@@ -55,7 +56,7 @@ export function PassageCard({
               className="prayer-text-btn passage-pray-link"
               onClick={() => onPray(passage)}
             >
-              <span className="passage-pray-icon" aria-hidden />
+              <OliveBranchIcon className="passage-pray-icon" />
               pray
             </button>
           ) : null}

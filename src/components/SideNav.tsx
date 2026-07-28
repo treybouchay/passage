@@ -1,7 +1,12 @@
 import type { ComponentType } from 'react'
-import { FavoritesNavIcon, PassagesNavIcon, PrayerNavIcon } from '../icons/NavIcons'
+import {
+  FavoritesNavIcon,
+  MusicNavIcon,
+  PassagesNavIcon,
+  PrayerNavIcon,
+} from '../icons/NavIcons'
 
-export type AppView = 'passages' | 'prayer' | 'favorites'
+export type AppView = 'passages' | 'prayer' | 'favorites' | 'music'
 
 interface SideNavProps {
   view: AppView
@@ -16,6 +21,7 @@ const ITEMS: {
   { id: 'passages', label: 'Passages', Icon: PassagesNavIcon },
   { id: 'prayer', label: 'Prayer', Icon: PrayerNavIcon },
   { id: 'favorites', label: 'Favorites', Icon: FavoritesNavIcon },
+  { id: 'music', label: 'Music', Icon: MusicNavIcon },
 ]
 
 export function SideNav({ view, onChange }: SideNavProps) {

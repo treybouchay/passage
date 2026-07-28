@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { SideNav, type AppView } from './components/SideNav'
 import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
+import { MusicSection } from './components/MusicSection'
 import { PassageCard } from './components/PassageCard'
 import { PassageTranslationBar } from './components/PassageTranslationBar'
 import { PrayerSection } from './components/PrayerSection'
@@ -213,7 +214,10 @@ function App() {
                   </nav>
                 ) : null}
 
-                <SongRecommendations songs={songRecs} />
+                <SongRecommendations
+                  songs={songRecs}
+                  onSeeMore={() => handleViewChange('music')}
+                />
               </section>
             )
           ) : null}
@@ -236,6 +240,8 @@ function App() {
               onPray={handlePrayFromPassage}
             />
           ) : null}
+
+          {view === 'music' && unlocked ? <MusicSection /> : null}
         </main>
       </div>
     </div>

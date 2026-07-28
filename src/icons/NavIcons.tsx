@@ -108,3 +108,34 @@ export function FavoritesNavIcon({ className }: NavIconProps) {
     </svg>
   )
 }
+
+/** Headphones — used for music */
+export function MusicNavIcon({ className }: NavIconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M4.75 13.5V12a7.25 7.25 0 0 1 14.5 0v1.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4.75 13.75v3.5a1.75 1.75 0 0 0 1.75 1.75h.75a1.25 1.25 0 0 0 1.25-1.25v-3.5A1.25 1.25 0 0 0 7.25 13H6.5a1.75 1.75 0 0 0-1.75 1.75z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M19.25 13.75v3.5a1.75 1.75 0 0 1-1.75 1.75h-.75a1.25 1.25 0 0 1-1.25-1.25v-3.5A1.25 1.25 0 0 1 16.75 13h.75a1.75 1.75 0 0 1 1.75 1.75z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
