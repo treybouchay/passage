@@ -91,7 +91,7 @@ function relatedPassages(
     .map((p) => toMatched(p))
 }
 
-export const MATCH_RESULT_COUNT = 6
+export const MATCH_RESULT_COUNT = 9
 export const RESULTS_PER_PAGE = 3
 
 export function matchPassages(input: string, limit = MATCH_RESULT_COUNT): MatchedPassage[] {
