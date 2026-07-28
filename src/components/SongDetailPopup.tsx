@@ -46,18 +46,10 @@ function PlayIcon({ className }: { className?: string }) {
       fill="none"
       aria-hidden="true"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="8.25"
+      <path
+        d="M8.5 6.2v11.6L18.2 12 8.5 6.2z"
         stroke="currentColor"
         strokeWidth="1.6"
-      />
-      <path
-        d="M10.1 8.85v6.3l5.2-3.15-5.2-3.15z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="0.6"
         strokeLinejoin="round"
       />
     </svg>
@@ -151,38 +143,14 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
               {song.title}
             </h3>
             <p className="song-detail-artists">{song.artists}</p>
-            <div className="song-detail-actions" role="group" aria-label="Song actions">
-              <button
-                type="button"
-                className="song-detail-action"
-                onClick={handleShare}
-                disabled={!song.spotifyUrl || isSharing}
-                aria-label={isSharing ? 'Sharing…' : 'Share'}
-              >
-                <ShareIcon className="song-detail-icon" />
-              </button>
-              {song.spotifyUrl ? (
-                <a
-                  className="song-detail-action"
-                  href={song.spotifyUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Play"
-                >
-                  <PlayIcon className="song-detail-icon" />
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  className="song-detail-action"
-                  disabled
-                  aria-label="Play"
-                >
-                  <PlayIcon className="song-detail-icon" />
-                </button>
-              )}
+            <div className="song-detail-tags" aria-label="Genre and themes">
+              <span className="song-detail-genre-chip">{song.genre}</span>
+              {themes.map((theme) => (
+                <span key={theme} className="passage-theme-tag">
+                  {theme}
+                </span>
+              ))}
             </div>
-            {status ? <p className="song-detail-status">{status}</p> : null}
           </div>
         </div>
 
@@ -193,21 +161,53 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
             </h4>
             <p className="song-detail-blurb">{songBlurb}</p>
           </section>
-          <section className="song-detail-blurb-block" aria-labelledby="song-detail-artist-label">
-            <h4 id="song-detail-artist-label" className="song-detail-section-label">
+          <section
+            className="song-detail-blurb-block song-detail-blurb-block--artist"
+            aria-labelledby="song-detail-artist-label"
+          >
+            <h4
+              id="song-detail-artist-label"
+              className="song-detail-section-label song-detail-section-label--artist"
+            >
               about the artist
             </h4>
             <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
           </section>
         </div>
 
-        <div className="song-detail-tags" aria-label="Genre and themes">
-          <span className="song-detail-genre-chip">{song.genre}</span>
-          {themes.map((theme) => (
-            <span key={theme} className="passage-theme-tag">
-              {theme}
-            </span>
-          ))}
+        <div className="song-detail-footer">
+          <div className="song-detail-actions" role="group" aria-label="Song actions">
+            <button
+              type="button"
+              className="song-detail-action"
+              onClick={handleShare}
+              disabled={!song.spotifyUrl || isSharing}
+              aria-label={isSharing ? 'Sharing…' : 'Share'}
+            >
+              <ShareIcon className="song-detail-icon" />
+            </button>
+            {song.spotifyUrl ? (
+              <a
+                className="song-detail-action"
+                href={song.spotifyUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Play"
+              >
+                <PlayIcon className="song-detail-icon" />
+              </a>
+            ) : (
+              <button
+                type="button"
+                className="song-detail-action"
+                disabled
+                aria-label="Play"
+              >
+                <PlayIcon className="song-detail-icon" />
+              </button>
+            )}
+          </div>
+          {status ? <p className="song-detail-status">{status}</p> : null}
         </div>
       </div>
     </div>,
