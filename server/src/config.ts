@@ -16,6 +16,10 @@ export const config = {
   printfulApiKey: process.env.PRINTFUL_API_KEY ?? '',
   mockPayments: process.env.MOCK_PAYMENTS === 'true' || !process.env.STRIPE_SECRET_KEY,
   mockPrintful: process.env.MOCK_PRINTFUL === 'true' || !process.env.PRINTFUL_API_KEY,
+  spotifyClientId: process.env.SPOTIFY_CLIENT_ID ?? '',
+  spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? '',
+  spotifyPlaylistId:
+    process.env.SPOTIFY_PLAYLIST_ID ?? '3zweaDyE8UZiMdBAsPagxd',
 }
 
 /** Retail prices in USD cents (update to match your margin). */

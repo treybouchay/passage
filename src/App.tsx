@@ -5,11 +5,13 @@ import { Logo } from './components/Logo'
 import { PassageCard } from './components/PassageCard'
 import { PassageTranslationBar } from './components/PassageTranslationBar'
 import { PrayerSection } from './components/PrayerSection'
+import { SongRecommendations } from './components/SongRecommendations'
 import { TraceGesture } from './components/TraceGesture'
 import { pickHomeSuggestions, type Passage } from './data/passages'
 import { BibleTranslationProvider } from './lib/bibleTranslationContext'
 import { useOrderReturnNotice } from './lib/useOrderReturnNotice'
 import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matchPassages'
+import { matchSongs } from './lib/matchSongs'
 import {
   loadFavoriteIds,
   loadPrayers,
@@ -57,6 +59,10 @@ function App() {
   const pagedResults = results.slice(
     (resultsPage - 1) * RESULTS_PER_PAGE,
     resultsPage * RESULTS_PER_PAGE,
+  )
+  const songRecs = matchSongs(
+    input,
+    results.flatMap((passage) => passage.themes),
   )
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -206,6 +212,8 @@ function App() {
                     })}
                   </nav>
                 ) : null}
+
+                <SongRecommendations songs={songRecs} />
               </section>
             )
           ) : null}

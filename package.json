@@ -9,6 +9,7 @@
     "dev:server": "npm run dev --prefix server",
     "build": "tsc -b && vite build",
     "build:server": "npm run build --prefix server",
+    "sync:playlist": "npm run sync:playlist --prefix server",
     "lint": "eslint .",
     "preview": "vite preview"
   },
