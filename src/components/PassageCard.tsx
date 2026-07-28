@@ -24,28 +24,16 @@ export function PassageCard({
   onPray,
 }: PassageCardProps) {
   const showWallpaperAction = showWallpaper && canGenerateWallpaper(passage.text)
+  const showActions = Boolean(onPray) || showWallpaperAction
 
   return (
     <article className="passage-card">
       <div className="passage-card-header passage-card-header--end">
-        <div className="passage-card-icons">
-          {onPray ? (
-            <button
-              type="button"
-              className="passage-pray-btn"
-              onClick={() => onPray(passage)}
-              aria-label={`Pray with ${passage.reference}`}
-            >
-              <span className="passage-pray-icon" aria-hidden />
-              <span className="passage-pray-label">pray</span>
-            </button>
-          ) : null}
-          <FavoriteButton
-            active={favoriteActive}
-            onToggle={() => onToggleFavorite(passage.id)}
-            label={favoriteLabel}
-          />
-        </div>
+        <FavoriteButton
+          active={favoriteActive}
+          onToggle={() => onToggleFavorite(passage.id)}
+          label={favoriteLabel}
+        />
       </div>
       <PassageText passage={passage} />
       <p className="passage-reflection">{passage.reflection}</p>
@@ -59,9 +47,19 @@ export function PassageCard({
           ))}
         </ul>
       ) : null}
-      {showWallpaperAction ? (
+      {showActions ? (
         <div className="passage-card-actions">
-          <PassageWallpaperTrigger passage={passage} />
+          {onPray ? (
+            <button
+              type="button"
+              className="prayer-text-btn passage-pray-link"
+              onClick={() => onPray(passage)}
+            >
+              <span className="passage-pray-icon" aria-hidden />
+              pray
+            </button>
+          ) : null}
+          {showWallpaperAction ? <PassageWallpaperTrigger passage={passage} /> : null}
         </div>
       ) : null}
     </article>

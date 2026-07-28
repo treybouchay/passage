@@ -473,54 +473,6 @@
   justify-content: flex-end;
 }
 
-.passage-card-icons {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.passage-pray-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.45rem 0.25rem 0.35rem;
-  margin: -0.25rem 0 0;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  color: var(--sage-light);
-  background: none;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-
-.passage-pray-btn:hover {
-  color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.passage-pray-btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.passage-pray-label {
-  line-height: 1;
-}
-
-.passage-pray-icon {
-  display: block;
-  width: 9px;
-  height: 16px;
-  background-color: currentColor;
-  mask: url('/icons/logo-hands-figma.svg') center / contain no-repeat;
-  -webkit-mask: url('/icons/logo-hands-figma.svg') center / contain no-repeat;
-}
-
 .passage-card-header .passage-ref {
   margin-bottom: 0;
   flex: 1;
@@ -648,6 +600,28 @@
   align-items: center;
   gap: 1.5rem;
   margin-top: 1.1rem;
+}
+
+.passage-pray-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.passage-pray-icon {
+  display: inline-block;
+  width: 18px;
+  height: 17px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: url('/icons/dove.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url('/icons/dove.png');
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
 }
 
 .passage-reflection {
