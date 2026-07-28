@@ -70,6 +70,7 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
   const statusTimer = useRef<number | null>(null)
   const songBlurb = getSongBlurb(song)
   const artistBlurb = getSongArtistBlurb(song)
+  const themes = song.themes.filter(Boolean)
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -132,14 +133,14 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
           </button>
         </div>
 
-        <div className="song-detail-row">
+        <div className="song-detail-hero">
           {song.albumArtUrl ? (
             <img
               className="song-detail-art"
               src={song.albumArtUrl}
               alt=""
-              width={96}
-              height={96}
+              width={120}
+              height={120}
               decoding="async"
             />
           ) : (
@@ -150,47 +151,64 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
               {song.title}
             </h3>
             <p className="song-detail-artists">{song.artists}</p>
+            <div className="song-detail-actions" role="group" aria-label="Song actions">
+              <button
+                type="button"
+                className="song-detail-action"
+                onClick={handleShare}
+                disabled={!song.spotifyUrl || isSharing}
+                aria-label={isSharing ? 'Sharing…' : 'Share'}
+              >
+                <ShareIcon className="song-detail-icon" />
+              </button>
+              {song.spotifyUrl ? (
+                <a
+                  className="song-detail-action"
+                  href={song.spotifyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Play"
+                >
+                  <PlayIcon className="song-detail-icon" />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  className="song-detail-action"
+                  disabled
+                  aria-label="Play"
+                >
+                  <PlayIcon className="song-detail-icon" />
+                </button>
+              )}
+            </div>
+            {status ? <p className="song-detail-status">{status}</p> : null}
           </div>
         </div>
 
         <div className="song-detail-blurbs">
-          <p className="song-detail-blurb">{songBlurb}</p>
-          <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
+          <section className="song-detail-blurb-block" aria-labelledby="song-detail-song-label">
+            <h4 id="song-detail-song-label" className="song-detail-section-label">
+              about the song
+            </h4>
+            <p className="song-detail-blurb">{songBlurb}</p>
+          </section>
+          <section className="song-detail-blurb-block" aria-labelledby="song-detail-artist-label">
+            <h4 id="song-detail-artist-label" className="song-detail-section-label">
+              about the artist
+            </h4>
+            <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
+          </section>
         </div>
 
-        <div className="song-detail-actions">
-          <button
-            type="button"
-            className="song-detail-icon-btn"
-            onClick={handleShare}
-            disabled={!song.spotifyUrl || isSharing}
-            aria-label={isSharing ? 'Sharing' : 'Share song'}
-          >
-            <ShareIcon className="song-detail-icon" />
-          </button>
-          {song.spotifyUrl ? (
-            <a
-              className="song-detail-icon-btn"
-              href={song.spotifyUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Play on Spotify"
-            >
-              <PlayIcon className="song-detail-icon" />
-            </a>
-          ) : (
-            <button
-              type="button"
-              className="song-detail-icon-btn"
-              disabled
-              aria-label="Play on Spotify unavailable"
-            >
-              <PlayIcon className="song-detail-icon" />
-            </button>
-          )}
+        <div className="song-detail-tags" aria-label="Genre and themes">
+          <span className="song-detail-genre-chip">{song.genre}</span>
+          {themes.map((theme) => (
+            <span key={theme} className="passage-theme-tag">
+              {theme}
+            </span>
+          ))}
         </div>
-
-        {status ? <p className="song-detail-status">{status}</p> : null}
       </div>
     </div>,
     document.body,
