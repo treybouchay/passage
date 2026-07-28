@@ -11,7 +11,7 @@ export function SongRecommendations({ songs }: SongRecommendationsProps) {
     <aside className="song-recs" aria-labelledby="song-recs-heading">
       <div className="song-recs-header">
         <h3 id="song-recs-heading" className="song-recs-title">
-          listen
+          suggested listens
         </h3>
       </div>
       <ul className="song-recs-list">
