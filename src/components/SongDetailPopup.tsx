@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import type { PlaylistSong } from '../data/songs'
+import {
+  getSongArtistBlurb,
+  getSongBlurb,
+  type PlaylistSong,
+} from '../data/songs'
 import { shareSong } from '../lib/shareSong'
 
 interface SongDetailPopupProps {
@@ -8,10 +12,64 @@ interface SongDetailPopupProps {
   onClose: () => void
 }
 
+function ShareIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M14.5 7.5 20 3.5v5M20 3.5l-8.5 7.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10.5 5.5H7.75A2.75 2.75 0 0 0 5 8.25v8.5A2.75 2.75 0 0 0 7.75 19.5h8.5A2.75 2.75 0 0 0 19 16.75V14"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function PlayIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8.25"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M10.1 8.85v6.3l5.2-3.15-5.2-3.15z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="0.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
   const [status, setStatus] = useState<string | null>(null)
   const [isSharing, setIsSharing] = useState(false)
   const statusTimer = useRef<number | null>(null)
+  const songBlurb = getSongBlurb(song)
+  const artistBlurb = getSongArtistBlurb(song)
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -54,8 +112,6 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
     }
   }
 
-  const tags = [song.genre, ...song.themes.slice(0, 2)].filter(Boolean)
-
   return createPortal(
     <div className="song-detail-modal" role="presentation" onClick={onClose}>
       <div
@@ -66,7 +122,6 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="song-detail-header">
-          <span className="song-detail-eyebrow">song</span>
           <button
             type="button"
             className="wallpaper-modal-close"
@@ -77,59 +132,62 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
           </button>
         </div>
 
-        <div className="song-detail-body">
+        <div className="song-detail-row">
           {song.albumArtUrl ? (
             <img
               className="song-detail-art"
               src={song.albumArtUrl}
               alt=""
-              width={280}
-              height={280}
+              width={96}
+              height={96}
               decoding="async"
             />
           ) : (
             <span className="song-detail-art song-detail-art-placeholder" aria-hidden />
           )}
+          <div className="song-detail-meta">
+            <h3 id="song-detail-title" className="song-detail-title">
+              {song.title}
+            </h3>
+            <p className="song-detail-artists">{song.artists}</p>
+          </div>
+        </div>
 
-          <h3 id="song-detail-title" className="song-detail-title">
-            {song.title}
-          </h3>
-          <p className="song-detail-artists">{song.artists}</p>
-
-          {tags.length > 0 ? (
-            <ul className="song-detail-tags" aria-label="Genre and themes">
-              {tags.map((tag) => (
-                <li key={tag}>
-                  <span className="passage-theme-tag">{tag}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+        <div className="song-detail-blurbs">
+          <p className="song-detail-blurb">{songBlurb}</p>
+          <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
         </div>
 
         <div className="song-detail-actions">
+          <button
+            type="button"
+            className="song-detail-icon-btn"
+            onClick={handleShare}
+            disabled={!song.spotifyUrl || isSharing}
+            aria-label={isSharing ? 'Sharing' : 'Share song'}
+          >
+            <ShareIcon className="song-detail-icon" />
+          </button>
           {song.spotifyUrl ? (
             <a
-              className="prayer-save-btn song-detail-play"
+              className="song-detail-icon-btn"
               href={song.spotifyUrl}
               target="_blank"
               rel="noreferrer"
+              aria-label="Play on Spotify"
             >
-              play on Spotify
+              <PlayIcon className="song-detail-icon" />
             </a>
           ) : (
-            <button type="button" className="prayer-save-btn song-detail-play" disabled>
-              play on Spotify
+            <button
+              type="button"
+              className="song-detail-icon-btn"
+              disabled
+              aria-label="Play on Spotify unavailable"
+            >
+              <PlayIcon className="song-detail-icon" />
             </button>
           )}
-          <button
-            type="button"
-            className="prayer-secondary-btn"
-            onClick={handleShare}
-            disabled={!song.spotifyUrl || isSharing}
-          >
-            {isSharing ? 'sharing…' : 'share'}
-          </button>
         </div>
 
         {status ? <p className="song-detail-status">{status}</p> : null}

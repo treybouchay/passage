@@ -9,7 +9,7 @@
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
- * - Existing themes/keywords/genre are preserved by spotifyTrackId (then title)
+ * - Existing themes/keywords/genre/songBlurb/artistBlurb are preserved by spotifyTrackId (then title)
  * - New tracks get title-derived default keywords, empty themes, and Indie genre
  */
 
@@ -38,6 +38,8 @@ interface PlaylistSong {
   spotifyUrl: string
   spotifyTrackId?: string
   albumArtUrl?: string
+  songBlurb?: string
+  artistBlurb?: string
 }
 
 interface SpotifyImage {
@@ -226,6 +228,8 @@ function mergeSongs(
         spotifyTrackId: track.id,
         spotifyUrl,
         albumArtUrl,
+        ...(prev.songBlurb ? { songBlurb: prev.songBlurb } : {}),
+        ...(prev.artistBlurb ? { artistBlurb: prev.artistBlurb } : {}),
       } satisfies PlaylistSong
     }
 
@@ -263,7 +267,9 @@ async function main() {
   await writeFile(OUT_PATH, `${JSON.stringify(songs, null, 2)}\n`, 'utf8')
 
   console.info(`Wrote ${songs.length} songs → src/data/playlistSongs.json`)
-  console.info(`Updated metadata for ${updated} known track(s) (themes/keywords/genre preserved)`)
+  console.info(
+    `Updated metadata for ${updated} known track(s) (themes/keywords/genre/songBlurb/artistBlurb preserved)`,
+  )
   if (added.length) {
     console.info(`Added ${added.length} new track(s) with default keywords / empty themes / Indie genre:`)
     for (const title of added) console.info(`  + ${title}`)

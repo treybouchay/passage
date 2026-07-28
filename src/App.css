@@ -724,6 +724,15 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: url('/icons/olive-branch.png');
+  mask-image: url('/icons/olive-branch.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
 }
 
 .passage-reflection {
@@ -1037,10 +1046,10 @@
 }
 
 .song-detail-panel {
-  width: min(100%, 20rem);
+  width: min(100%, 26rem);
   margin: auto;
   flex-shrink: 0;
-  padding: 1.15rem 1.15rem 1.35rem;
+  padding: 1.15rem 1.2rem 1.25rem;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 1.1rem;
@@ -1049,33 +1058,22 @@
 
 .song-detail-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
   margin-bottom: 0.85rem;
 }
 
-.song-detail-eyebrow {
-  margin: 0.2rem 0 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: lowercase;
-  color: var(--text-secondary);
-}
-
-.song-detail-body {
+.song-detail-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 1rem;
+  min-width: 0;
 }
 
 .song-detail-art {
-  width: 100%;
-  max-width: 14.5rem;
-  aspect-ratio: 1;
-  height: auto;
+  flex-shrink: 0;
+  width: 5.5rem;
+  height: 5.5rem;
   object-fit: cover;
   border-radius: 0.25rem;
   background: var(--sage-light);
@@ -1084,18 +1082,22 @@
 
 .song-detail-art-placeholder {
   display: block;
-  width: 100%;
-  max-width: 14.5rem;
-  aspect-ratio: 1;
   background: linear-gradient(145deg, var(--accent-soft) 0%, var(--sage-light) 100%);
 }
 
+.song-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
 .song-detail-title {
-  margin: 1.15rem 0 0.3rem;
-  font-family: var(--font-display);
-  font-size: 1.28rem;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.12rem;
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.3;
   color: var(--text-primary);
   text-wrap: balance;
 }
@@ -1105,68 +1107,96 @@
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--text-muted);
 }
 
-.song-detail-tags {
-  list-style: none;
-  margin: 0.95rem 0 0;
-  padding: 0;
+.song-detail-blurbs {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.35rem;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.song-detail-blurb {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.song-detail-blurb-artist {
+  color: var(--text-muted);
 }
 
 .song-detail-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  margin-top: 1.35rem;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.95rem;
 }
 
-.song-detail-actions .prayer-secondary-btn,
-.song-detail-actions .song-detail-play {
+.song-detail-icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  text-align: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
   text-decoration: none;
-  box-sizing: border-box;
+  transition: color 0.15s, background 0.15s;
 }
 
-.song-detail-actions .song-detail-play:hover:not(:disabled) {
-  background: var(--accent-deep);
+.song-detail-icon-btn:hover:not(:disabled) {
+  color: var(--accent-deep);
+  background: rgba(57, 109, 84, 0.08);
 }
 
-.song-detail-actions .song-detail-play:focus-visible {
+.song-detail-icon-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
+.song-detail-icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.song-detail-icon {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
 .song-detail-status {
-  margin: 0.75rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.72rem;
   line-height: 1.5;
   color: var(--text-muted);
-  text-align: center;
   text-transform: lowercase;
 }
 
 @media (max-width: 380px) {
   .song-detail-panel {
-    padding: 1rem 1rem 1.2rem;
+    padding: 1rem 1rem 1.15rem;
   }
 
   .song-detail-art,
   .song-detail-art-placeholder {
-    max-width: 100%;
+    width: 4.75rem;
+    height: 4.75rem;
   }
 
   .song-detail-title {
-    font-size: 1.15rem;
+    font-size: 1.02rem;
   }
 }
 
@@ -1226,15 +1256,23 @@
 
 .prayer-save-btn,
 .prayer-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: lowercase;
+  text-align: center;
+  text-decoration: none;
   padding: 0.55rem 1rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, opacity 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
 }
 
 .prayer-save-btn {
@@ -1243,8 +1281,19 @@
   border: none;
 }
 
+a.prayer-save-btn:link,
+a.prayer-save-btn:visited {
+  color: var(--surface);
+  text-decoration: none;
+}
+
 .prayer-save-btn:hover:not(:disabled) {
   background: var(--accent-deep);
+}
+
+.prayer-save-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .prayer-save-btn:disabled {
@@ -1258,9 +1307,20 @@
   border: 1px solid var(--line);
 }
 
-.prayer-secondary-btn:hover {
+a.prayer-secondary-btn:link,
+a.prayer-secondary-btn:visited {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.prayer-secondary-btn:hover:not(:disabled) {
   color: var(--accent);
   border-color: var(--sage);
+}
+
+.prayer-secondary-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .prayer-secondary-btn:disabled {
