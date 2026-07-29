@@ -4,11 +4,11 @@
  * Usage (from repo root):
  *   npm run sync:playlist
  *
- * Requires SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in root .env
- * or server/.env (Spotify Developer Dashboard → Client Credentials).
+ * Prefers SPOTIFY_REFRESH_TOKEN (Authorization Code) — required in Development
+ * mode where Client Credentials often get 403 on playlist reads.
+ * Falls back to Client Credentials only when no refresh token is set.
  *
- * Optional: SPOTIFY_REFRESH_TOKEN (owner/collaborator) if Client Credentials
- * still gets 403 after Extended Quota is approved.
+ * Get a refresh token: npm run auth:spotify
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
@@ -76,7 +76,8 @@ function missingSecretsError(): Error {
         'Repo → Settings → Secrets and variables → Actions — set:',
         '  SPOTIFY_CLIENT_ID',
         '  SPOTIFY_CLIENT_SECRET',
-        'Optional: SPOTIFY_PLAYLIST_ID, SPOTIFY_REFRESH_TOKEN',
+        '  SPOTIFY_REFRESH_TOKEN  (required in Development mode)',
+        'Optional: SPOTIFY_PLAYLIST_ID',
         'Then re-run the "Sync Spotify playlist" workflow.',
       ].join('\n'),
     )
@@ -84,27 +85,29 @@ function missingSecretsError(): Error {
   return new Error(
     [
       'Missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET in .env or server/.env',
-      'Create a Spotify app at https://developer.spotify.com/dashboard and enable Client Credentials.',
+      'Create a Spotify app at https://developer.spotify.com/dashboard',
+      'Then run: npm run auth:spotify  → set SPOTIFY_REFRESH_TOKEN',
     ].join('\n'),
   )
 }
 
 function playlistForbiddenError(status: number, body: string): Error {
+  const usingRefresh = Boolean(REFRESH_TOKEN)
   return new Error(
     [
       `Playlist fetch failed (${status}): ${body}`,
       '',
       'Spotify returned Forbidden for GET /playlists/{id}/items.',
-      'New Development Mode apps often get 403 on playlist reads until Extended Access is approved.',
+      usingRefresh
+        ? 'Refresh token is set but still 403 — check User Management + scopes.'
+        : 'Development mode: Client Credentials usually cannot read playlists.',
       '',
-      'Fix in the Spotify Developer Dashboard (https://developer.spotify.com/dashboard):',
-      '  1. Open your Passage app',
-      '  2. Ensure Web API is enabled',
-      '  3. Request Extended Access / Extended Quota Mode ("Request extension")',
-      '  4. Wait for approval, keep the playlist Public, then re-run sync',
-      '',
-      'Optional: set SPOTIFY_REFRESH_TOKEN from a playlist owner/collaborator',
-      '(npm run sync:playlist:auth) if Extended Quota alone is not enough.',
+      'Fix (works without Extended Access):',
+      '  1. Spotify Dashboard → User Management → add your Spotify account',
+      '  2. Add Redirect URI http://127.0.0.1:8888/callback',
+      '  3. Locally: npm run auth:spotify  → copy the refresh token',
+      '  4. Set SPOTIFY_REFRESH_TOKEN in .env and GitHub Actions secrets',
+      '  5. Re-run sync / the Action',
     ].join('\n'),
   )
 }
@@ -330,7 +333,7 @@ async function main() {
 
   if (!tracks.length) {
     throw new Error(
-      'Playlist returned 0 tracks — check SPOTIFY_PLAYLIST_ID, playlist visibility (Public), and Extended Access approval.',
+      'Playlist returned 0 tracks — check SPOTIFY_PLAYLIST_ID and that the refresh-token user can see the playlist.',
     )
   }
 

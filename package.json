@@ -11,6 +11,7 @@
     "build:server": "npm run build --prefix server",
     "sync:playlist": "npm run sync:playlist --prefix server",
     "sync:playlist:auth": "npm run sync:playlist:auth --prefix server",
+    "auth:spotify": "npm run auth:spotify --prefix server",
     "lint": "eslint .",
     "preview": "vite preview"
   },

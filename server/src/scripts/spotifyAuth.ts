@@ -1,11 +1,14 @@
 /**
  * One-time helper: get a Spotify refresh token for playlist sync.
  *
+ * Development mode: Client Credentials often get 403 on playlists.
+ * Use a user token for an account listed under Dashboard → User Management.
+ *
  * 1. Put SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in .env / server/.env
- * 2. In the Spotify Dashboard app, add Redirect URI: http://127.0.0.1:3847/callback
- * 3. Run: npm run sync:playlist:auth --prefix server
- * 4. Log in as the playlist owner/collaborator, then copy SPOTIFY_REFRESH_TOKEN
- *    into .env and/or GitHub Actions secrets.
+ * 2. Spotify Dashboard → User Management → add your Spotify account
+ * 3. Add Redirect URI: http://127.0.0.1:8888/callback
+ * 4. Run: npm run auth:spotify
+ * 5. Copy SPOTIFY_REFRESH_TOKEN into .env and GitHub Actions secrets
  */
 
 import { config as loadEnv } from 'dotenv'
@@ -20,9 +23,9 @@ loadEnv({ path: resolve(repoRoot, 'server/.env') })
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID?.trim() ?? ''
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET?.trim() ?? ''
-const REDIRECT_URI = 'http://127.0.0.1:3847/callback'
+const REDIRECT_URI = 'http://127.0.0.1:8888/callback'
 const SCOPE = 'playlist-read-private playlist-read-collaborative'
-const PORT = 3847
+const PORT = 8888
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.error(
@@ -43,7 +46,7 @@ const authUrl =
 console.info('Add this Redirect URI in your Spotify Dashboard app if needed:')
 console.info(`  ${REDIRECT_URI}`)
 console.info('')
-console.info('Open this URL, log in as the playlist owner/collaborator:')
+console.info('Open this URL, log in as a User Management account:')
 console.info(`  ${authUrl}`)
 console.info('')
 console.info(`Waiting for callback on ${REDIRECT_URI} …`)
@@ -96,7 +99,7 @@ const server = createServer(async (req, res) => {
     }
 
     const message = [
-      'Success. Add this to .env / GitHub Actions secrets:',
+      'Success. Add this to .env and GitHub Actions secrets:',
       '',
       `SPOTIFY_REFRESH_TOKEN=${data.refresh_token}`,
       '',
@@ -105,7 +108,9 @@ const server = createServer(async (req, res) => {
 
     res.writeHead(200, { 'Content-Type': 'text/plain' }).end(message)
     console.info('')
+    console.info('='.repeat(60))
     console.info(message)
+    console.info('='.repeat(60))
     server.close()
     process.exit(0)
   } catch (e) {
