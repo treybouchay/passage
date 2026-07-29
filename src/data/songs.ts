@@ -52,6 +52,8 @@ export interface PlaylistSong {
   songBlurb?: string
   /** Short curated note about the artist; falls back via getSongArtistBlurb. */
   artistBlurb?: string
+  /** Short lyric excerpt (1–3 lines); omit section when missing. */
+  lyricsExcerpt?: string
 }
 
 const GENRE_ARTIST_BLURB: Record<SongGenre, string> = {
@@ -117,6 +119,14 @@ export function getSongArtistBlurb(song: PlaylistSong): string {
   if (!theme) return base
 
   return base.replace(/\.$/, ` — often writing about ${theme}.`)
+}
+
+/** Prefer curated lyricsExcerpt; returns null when missing so the section can be omitted.
+ * Newlines are collapsed so the excerpt always renders as one flowing sentence.
+ */
+export function getSongLyricsExcerpt(song: PlaylistSong): string | null {
+  const excerpt = song.lyricsExcerpt?.replace(/[\n\r]+/g, ' ').replace(/\s+/g, ' ').trim()
+  return excerpt ? excerpt : null
 }
 
 export const SPOTIFY_PLAYLIST = {

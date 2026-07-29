@@ -9,7 +9,7 @@
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
- * - Existing themes/keywords/genre/songBlurb/artistBlurb are preserved by spotifyTrackId (then title)
+ * - Existing themes/keywords/genre/songBlurb/artistBlurb/lyricsExcerpt are preserved by spotifyTrackId (then title)
  * - New tracks get title-derived default keywords, empty themes, and Indie genre
  */
 
@@ -40,6 +40,7 @@ interface PlaylistSong {
   albumArtUrl?: string
   songBlurb?: string
   artistBlurb?: string
+  lyricsExcerpt?: string
 }
 
 interface SpotifyImage {
@@ -230,6 +231,7 @@ function mergeSongs(
         albumArtUrl,
         ...(prev.songBlurb ? { songBlurb: prev.songBlurb } : {}),
         ...(prev.artistBlurb ? { artistBlurb: prev.artistBlurb } : {}),
+        ...(prev.lyricsExcerpt ? { lyricsExcerpt: prev.lyricsExcerpt } : {}),
       } satisfies PlaylistSong
     }
 
@@ -268,7 +270,7 @@ async function main() {
 
   console.info(`Wrote ${songs.length} songs → src/data/playlistSongs.json`)
   console.info(
-    `Updated metadata for ${updated} known track(s) (themes/keywords/genre/songBlurb/artistBlurb preserved)`,
+    `Updated metadata for ${updated} known track(s) (themes/keywords/genre/songBlurb/artistBlurb/lyricsExcerpt preserved)`,
   )
   if (added.length) {
     console.info(`Added ${added.length} new track(s) with default keywords / empty themes / Indie genre:`)
