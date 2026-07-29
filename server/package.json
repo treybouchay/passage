@@ -7,7 +7,8 @@
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
-    "sync:playlist": "tsx src/scripts/syncPlaylist.ts"
+    "sync:playlist": "tsx src/scripts/syncPlaylist.ts",
+    "sync:playlist:auth": "tsx src/scripts/spotifyAuth.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",

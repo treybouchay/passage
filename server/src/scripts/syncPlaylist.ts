@@ -4,8 +4,13 @@
  * Usage (from repo root):
  *   npm run sync:playlist
  *
- * Requires SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in root .env
- * or server/.env (Spotify Developer Dashboard → Client Credentials).
+ * Requires (Spotify Developer Dashboard app):
+ *   SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET
+ *   SPOTIFY_REFRESH_TOKEN  — user token for the playlist owner/collaborator
+ *     (Client Credentials alone cannot read playlist items after Feb 2026)
+ *
+ * One-time refresh token:
+ *   npm run sync:playlist:auth --prefix server
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
@@ -27,7 +32,9 @@ const PLAYLIST_ID =
   process.env.SPOTIFY_PLAYLIST_ID?.trim() || '3zweaDyE8UZiMdBAsPagxd'
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID?.trim() ?? ''
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET?.trim() ?? ''
+const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN?.trim() ?? ''
 const OUT_PATH = resolve(repoRoot, 'src/data/playlistSongs.json')
+const IN_GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true'
 
 interface PlaylistSong {
   id: string
@@ -59,8 +66,35 @@ interface SpotifyTrack {
 }
 
 interface PlaylistItemsResponse {
-  items: { track: SpotifyTrack | null }[]
+  items: { item?: SpotifyTrack | null; track?: SpotifyTrack | null }[]
   next: string | null
+}
+
+function missingSecretsError(): Error {
+  if (IN_GITHUB_ACTIONS) {
+    return new Error(
+      [
+        'GitHub Actions secrets are missing or empty.',
+        'Repo → Settings → Secrets and variables → Actions — set:',
+        '  SPOTIFY_CLIENT_ID',
+        '  SPOTIFY_CLIENT_SECRET',
+        '  SPOTIFY_REFRESH_TOKEN  (required — playlist owner/collaborator user token)',
+        'Optional: SPOTIFY_PLAYLIST_ID',
+        'Then re-run the "Sync Spotify playlist" workflow.',
+        'Get a refresh token once with: npm run sync:playlist:auth --prefix server',
+      ].join('\n'),
+    )
+  }
+  return new Error(
+    [
+      'Missing Spotify credentials in .env or server/.env:',
+      '  SPOTIFY_CLIENT_ID',
+      '  SPOTIFY_CLIENT_SECRET',
+      '  SPOTIFY_REFRESH_TOKEN  (required after Spotify Feb 2026 API changes)',
+      'Create an app at https://developer.spotify.com/dashboard',
+      'Then run: npm run sync:playlist:auth --prefix server',
+    ].join('\n'),
+  )
 }
 
 function slugify(value: string): string {
@@ -127,14 +161,7 @@ function pickAlbumArt(images: SpotifyImage[]): string | undefined {
   return chosen.url.replace('ab67616d00004851', 'ab67616d00001e02')
 }
 
-async function getAccessToken(): Promise<string> {
-  if (!CLIENT_ID || !CLIENT_SECRET) {
-    throw new Error(
-      'Missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET in .env or server/.env\n' +
-        'Create a Spotify app at https://developer.spotify.com/dashboard and enable Client Credentials.',
-    )
-  }
-
+async function postToken(body: string): Promise<string> {
   const basic = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')
   const res = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
@@ -142,23 +169,62 @@ async function getAccessToken(): Promise<string> {
       Authorization: `Basic ${basic}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: 'grant_type=client_credentials',
+    body,
   })
 
   if (!res.ok) {
-    const body = await res.text()
-    throw new Error(`Spotify token failed (${res.status}): ${body}`)
+    const text = await res.text()
+    throw new Error(
+      `Spotify token failed (${res.status}): ${text}\n` +
+        (REFRESH_TOKEN
+          ? 'Check SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET / SPOTIFY_REFRESH_TOKEN.'
+          : 'Set SPOTIFY_REFRESH_TOKEN (Client Credentials cannot read playlist items).'),
+    )
   }
 
   const data = (await res.json()) as { access_token: string }
   return data.access_token
 }
 
+async function getAccessToken(): Promise<string> {
+  if (!CLIENT_ID || !CLIENT_SECRET) {
+    throw missingSecretsError()
+  }
+
+  if (REFRESH_TOKEN) {
+    return postToken(
+      `grant_type=refresh_token&refresh_token=${encodeURIComponent(REFRESH_TOKEN)}`,
+    )
+  }
+
+  // Prefer failing early with a clear message — Client Credentials cannot
+  // call GET /playlists/{id}/items after Spotify's Feb 2026 Web API changes.
+  throw new Error(
+    [
+      'SPOTIFY_REFRESH_TOKEN is required to read playlist items.',
+      'Spotify no longer allows Client Credentials for GET /playlists/{id}/items',
+      '(only the playlist owner/collaborator, via Authorization Code / refresh token).',
+      IN_GITHUB_ACTIONS
+        ? 'Add secret SPOTIFY_REFRESH_TOKEN, then re-run the workflow.'
+        : 'Run: npm run sync:playlist:auth --prefix server',
+    ].join('\n'),
+  )
+}
+
+function playlistEntry(row: {
+  item?: SpotifyTrack | null
+  track?: SpotifyTrack | null
+}): SpotifyTrack | null {
+  // Feb 2026 rename: track → item (keep track fallback for older responses)
+  return row.item ?? row.track ?? null
+}
+
 async function fetchPlaylistTracks(token: string): Promise<SpotifyTrack[]> {
   const tracks: SpotifyTrack[] = []
+  // /tracks was removed Feb 2026 → use /items (max limit 50)
   let url: string | null =
-    `https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/tracks` +
-    `?limit=100&fields=items(track(id,name,artists(name),album(images),external_urls)),next`
+    `https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/items` +
+    `?limit=50&fields=items(item(id,name,artists(name),album(images),external_urls),track(id,name,artists(name),album(images),external_urls)),next`
 
   while (url) {
     const res: Response = await fetch(url, {
@@ -166,11 +232,16 @@ async function fetchPlaylistTracks(token: string): Promise<SpotifyTrack[]> {
     })
     if (!res.ok) {
       const body = await res.text()
-      throw new Error(`Playlist fetch failed (${res.status}): ${body}`)
+      const hint =
+        res.status === 401 || res.status === 403
+          ? '\nHint: authorize as the playlist owner/collaborator and set SPOTIFY_REFRESH_TOKEN.'
+          : ''
+      throw new Error(`Playlist fetch failed (${res.status}): ${body}${hint}`)
     }
     const data = (await res.json()) as PlaylistItemsResponse
-    for (const item of data.items) {
-      if (item.track?.id) tracks.push(item.track)
+    for (const row of data.items) {
+      const track = playlistEntry(row)
+      if (track?.id) tracks.push(track)
     }
     url = data.next
   }
@@ -263,7 +334,9 @@ async function main() {
   ])
 
   if (!tracks.length) {
-    throw new Error('Playlist returned 0 tracks — check playlist id / app access.')
+    throw new Error(
+      'Playlist returned 0 tracks — check SPOTIFY_PLAYLIST_ID and that the refresh-token user owns/collaborates on it.',
+    )
   }
 
   const { songs, added, updated } = mergeSongs(existing, tracks)
