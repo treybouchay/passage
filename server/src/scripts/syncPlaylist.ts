@@ -4,13 +4,11 @@
  * Usage (from repo root):
  *   npm run sync:playlist
  *
- * Requires (Spotify Developer Dashboard app):
- *   SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET
- *   SPOTIFY_REFRESH_TOKEN  — user token for the playlist owner/collaborator
- *     (Client Credentials alone cannot read playlist items after Feb 2026)
+ * Requires SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in root .env
+ * or server/.env (Spotify Developer Dashboard → Client Credentials).
  *
- * One-time refresh token:
- *   npm run sync:playlist:auth --prefix server
+ * Optional: SPOTIFY_REFRESH_TOKEN (owner/collaborator) if Client Credentials
+ * still gets 403 after Extended Quota is approved.
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
@@ -78,21 +76,35 @@ function missingSecretsError(): Error {
         'Repo → Settings → Secrets and variables → Actions — set:',
         '  SPOTIFY_CLIENT_ID',
         '  SPOTIFY_CLIENT_SECRET',
-        '  SPOTIFY_REFRESH_TOKEN  (required — playlist owner/collaborator user token)',
-        'Optional: SPOTIFY_PLAYLIST_ID',
+        'Optional: SPOTIFY_PLAYLIST_ID, SPOTIFY_REFRESH_TOKEN',
         'Then re-run the "Sync Spotify playlist" workflow.',
-        'Get a refresh token once with: npm run sync:playlist:auth --prefix server',
       ].join('\n'),
     )
   }
   return new Error(
     [
-      'Missing Spotify credentials in .env or server/.env:',
-      '  SPOTIFY_CLIENT_ID',
-      '  SPOTIFY_CLIENT_SECRET',
-      '  SPOTIFY_REFRESH_TOKEN  (required after Spotify Feb 2026 API changes)',
-      'Create an app at https://developer.spotify.com/dashboard',
-      'Then run: npm run sync:playlist:auth --prefix server',
+      'Missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET in .env or server/.env',
+      'Create a Spotify app at https://developer.spotify.com/dashboard and enable Client Credentials.',
+    ].join('\n'),
+  )
+}
+
+function playlistForbiddenError(status: number, body: string): Error {
+  return new Error(
+    [
+      `Playlist fetch failed (${status}): ${body}`,
+      '',
+      'Spotify returned Forbidden for GET /playlists/{id}/items.',
+      'New Development Mode apps often get 403 on playlist reads until Extended Access is approved.',
+      '',
+      'Fix in the Spotify Developer Dashboard (https://developer.spotify.com/dashboard):',
+      '  1. Open your Passage app',
+      '  2. Ensure Web API is enabled',
+      '  3. Request Extended Access / Extended Quota Mode ("Request extension")',
+      '  4. Wait for approval, keep the playlist Public, then re-run sync',
+      '',
+      'Optional: set SPOTIFY_REFRESH_TOKEN from a playlist owner/collaborator',
+      '(npm run sync:playlist:auth) if Extended Quota alone is not enough.',
     ].join('\n'),
   )
 }
@@ -174,12 +186,7 @@ async function postToken(body: string): Promise<string> {
 
   if (!res.ok) {
     const text = await res.text()
-    throw new Error(
-      `Spotify token failed (${res.status}): ${text}\n` +
-        (REFRESH_TOKEN
-          ? 'Check SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET / SPOTIFY_REFRESH_TOKEN.'
-          : 'Set SPOTIFY_REFRESH_TOKEN (Client Credentials cannot read playlist items).'),
-    )
+    throw new Error(`Spotify token failed (${res.status}): ${text}`)
   }
 
   const data = (await res.json()) as { access_token: string }
@@ -197,18 +204,7 @@ async function getAccessToken(): Promise<string> {
     )
   }
 
-  // Prefer failing early with a clear message — Client Credentials cannot
-  // call GET /playlists/{id}/items after Spotify's Feb 2026 Web API changes.
-  throw new Error(
-    [
-      'SPOTIFY_REFRESH_TOKEN is required to read playlist items.',
-      'Spotify no longer allows Client Credentials for GET /playlists/{id}/items',
-      '(only the playlist owner/collaborator, via Authorization Code / refresh token).',
-      IN_GITHUB_ACTIONS
-        ? 'Add secret SPOTIFY_REFRESH_TOKEN, then re-run the workflow.'
-        : 'Run: npm run sync:playlist:auth --prefix server',
-    ].join('\n'),
-  )
+  return postToken('grant_type=client_credentials')
 }
 
 function playlistEntry(row: {
@@ -221,7 +217,7 @@ function playlistEntry(row: {
 
 async function fetchPlaylistTracks(token: string): Promise<SpotifyTrack[]> {
   const tracks: SpotifyTrack[] = []
-  // /tracks was removed Feb 2026 → use /items (max limit 50)
+  // Deprecated /tracks → /items (Spotify Feb 2026; max limit 50)
   let url: string | null =
     `https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/items` +
     `?limit=50&fields=items(item(id,name,artists(name),album(images),external_urls),track(id,name,artists(name),album(images),external_urls)),next`
@@ -232,11 +228,10 @@ async function fetchPlaylistTracks(token: string): Promise<SpotifyTrack[]> {
     })
     if (!res.ok) {
       const body = await res.text()
-      const hint =
-        res.status === 401 || res.status === 403
-          ? '\nHint: authorize as the playlist owner/collaborator and set SPOTIFY_REFRESH_TOKEN.'
-          : ''
-      throw new Error(`Playlist fetch failed (${res.status}): ${body}${hint}`)
+      if (res.status === 403) {
+        throw playlistForbiddenError(res.status, body)
+      }
+      throw new Error(`Playlist fetch failed (${res.status}): ${body}`)
     }
     const data = (await res.json()) as PlaylistItemsResponse
     for (const row of data.items) {
@@ -335,7 +330,7 @@ async function main() {
 
   if (!tracks.length) {
     throw new Error(
-      'Playlist returned 0 tracks — check SPOTIFY_PLAYLIST_ID and that the refresh-token user owns/collaborates on it.',
+      'Playlist returned 0 tracks — check SPOTIFY_PLAYLIST_ID, playlist visibility (Public), and Extended Access approval.',
     )
   }
 

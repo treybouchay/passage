@@ -31,20 +31,18 @@ jobs:
         env:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
-          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
         run: |
           missing=
           [ -z "$SPOTIFY_CLIENT_ID" ] && missing="${missing} SPOTIFY_CLIENT_ID"
           [ -z "$SPOTIFY_CLIENT_SECRET" ] && missing="${missing} SPOTIFY_CLIENT_SECRET"
-          [ -z "$SPOTIFY_REFRESH_TOKEN" ] && missing="${missing} SPOTIFY_REFRESH_TOKEN"
           if [ -n "$missing" ]; then
             echo "::error::Missing or empty GitHub Actions secrets:$missing"
             echo "Repo → Settings → Secrets and variables → Actions"
-            echo "Add SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN"
-            echo "(refresh token: npm run sync:playlist:auth --prefix server locally)."
+            echo "Add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET."
             exit 1
           fi
-          echo "Spotify secrets are present."
+          echo "Spotify client secrets are present."
+          echo "Note: playlist 403 usually means the Spotify app needs Extended Quota Mode / Web API enabled — not missing secrets."
 
       - name: Sync playlist catalog
         env:
