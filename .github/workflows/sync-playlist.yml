@@ -2,8 +2,8 @@ name: Sync Spotify playlist
 
 on:
   schedule:
-    # Weekly Monday 12:00 UTC
-    - cron: '0 12 * * 1'
+    # Daily 12:00 UTC
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 permissions:
