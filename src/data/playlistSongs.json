@@ -865,109 +865,197 @@
     "artistBlurb": "Faith-rooted country artist with an honest, storytelling voice."
   },
   {
-    "id": "slowly-leslie-perez",
-    "title": "Slowly",
-    "artists": "Leslie Perez",
+    "id": "take-your-time-joseph-o-brien",
+    "title": "Take Your Time",
+    "artists": "Joseph O'Brien",
     "genre": "Indie",
-    "themes": [
-      "peace",
-      "presence"
-    ],
+    "themes": [],
     "keywords": [
-      "slowly",
-      "patience",
-      "still",
-      "presence"
+      "take",
+      "time"
     ],
-    "spotifyTrackId": "3yXTQs2iGnCLMPPLE8XJE9",
-    "spotifyUrl": "https://open.spotify.com/track/3yXTQs2iGnCLMPPLE8XJE9",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02bae7d5d2b7b72eb312c64629",
-    "songBlurb": "A quiet indie track about slowing down enough to notice God's nearness.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+    "spotifyTrackId": "7EvHpaw8rCjbSpUp4qfu3F",
+    "spotifyUrl": "https://open.spotify.com/track/7EvHpaw8rCjbSpUp4qfu3F",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0275addd5263dbcbb71b596d09"
   },
   {
-    "id": "remedy-leslie-perez",
-    "title": "remedy",
-    "artists": "Leslie Perez",
+    "id": "true-north-jervis-campbell",
+    "title": "true north",
+    "artists": "Jervis Campbell",
     "genre": "Indie",
-    "themes": [
-      "grace",
-      "hope"
-    ],
+    "themes": [],
     "keywords": [
-      "remedy",
-      "healing",
-      "grace",
-      "hope"
+      "true",
+      "north"
     ],
-    "spotifyTrackId": "2jQhlPNRz7OKyNp7tmqG62",
-    "spotifyUrl": "https://open.spotify.com/track/2jQhlPNRz7OKyNp7tmqG62",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f5969879df778bf482d8859f",
-    "songBlurb": "A soft indie plea for healing — grace as the remedy for what hurts.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+    "spotifyTrackId": "0HJgTDjcfAoVJXRF6EbzPx",
+    "spotifyUrl": "https://open.spotify.com/track/0HJgTDjcfAoVJXRF6EbzPx",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b5d8fdb38d1442503bd6eaef"
   },
   {
-    "id": "mountain-top-leslie-perez",
-    "title": "Mountain Top",
-    "artists": "Leslie Perez",
+    "id": "we-pray-coldplay-little-simz-burna-boy-elyanna-t",
+    "title": "WE PRAY",
+    "artists": "Coldplay, Little Simz, Burna Boy, Elyanna, TINI",
     "genre": "Indie",
-    "themes": [
-      "presence",
-      "faith"
-    ],
+    "themes": [],
     "keywords": [
-      "mountain",
-      "top",
-      "presence",
-      "faith",
-      "height"
+      "pray"
     ],
-    "spotifyTrackId": "6dDZukfQ0684ODp2KC1O8d",
-    "spotifyUrl": "https://open.spotify.com/track/6dDZukfQ0684ODp2KC1O8d",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e029b374d862ee895fe048853c3",
-    "songBlurb": "An indie climb toward clearer air — faith and presence on the mountain top.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+    "spotifyTrackId": "6xX6zmaXeKzB4u9TiM1XgU",
+    "spotifyUrl": "https://open.spotify.com/track/6xX6zmaXeKzB4u9TiM1XgU",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02d75f119409f50e08ce77c5f1"
   },
   {
-    "id": "my-one-and-only-leslie-perez",
-    "title": "My One And Only",
-    "artists": "Leslie Perez",
+    "id": "good-day-forrest-frank",
+    "title": "GOOD DAY",
+    "artists": "Forrest Frank",
     "genre": "Indie",
-    "themes": [
-      "love"
-    ],
+    "themes": [],
     "keywords": [
-      "one",
-      "only",
-      "love",
-      "devote"
+      "good",
+      "day"
     ],
-    "spotifyTrackId": "7F8IZ0A1uw728DvFlJk7Mt",
-    "spotifyUrl": "https://open.spotify.com/track/7F8IZ0A1uw728DvFlJk7Mt",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02678539a932885ac592d5a994",
-    "songBlurb": "A tender indie devotion song — love reserved for the One and only.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+    "spotifyTrackId": "0vC82BouGPXm6X2K60RfQw",
+    "spotifyUrl": "https://open.spotify.com/track/0vC82BouGPXm6X2K60RfQw",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02500c84a64b89a118c27e5f59"
   },
   {
-    "id": "i-repent-rali",
-    "title": "i Repent",
-    "artists": "RALI",
-    "genre": "Rap",
-    "themes": [
-      "grace",
-      "salvation"
-    ],
+    "id": "baptize-me-lee-vasi",
+    "title": "Baptize Me",
+    "artists": "Lee Vasi",
+    "genre": "Indie",
+    "themes": [],
     "keywords": [
-      "repent",
-      "grace",
-      "turn",
-      "salvation"
+      "baptize"
     ],
-    "spotifyTrackId": "3VbtiavMbNXAXZBa6Tx8QA",
-    "spotifyUrl": "https://open.spotify.com/track/3VbtiavMbNXAXZBa6Tx8QA",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0203b2802c89cfcc6ef88fadd0",
-    "songBlurb": "A faith-forward hip-hop turn toward repentance, grace, and new life.",
-    "artistBlurb": "Christian hip-hop artist bringing faith and conviction to the beat."
+    "spotifyTrackId": "4jKBPRNgXKSJIdjrcvrHTO",
+    "spotifyUrl": "https://open.spotify.com/track/4jKBPRNgXKSJIdjrcvrHTO",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e021053f1b8702cec8088236afe"
+  },
+  {
+    "id": "endure-ryan-leigh",
+    "title": "Endure",
+    "artists": "Ryan Leigh",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "endure"
+    ],
+    "spotifyTrackId": "40Um4RReekzEm9FCNtfjBP",
+    "spotifyUrl": "https://open.spotify.com/track/40Um4RReekzEm9FCNtfjBP",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0274024ad6489d0d4adb5780cc"
+  },
+  {
+    "id": "the-future-is-bright-claudia-isaki",
+    "title": "The Future Is Bright",
+    "artists": "Claudia Isaki",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "future",
+      "bright"
+    ],
+    "spotifyTrackId": "2B7V4NmNNrMAV8n972NLCR",
+    "spotifyUrl": "https://open.spotify.com/track/2B7V4NmNNrMAV8n972NLCR",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e027ec7dedeb561d2a15379bb10"
+  },
+  {
+    "id": "run-g-e-s",
+    "title": "RUN",
+    "artists": "G.E.S",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "run"
+    ],
+    "spotifyTrackId": "6iiAykg47kO4pXbdzpI65p",
+    "spotifyUrl": "https://open.spotify.com/track/6iiAykg47kO4pXbdzpI65p",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e028a244a8267ec22eb636c4b77"
+  },
+  {
+    "id": "blessed-be-sarah-juers-madison-ryann-ward",
+    "title": "Blessed Be",
+    "artists": "Sarah Juers, Madison Ryann Ward",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "blessed"
+    ],
+    "spotifyTrackId": "6UAirscqMkcpqlf63qE0V6",
+    "spotifyUrl": "https://open.spotify.com/track/6UAirscqMkcpqlf63qE0V6",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02faea598dc728e7a6f2cc1722"
+  },
+  {
+    "id": "lead-me-to-the-cross-sxxnt-austin-sebek",
+    "title": "Lead Me To The Cross",
+    "artists": "sxxnt., Austin Sebek",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "lead",
+      "cross"
+    ],
+    "spotifyTrackId": "7yihkMuXevkhpekfkYNAR4",
+    "spotifyUrl": "https://open.spotify.com/track/7yihkMuXevkhpekfkYNAR4",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02afaa2a748446fdec2318c743"
+  },
+  {
+    "id": "honey-from-the-rock-kelsey-breedlove",
+    "title": "HONEY FROM THE ROCK",
+    "artists": "Kelsey Breedlove",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "honey",
+      "from",
+      "rock"
+    ],
+    "spotifyTrackId": "2PXJs8nhLzdJZF8pYuXU1p",
+    "spotifyUrl": "https://open.spotify.com/track/2PXJs8nhLzdJZF8pYuXU1p",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02fe3340e72a216bdcfea9c504"
+  },
+  {
+    "id": "hard-fought-hallelujah-with-jelly-roll-brandon-l",
+    "title": "Hard Fought Hallelujah (with Jelly Roll)",
+    "artists": "Brandon Lake, Jelly Roll",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "hard",
+      "fought",
+      "hallelujah",
+      "jelly",
+      "roll"
+    ],
+    "spotifyTrackId": "4cLC8gydI0O78g8chZugS4",
+    "spotifyUrl": "https://open.spotify.com/track/4cLC8gydI0O78g8chZugS4",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b25c8f8668a0751b6c87cace"
+  },
+  {
+    "id": "marathon-claudia-isaki",
+    "title": "Marathon",
+    "artists": "Claudia Isaki",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "marathon"
+    ],
+    "spotifyTrackId": "11lCzhooKaICPGcZow2WpH",
+    "spotifyUrl": "https://open.spotify.com/track/11lCzhooKaICPGcZow2WpH",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f32e57bacecfab9564c40c0d"
+  },
+  {
+    "id": "glad-kelsey-breedlove",
+    "title": "GLAD",
+    "artists": "Kelsey Breedlove",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "glad"
+    ],
+    "spotifyTrackId": "7wAkwQq16feECp1yH1txWz",
+    "spotifyUrl": "https://open.spotify.com/track/7wAkwQq16feECp1yH1txWz",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02fe3340e72a216bdcfea9c504"
   },
   {
     "id": "lover-of-my-soul-damares-gomes",
@@ -992,6 +1080,60 @@
     "artistBlurb": "R&B singer known for smooth vocals and intimate, faith-tinged storytelling."
   },
   {
+    "id": "trust-in-you-antoine-bradford",
+    "title": "Trust in You",
+    "artists": "Antoine Bradford",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "trust"
+    ],
+    "spotifyTrackId": "1pZjiq5wv1HLMX8RsWVVsr",
+    "spotifyUrl": "https://open.spotify.com/track/1pZjiq5wv1HLMX8RsWVVsr",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f8a44b881053a867819ff21d"
+  },
+  {
+    "id": "nothing-else-gatton-sxxnt",
+    "title": "Nothing Else",
+    "artists": "Gatton, sxxnt.",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "nothing",
+      "else"
+    ],
+    "spotifyTrackId": "2MttyU4xjjIzYBAd1l3J8c",
+    "spotifyUrl": "https://open.spotify.com/track/2MttyU4xjjIzYBAd1l3J8c",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e021f24fb6f4ef8ebbcb4f7781f"
+  },
+  {
+    "id": "trust-sarah-nathalie",
+    "title": "Trust",
+    "artists": "Sarah Nathalié",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "trust"
+    ],
+    "spotifyTrackId": "7Cjno8hO7gV7N3Xw4Tqmgw",
+    "spotifyUrl": "https://open.spotify.com/track/7Cjno8hO7gV7N3Xw4Tqmgw",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b3629a19c4df202b40984b94"
+  },
+  {
+    "id": "timeless-acoustic-g-e-s",
+    "title": "Timeless - acoustic",
+    "artists": "G.E.S",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "timeless",
+      "acoustic"
+    ],
+    "spotifyTrackId": "3WWWjXVPTXDdhQ4CMXKrG6",
+    "spotifyUrl": "https://open.spotify.com/track/3WWWjXVPTXDdhQ4CMXKrG6",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e028bca9736ab002cf0ced483ea"
+  },
+  {
     "id": "loving-kind-antoine-bradford",
     "title": "Loving Kind",
     "artists": "Antoine Bradford",
@@ -1012,68 +1154,5 @@
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b1d9c80e0734822f1483df92",
     "songBlurb": "An intimate indie reflection on loving-kindness — grace that meets you gently.",
     "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
-  },
-  {
-    "id": "heaven-claudia-isaki",
-    "title": "Heaven",
-    "artists": "Claudia Isaki",
-    "genre": "Indie",
-    "themes": [
-      "hope",
-      "belonging"
-    ],
-    "keywords": [
-      "heaven",
-      "hope",
-      "home",
-      "belong"
-    ],
-    "spotifyTrackId": "5iPSPVb8P1mlS58tpRmcDU",
-    "spotifyUrl": "https://open.spotify.com/track/5iPSPVb8P1mlS58tpRmcDU",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f32e57bacecfab9564c40c0d",
-    "songBlurb": "An indie glance toward heaven — hope and belonging beyond what we see.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
-  },
-  {
-    "id": "be-with-you-antoine-bradford",
-    "title": "Be With You",
-    "artists": "Antoine Bradford",
-    "genre": "Indie",
-    "themes": [
-      "presence",
-      "love"
-    ],
-    "keywords": [
-      "be with",
-      "presence",
-      "near",
-      "love"
-    ],
-    "spotifyTrackId": "2GNV0qwulPbZTDZUb1XR2b",
-    "spotifyUrl": "https://open.spotify.com/track/2GNV0qwulPbZTDZUb1XR2b",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e027d11d6a1416b9c6546e5ccbc",
-    "songBlurb": "A quiet indie desire simply to be with God — presence as the point.",
-    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
-  },
-  {
-    "id": "before-tekoa-watobi",
-    "title": "Before",
-    "artists": "Tekoa, Watobi",
-    "genre": "Indie",
-    "themes": [
-      "trust",
-      "presence"
-    ],
-    "keywords": [
-      "before",
-      "trust",
-      "presence",
-      "begin"
-    ],
-    "spotifyTrackId": "71dNHv6FwyjJ0Dx6NpiF0i",
-    "spotifyUrl": "https://open.spotify.com/track/71dNHv6FwyjJ0Dx6NpiF0i",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0296cefa82e3f4d3352c5b0942",
-    "songBlurb": "An indie meditation on what comes before everything else — trust and nearness.",
-    "artistBlurb": "Indie faith artists with intimate, reflective songwriting."
   }
 ]
