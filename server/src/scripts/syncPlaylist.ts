@@ -4,8 +4,8 @@
  * Usage (from repo root):
  *   npm run sync:playlist
  *
- * Requires SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in .env
- * (Spotify Developer Dashboard → app → Client Credentials flow).
+ * Requires SPOTIFY_CLIENT_ID + SPOTIFY_CLIENT_SECRET in root .env
+ * or server/.env (Spotify Developer Dashboard → Client Credentials).
  *
  * Merge rules:
  * - Playlist is the source of truth for which tracks exist
@@ -21,11 +21,12 @@ import { fileURLToPath } from 'node:url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(__dirname, '../../..')
 loadEnv({ path: resolve(repoRoot, '.env') })
+loadEnv({ path: resolve(repoRoot, 'server/.env') }) // server/.env overrides root if both set
 
 const PLAYLIST_ID =
-  process.env.SPOTIFY_PLAYLIST_ID ?? '3zweaDyE8UZiMdBAsPagxd'
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID ?? ''
-const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET ?? ''
+  process.env.SPOTIFY_PLAYLIST_ID?.trim() || '3zweaDyE8UZiMdBAsPagxd'
+const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID?.trim() ?? ''
+const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET?.trim() ?? ''
 const OUT_PATH = resolve(repoRoot, 'src/data/playlistSongs.json')
 
 interface PlaylistSong {
@@ -129,7 +130,7 @@ function pickAlbumArt(images: SpotifyImage[]): string | undefined {
 async function getAccessToken(): Promise<string> {
   if (!CLIENT_ID || !CLIENT_SECRET) {
     throw new Error(
-      'Missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET in .env\n' +
+      'Missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET in .env or server/.env\n' +
         'Create a Spotify app at https://developer.spotify.com/dashboard and enable Client Credentials.',
     )
   }
@@ -266,6 +267,11 @@ async function main() {
   }
 
   const { songs, added, updated } = mergeSongs(existing, tracks)
+  const keptIds = new Set(songs.map((s) => s.spotifyTrackId).filter(Boolean))
+  const removed = existing.filter(
+    (s) => s.spotifyTrackId && !keptIds.has(s.spotifyTrackId),
+  )
+
   await writeFile(OUT_PATH, `${JSON.stringify(songs, null, 2)}\n`, 'utf8')
 
   console.info(`Wrote ${songs.length} songs → src/data/playlistSongs.json`)
@@ -278,6 +284,10 @@ async function main() {
     console.info('Curate themes/keywords/genre for new tracks in playlistSongs.json as needed.')
   } else {
     console.info('No new tracks.')
+  }
+  if (removed.length) {
+    console.info(`Removed ${removed.length} track(s) no longer on the playlist:`)
+    for (const song of removed) console.info(`  - ${song.title}`)
   }
 }
 

@@ -842,5 +842,238 @@
     "songBlurb": "Spacious indie peace — beauty, presence, and quiet rest like a sunlit city by the sea.",
     "artistBlurb": "Indie worship artist crafting spacious, grateful songs of peace and presence.",
     "lyricsExcerpt": "Quiet beauty all around Your presence in the still"
+  },
+  {
+    "id": "demons-josiah-queen",
+    "title": "demons",
+    "artists": "Josiah Queen",
+    "genre": "Country",
+    "themes": [
+      "suffering",
+      "faith"
+    ],
+    "keywords": [
+      "demons",
+      "struggle",
+      "faith",
+      "battle"
+    ],
+    "spotifyTrackId": "5HXFe0eb5lCfJpsqoqIbRS",
+    "spotifyUrl": "https://open.spotify.com/track/5HXFe0eb5lCfJpsqoqIbRS",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0223e818b00c0e2b2918c96a05",
+    "songBlurb": "An honest country confession about the battles within — naming darkness while leaning on faith.",
+    "artistBlurb": "Faith-rooted country artist with an honest, storytelling voice."
+  },
+  {
+    "id": "slowly-leslie-perez",
+    "title": "Slowly",
+    "artists": "Leslie Perez",
+    "genre": "Indie",
+    "themes": [
+      "peace",
+      "presence"
+    ],
+    "keywords": [
+      "slowly",
+      "patience",
+      "still",
+      "presence"
+    ],
+    "spotifyTrackId": "3yXTQs2iGnCLMPPLE8XJE9",
+    "spotifyUrl": "https://open.spotify.com/track/3yXTQs2iGnCLMPPLE8XJE9",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02bae7d5d2b7b72eb312c64629",
+    "songBlurb": "A quiet indie track about slowing down enough to notice God's nearness.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "remedy-leslie-perez",
+    "title": "remedy",
+    "artists": "Leslie Perez",
+    "genre": "Indie",
+    "themes": [
+      "grace",
+      "hope"
+    ],
+    "keywords": [
+      "remedy",
+      "healing",
+      "grace",
+      "hope"
+    ],
+    "spotifyTrackId": "2jQhlPNRz7OKyNp7tmqG62",
+    "spotifyUrl": "https://open.spotify.com/track/2jQhlPNRz7OKyNp7tmqG62",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f5969879df778bf482d8859f",
+    "songBlurb": "A soft indie plea for healing — grace as the remedy for what hurts.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "mountain-top-leslie-perez",
+    "title": "Mountain Top",
+    "artists": "Leslie Perez",
+    "genre": "Indie",
+    "themes": [
+      "presence",
+      "faith"
+    ],
+    "keywords": [
+      "mountain",
+      "top",
+      "presence",
+      "faith",
+      "height"
+    ],
+    "spotifyTrackId": "6dDZukfQ0684ODp2KC1O8d",
+    "spotifyUrl": "https://open.spotify.com/track/6dDZukfQ0684ODp2KC1O8d",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e029b374d862ee895fe048853c3",
+    "songBlurb": "An indie climb toward clearer air — faith and presence on the mountain top.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "my-one-and-only-leslie-perez",
+    "title": "My One And Only",
+    "artists": "Leslie Perez",
+    "genre": "Indie",
+    "themes": [
+      "love"
+    ],
+    "keywords": [
+      "one",
+      "only",
+      "love",
+      "devote"
+    ],
+    "spotifyTrackId": "7F8IZ0A1uw728DvFlJk7Mt",
+    "spotifyUrl": "https://open.spotify.com/track/7F8IZ0A1uw728DvFlJk7Mt",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02678539a932885ac592d5a994",
+    "songBlurb": "A tender indie devotion song — love reserved for the One and only.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "i-repent-rali",
+    "title": "i Repent",
+    "artists": "RALI",
+    "genre": "Rap",
+    "themes": [
+      "grace",
+      "salvation"
+    ],
+    "keywords": [
+      "repent",
+      "grace",
+      "turn",
+      "salvation"
+    ],
+    "spotifyTrackId": "3VbtiavMbNXAXZBa6Tx8QA",
+    "spotifyUrl": "https://open.spotify.com/track/3VbtiavMbNXAXZBa6Tx8QA",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0203b2802c89cfcc6ef88fadd0",
+    "songBlurb": "A faith-forward hip-hop turn toward repentance, grace, and new life.",
+    "artistBlurb": "Christian hip-hop artist bringing faith and conviction to the beat."
+  },
+  {
+    "id": "lover-of-my-soul-damares-gomes",
+    "title": "Lover Of My Soul",
+    "artists": "Dâmares Gomes",
+    "genre": "R&B",
+    "themes": [
+      "love",
+      "presence"
+    ],
+    "keywords": [
+      "lover",
+      "soul",
+      "love",
+      "intimate",
+      "presence"
+    ],
+    "spotifyTrackId": "0bMV7EnPQeKty8Jc8GQuwC",
+    "spotifyUrl": "https://open.spotify.com/track/0bMV7EnPQeKty8Jc8GQuwC",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0253d4880eb96248f93aecf2d4",
+    "songBlurb": "A soulful R&B love song to the Lover of the soul — intimate and near.",
+    "artistBlurb": "R&B singer known for smooth vocals and intimate, faith-tinged storytelling."
+  },
+  {
+    "id": "loving-kind-antoine-bradford",
+    "title": "Loving Kind",
+    "artists": "Antoine Bradford",
+    "genre": "Indie",
+    "themes": [
+      "love",
+      "grace"
+    ],
+    "keywords": [
+      "loving",
+      "kind",
+      "kindness",
+      "grace",
+      "love"
+    ],
+    "spotifyTrackId": "1TP5qfz8EGeJqV7WutuKC6",
+    "spotifyUrl": "https://open.spotify.com/track/1TP5qfz8EGeJqV7WutuKC6",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b1d9c80e0734822f1483df92",
+    "songBlurb": "An intimate indie reflection on loving-kindness — grace that meets you gently.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "heaven-claudia-isaki",
+    "title": "Heaven",
+    "artists": "Claudia Isaki",
+    "genre": "Indie",
+    "themes": [
+      "hope",
+      "belonging"
+    ],
+    "keywords": [
+      "heaven",
+      "hope",
+      "home",
+      "belong"
+    ],
+    "spotifyTrackId": "5iPSPVb8P1mlS58tpRmcDU",
+    "spotifyUrl": "https://open.spotify.com/track/5iPSPVb8P1mlS58tpRmcDU",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02f32e57bacecfab9564c40c0d",
+    "songBlurb": "An indie glance toward heaven — hope and belonging beyond what we see.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "be-with-you-antoine-bradford",
+    "title": "Be With You",
+    "artists": "Antoine Bradford",
+    "genre": "Indie",
+    "themes": [
+      "presence",
+      "love"
+    ],
+    "keywords": [
+      "be with",
+      "presence",
+      "near",
+      "love"
+    ],
+    "spotifyTrackId": "2GNV0qwulPbZTDZUb1XR2b",
+    "spotifyUrl": "https://open.spotify.com/track/2GNV0qwulPbZTDZUb1XR2b",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e027d11d6a1416b9c6546e5ccbc",
+    "songBlurb": "A quiet indie desire simply to be with God — presence as the point.",
+    "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "before-tekoa-watobi",
+    "title": "Before",
+    "artists": "Tekoa, Watobi",
+    "genre": "Indie",
+    "themes": [
+      "trust",
+      "presence"
+    ],
+    "keywords": [
+      "before",
+      "trust",
+      "presence",
+      "begin"
+    ],
+    "spotifyTrackId": "71dNHv6FwyjJ0Dx6NpiF0i",
+    "spotifyUrl": "https://open.spotify.com/track/71dNHv6FwyjJ0Dx6NpiF0i",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0296cefa82e3f4d3352c5b0942",
+    "songBlurb": "An indie meditation on what comes before everything else — trust and nearness.",
+    "artistBlurb": "Indie faith artists with intimate, reflective songwriting."
   }
 ]
