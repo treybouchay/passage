@@ -14,6 +14,7 @@ function genreHeadingId(genre: string): string {
 export function MusicSection() {
   const [genreFilter, setGenreFilter] = useState<SongGenre | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
   const [filtersOpen, setFiltersOpen] = useState(false)
 
   const genreGroups = useMemo(() => songsByGenre(playlistSongs), [])
@@ -29,9 +30,20 @@ export function MusicSection() {
   }, [])
 
   const filteredSongs = useMemo(() => {
-    if (!themeFilter) return playlistSongs
-    return playlistSongs.filter((song) => song.themes.includes(themeFilter))
-  }, [themeFilter])
+    const q = searchQuery.trim().toLowerCase()
+    return playlistSongs.filter((song) => {
+      // Empty themes still match when theme filter is "all" (null)
+      if (themeFilter !== null && !song.themes.includes(themeFilter)) {
+        return false
+      }
+      if (q) {
+        const inTitle = song.title.toLowerCase().includes(q)
+        const inArtist = song.artists.toLowerCase().includes(q)
+        if (!inTitle && !inArtist) return false
+      }
+      return true
+    })
+  }, [themeFilter, searchQuery])
 
   const groups = songsByGenre(filteredSongs)
   const visibleGroups =
@@ -51,6 +63,25 @@ export function MusicSection() {
       <p className="section-lead">
         Curated songs, grouped by genre.
       </p>
+
+      <div className="music-search">
+        <label className="favorites-filter-label" htmlFor="music-search">
+          search
+        </label>
+        <div className="music-search-wrap">
+          <input
+            id="music-search"
+            type="search"
+            className="music-search-input"
+            placeholder="title or artist"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <span className="music-search-bar" aria-hidden="true" />
+        </div>
+      </div>
 
       {showFilters ? (
         <div className="favorites-filters">

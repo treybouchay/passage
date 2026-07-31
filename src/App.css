@@ -1824,6 +1824,55 @@ a.prayer-secondary-btn:visited {
   border-bottom-color: var(--accent);
 }
 
+.music-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: -0.4rem 0 1.35rem;
+}
+
+.music-search-wrap {
+  position: relative;
+}
+
+.music-search-input {
+  width: 100%;
+  padding: 0.35rem 0 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.music-search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.music-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.music-search-bar {
+  display: block;
+  height: 1.5px;
+  background: var(--sage-light);
+}
+
+.music-search-input:focus + .music-search-bar {
+  background: var(--accent);
+  height: 2px;
+  transition: background 0.2s, height 0.2s;
+}
+
 .passage-themes {
   list-style: none;
   margin: 0.65rem 0 0;

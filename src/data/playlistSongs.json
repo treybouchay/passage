@@ -1154,5 +1154,53 @@
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b1d9c80e0734822f1483df92",
     "songBlurb": "An intimate indie reflection on loving-kindness — grace that meets you gently.",
     "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
+  },
+  {
+    "id": "i-need-you-more-josiah-queen-henrik",
+    "title": "i need you more",
+    "artists": "Josiah Queen, Henrik",
+    "genre": "Indie",
+    "themes": [
+      "presence",
+      "faith"
+    ],
+    "keywords": [
+      "need",
+      "you",
+      "more",
+      "presence",
+      "faith",
+      "dependence"
+    ],
+    "spotifyTrackId": "0ajlZUEYHV9cTPr0Ddhsee",
+    "spotifyUrl": "https://open.spotify.com/track/0ajlZUEYHV9cTPr0Ddhsee",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e023a25b35f2c6097c1772f7601",
+    "songBlurb": "An indie plea for more of God — presence that faith keeps reaching for.",
+    "artistBlurb": "Indie faith artists with intimate, reflective songwriting."
+  },
+  {
+    "id": "dusty-bibles-1GvJ35",
+    "title": "Dusty Bibles",
+    "artists": "Josiah Queen",
+    "genre": "Country",
+    "themes": [
+      "faith",
+      "guidance"
+    ],
+    "keywords": [
+      "bible",
+      "scripture",
+      "faith",
+      "dusty",
+      "word",
+      "guidance",
+      "return"
+    ],
+    "spotifyTrackId": "1GvJ35amuk7oGjcnoYSKFA",
+    "spotifyUrl": "https://open.spotify.com/track/1GvJ35amuk7oGjcnoYSKFA",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02538455e5e56e2725e885f54c",
+    "songBlurb": "Country faith about returning to Scripture — dusty pages opened again for guidance.",
+    "artistBlurb": "Country-tinged faith music about returning to Scripture and guidance.",
+    "lyricsExcerpt": "Dusty Bibles Calling me back to the Word"
   }
 ]
