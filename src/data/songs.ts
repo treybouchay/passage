@@ -5,6 +5,7 @@ export const SONG_GENRE_ORDER = [
   'R&B',
   'Rap',
   'Country',
+  'Folk Christian',
   'Worship',
   'Indie',
   'Ambient',
@@ -60,6 +61,8 @@ const GENRE_ARTIST_BLURB: Record<SongGenre, string> = {
   'R&B': 'Christian R&B artist exploring faith through smooth, soulful sound.',
   Rap: 'Christian hip-hop artist bringing faith and conviction to the beat.',
   Country: 'Faith-rooted country artist with an honest, storytelling voice.',
+  'Folk Christian':
+    'Folk Christian artist with acoustic, singer-songwriter faith storytelling.',
   Worship: 'Worship artist creating songs for presence and praise.',
   Indie: 'Indie faith artist with intimate, reflective songwriting.',
   Ambient: 'Ambient artist crafting spacious soundscapes for rest and reflection.',
@@ -69,6 +72,8 @@ const GENRE_SONG_BLURB: Record<SongGenre, string> = {
   'R&B': 'A smooth, soulful track that leans into faith with quiet intensity.',
   Rap: 'A faith-forward hip-hop track with conviction and drive.',
   Country: 'An honest, storytelling song rooted in everyday faith.',
+  'Folk Christian':
+    'An acoustic, folk-leaning faith song with intimate singer-songwriter warmth.',
   Worship: 'A worship song made for presence, praise, and lingering with God.',
   Indie: 'An intimate indie track with reflective, faith-tinged songwriting.',
   Ambient: 'A spacious ambient piece for rest, calm, and quiet reflection.',

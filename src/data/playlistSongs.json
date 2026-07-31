@@ -16,7 +16,7 @@
     "spotifyTrackId": "2VUaCpFcrgpjMZiWvDncE7",
     "spotifyUrl": "https://open.spotify.com/track/2VUaCpFcrgpjMZiWvDncE7",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02d0d22ce406c1cc988e293a1e",
-    "songBlurb": "A soft R&B meditation on God — intimate vocals circling worship and divine nearness.",
+    "songBlurb": "A soft R&B meditation on God \u2014 intimate vocals circling worship and divine nearness.",
     "artistBlurb": "R&B singer known for smooth vocals and intimate, faith-tinged storytelling.",
     "lyricsExcerpt": "You're my G.O.D. Nothing else comes close to You"
   },
@@ -82,7 +82,7 @@
     "spotifyTrackId": "2i4yRtF6lzVpmnbVFY3vxR",
     "spotifyUrl": "https://open.spotify.com/track/2i4yRtF6lzVpmnbVFY3vxR",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e024e7be7ef006936199fc326e3",
-    "songBlurb": "A graceful R&B anthem of transformation — redeemed, made new, forever different.",
+    "songBlurb": "A graceful R&B anthem of transformation \u2014 redeemed, made new, forever different.",
     "artistBlurb": "Soulful Christian R&B voice pairing grace with honest transformation.",
     "lyricsExcerpt": "I'm forever changed Redeemed and made new By Your grace"
   },
@@ -127,7 +127,7 @@
     "spotifyTrackId": "7M3huOli8F5pDlwy58SXOy",
     "spotifyUrl": "https://open.spotify.com/track/7M3huOli8F5pDlwy58SXOy",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e025eb439b25ca08fd0d1ed5170",
-    "songBlurb": "An identity song centered on Jesus — belonging, salvation, and being claimed as His.",
+    "songBlurb": "An identity song centered on Jesus \u2014 belonging, salvation, and being claimed as His.",
     "artistBlurb": "Contemporary Christian R&B artist exploring trust, belonging, and God's nearness.",
     "lyricsExcerpt": "Son of God You call me Yours That's who I am"
   },
@@ -181,7 +181,7 @@
     "id": "save-my-soul",
     "title": "Save My Soul",
     "artists": "Noah Rinker",
-    "genre": "Country",
+    "genre": "Folk Christian",
     "themes": [
       "salvation",
       "grace"
@@ -197,7 +197,7 @@
     "spotifyTrackId": "7h7dOssdchfLK9GQ2NQBOT",
     "spotifyUrl": "https://open.spotify.com/track/7h7dOssdchfLK9GQ2NQBOT",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02efb0ba19cab95a3c63b9b702",
-    "songBlurb": "Honest country pleading for rescue — grace meeting a lost and weary soul.",
+    "songBlurb": "Honest country pleading for rescue \u2014 grace meeting a lost and weary soul.",
     "artistBlurb": "Country songwriter with an honest, faith-rooted voice.",
     "lyricsExcerpt": "Save my soul I was lost until You found me"
   },
@@ -205,7 +205,7 @@
     "id": "revolution-claudia",
     "title": "revolution - demo",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "purpose"
     ],
@@ -219,7 +219,7 @@
     "spotifyTrackId": "2MtkWX6NmSdPWrNwOCSqTK",
     "spotifyUrl": "https://open.spotify.com/track/2MtkWX6NmSdPWrNwOCSqTK",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e366b7fee7a04460358559c9",
-    "songBlurb": "A quiet call to purpose and change — revolution as a new direction of the heart.",
+    "songBlurb": "A quiet call to purpose and change \u2014 revolution as a new direction of the heart.",
     "artistBlurb": "Indie artist weaving quiet faith into warm, intimate songs.",
     "lyricsExcerpt": "This is my revolution Turning toward something new"
   },
@@ -250,7 +250,7 @@
     "id": "my-home-claudia",
     "title": "My Home",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "belonging",
       "peace"
@@ -272,7 +272,7 @@
   {
     "id": "fire-in-your-eyes",
     "title": "Fire In Your Eyes",
-    "artists": "Dâmares Gomes",
+    "artists": "D\u00e2mares Gomes",
     "genre": "R&B",
     "themes": [
       "love"
@@ -287,7 +287,7 @@
     "spotifyTrackId": "78CWkkobTOEBh9JRAwn2lF",
     "spotifyUrl": "https://open.spotify.com/track/78CWkkobTOEBh9JRAwn2lF",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02ea31c8b18e7951d4a9cb0b8f",
-    "songBlurb": "Passionate R&B about love that burns — desire and devotion in the gaze.",
+    "songBlurb": "Passionate R&B about love that burns \u2014 desire and devotion in the gaze.",
     "artistBlurb": "Brazilian-rooted R&B voice singing love with spiritual fire.",
     "lyricsExcerpt": "There's a fire in Your eyes Love that won't look away"
   },
@@ -295,7 +295,7 @@
     "id": "splendor-of-life",
     "title": "Splendor of Life",
     "artists": "Sarah Juers, Antoine Bradford",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "joy",
       "gratitude"
@@ -311,7 +311,7 @@
     "spotifyTrackId": "4gblOfNBrtRy5i85e62nbz",
     "spotifyUrl": "https://open.spotify.com/track/4gblOfNBrtRy5i85e62nbz",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0266f64cd2a3a694c199fce37e",
-    "songBlurb": "Grateful indie worship celebrating being alive — joy in the splendor of ordinary life.",
+    "songBlurb": "Grateful indie worship celebrating being alive \u2014 joy in the splendor of ordinary life.",
     "artistBlurb": "Indie worship artist crafting spacious, grateful songs of peace and presence.",
     "lyricsExcerpt": "The splendor of life Is waking up grateful again"
   },
@@ -337,7 +337,7 @@
     "spotifyTrackId": "5NH4newWj93QYYqfl8QFMq",
     "spotifyUrl": "https://open.spotify.com/track/5NH4newWj93QYYqfl8QFMq",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02a487104c62384e4200ab8ef7",
-    "songBlurb": "Ambient calm for anxious moments — breathe, slow down, let peace catch up.",
+    "songBlurb": "Ambient calm for anxious moments \u2014 breathe, slow down, let peace catch up.",
     "artistBlurb": "Ambient collective creating calm soundscapes for anxious, restless hearts.",
     "lyricsExcerpt": "Breathe in slow Peace is closer than the worry"
   },
@@ -367,7 +367,7 @@
     "id": "another-in-the-fire",
     "title": "Another In the Fire",
     "artists": "sxxnt., Sara Damon, Brother Joe",
-    "genre": "Worship",
+    "genre": "Folk Christian",
     "themes": [
       "suffering"
     ],
@@ -383,7 +383,7 @@
     "spotifyTrackId": "4FFfvln3hGIqnenEQPn9Kk",
     "spotifyUrl": "https://open.spotify.com/track/4FFfvln3hGIqnenEQPn9Kk",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0257999dccc85c2d08158b8f48",
-    "songBlurb": "Worship through trial — God with you in the fire, not alone in suffering.",
+    "songBlurb": "Worship through trial \u2014 God with you in the fire, not alone in suffering.",
     "artistBlurb": "Worship producer blending atmospheric sound with heartfelt praise.",
     "lyricsExcerpt": "There's another in the fire Standing here with me"
   },
@@ -391,7 +391,7 @@
     "id": "gotta-have-faith",
     "title": "Gotta Have Faith",
     "artists": "Emma Nissen",
-    "genre": "Country",
+    "genre": "Folk Christian",
     "themes": [
       "faith",
       "trust"
@@ -414,7 +414,7 @@
     "id": "jesus-youre-beautiful",
     "title": "Jesus, You're Beautiful",
     "artists": "Ben Potter, sxxnt., Freddie Fardon, Hanna Sheets",
-    "genre": "Worship",
+    "genre": "Folk Christian",
     "themes": [
       "love",
       "presence"
@@ -437,7 +437,7 @@
     "id": "gratitude-sxxnt",
     "title": "Gratitude",
     "artists": "sxxnt., Sara Damon",
-    "genre": "Worship",
+    "genre": "Folk Christian",
     "themes": [
       "gratitude",
       "joy"
@@ -453,7 +453,7 @@
     "spotifyTrackId": "1IXBIXdb8uDYA9sqBysVp3",
     "spotifyUrl": "https://open.spotify.com/track/1IXBIXdb8uDYA9sqBysVp3",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02cfd8f604bef41228d86dd2ed",
-    "songBlurb": "A thankful worship moment — slow gratitude rising into praise.",
+    "songBlurb": "A thankful worship moment \u2014 slow gratitude rising into praise.",
     "artistBlurb": "Worship producer blending atmospheric sound with heartfelt praise.",
     "lyricsExcerpt": "All my gratitude Rises up like praise"
   },
@@ -461,7 +461,7 @@
     "id": "lalalove",
     "title": "Lalalove",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "love",
       "joy"
@@ -475,7 +475,7 @@
     "spotifyTrackId": "58iVUvFoRVy5BIOsXfrVxa",
     "spotifyUrl": "https://open.spotify.com/track/58iVUvFoRVy5BIOsXfrVxa",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0212213af2911eb5b8ec3a8008",
-    "songBlurb": "Light indie joy about love — playful, warm, and full of heart.",
+    "songBlurb": "Light indie joy about love \u2014 playful, warm, and full of heart.",
     "artistBlurb": "Indie artist weaving quiet faith into warm, intimate songs.",
     "lyricsExcerpt": "La la love A joy that fills the quiet"
   },
@@ -483,7 +483,7 @@
     "id": "i-wont-let-go",
     "title": "I Won't Let Go",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "hope",
       "faith"
@@ -523,7 +523,7 @@
     "spotifyTrackId": "5aLreMNLIm9k2nQaYy2Rkk",
     "spotifyUrl": "https://open.spotify.com/track/5aLreMNLIm9k2nQaYy2Rkk",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e028f270334ca5b80cf85642e53",
-    "songBlurb": "A prayer for clarity — guidance when God feels hard to find.",
+    "songBlurb": "A prayer for clarity \u2014 guidance when God feels hard to find.",
     "artistBlurb": "Christian R&B artist seeking guidance and a clearer sense of God's nearness.",
     "lyricsExcerpt": "Help me to see You When the path feels unclear"
   },
@@ -546,7 +546,7 @@
     "spotifyTrackId": "03zm2qFnQ5eKV940TcykyH",
     "spotifyUrl": "https://open.spotify.com/track/03zm2qFnQ5eKV940TcykyH",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b41223509a052723a50ee11b",
-    "songBlurb": "Smooth R&B about promise and waiting — hope rooted in faithfulness.",
+    "songBlurb": "Smooth R&B about promise and waiting \u2014 hope rooted in faithfulness.",
     "artistBlurb": "Smooth faith R&B about promise, hope, and staying rooted.",
     "lyricsExcerpt": "You made a promise And You're still keeping it"
   },
@@ -576,7 +576,7 @@
   {
     "id": "oceans-in-my-mind",
     "title": "oceans in my mind",
-    "artists": "Who.Is.Ashé",
+    "artists": "Who.Is.Ash\u00e9",
     "genre": "Ambient",
     "themes": [
       "anxiety",
@@ -594,7 +594,7 @@
     "spotifyTrackId": "5PBgixtnF2hIrTDYl0JUt9",
     "spotifyUrl": "https://open.spotify.com/track/5PBgixtnF2hIrTDYl0JUt9",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b86de6b85315451ea50f8058",
-    "songBlurb": "Ambient reflection on overwhelm — restless thoughts seeking peace in deep water.",
+    "songBlurb": "Ambient reflection on overwhelm \u2014 restless thoughts seeking peace in deep water.",
     "artistBlurb": "Ambient artist exploring peace amid restless thoughts.",
     "lyricsExcerpt": "Oceans in my mind But You still speak peace"
   },
@@ -602,7 +602,7 @@
     "id": "morning-song-give-me-jesus",
     "title": "Morning Song (Give Me Jesus)",
     "artists": "Antoine Bradford",
-    "genre": "Worship",
+    "genre": "Folk Christian",
     "themes": [
       "presence",
       "love"
@@ -626,7 +626,7 @@
     "id": "bedside-table",
     "title": "Bedside Table",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "peace"
     ],
@@ -641,7 +641,7 @@
     "spotifyTrackId": "4tP29y2nwWTdGvo0QR7gpF",
     "spotifyUrl": "https://open.spotify.com/track/4tP29y2nwWTdGvo0QR7gpF",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0212213af2911eb5b8ec3a8008",
-    "songBlurb": "Quiet night stillness — rest, peace, and the hush beside the bed.",
+    "songBlurb": "Quiet night stillness \u2014 rest, peace, and the hush beside the bed.",
     "artistBlurb": "Indie artist weaving quiet faith into warm, intimate songs.",
     "lyricsExcerpt": "Quiet at the bedside Stillness holding me"
   },
@@ -692,7 +692,7 @@
     "spotifyTrackId": "2lFAo8LsBkaV31A76hTtZW",
     "spotifyUrl": "https://open.spotify.com/track/2lFAo8LsBkaV31A76hTtZW",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0228412c6669a0075b51985a24",
-    "songBlurb": "A release from hustle — rest, trust, and the peace of no more striving.",
+    "songBlurb": "A release from hustle \u2014 rest, trust, and the peace of no more striving.",
     "artistBlurb": "Indie artist writing about rest, peace, and releasing striving.",
     "lyricsExcerpt": "No striving Just rest in who You are"
   },
@@ -700,7 +700,7 @@
     "id": "start-over-claudia",
     "title": "Start Over",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "grace",
       "hope"
@@ -741,7 +741,7 @@
     "spotifyTrackId": "669PG7je3XBT9PP7POGGiW",
     "spotifyUrl": "https://open.spotify.com/track/669PG7je3XBT9PP7POGGiW",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0201c92c55a66b5ec975826415",
-    "songBlurb": "An intimate letter-prayer to Jesus — presence, love, and honest worship.",
+    "songBlurb": "An intimate letter-prayer to Jesus \u2014 presence, love, and honest worship.",
     "artistBlurb": "Contemporary worship band known for anthemic, heartfelt praise.",
     "lyricsExcerpt": "Dear Jesus I'm drawing near again"
   },
@@ -749,7 +749,7 @@
     "id": "dusty-bibles",
     "title": "Dusty Bibles",
     "artists": "Josiah Queen, Avery Anna",
-    "genre": "Country",
+    "genre": "Folk Christian",
     "themes": [
       "faith",
       "guidance"
@@ -766,7 +766,7 @@
     "spotifyTrackId": "4Ax4D1H5St8eDVkFgiKKZ9",
     "spotifyUrl": "https://open.spotify.com/track/4Ax4D1H5St8eDVkFgiKKZ9",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e7902c2bd26bbba4c183fbb8",
-    "songBlurb": "Country faith about returning to Scripture — dusty pages opened again for guidance.",
+    "songBlurb": "Country faith about returning to Scripture \u2014 dusty pages opened again for guidance.",
     "artistBlurb": "Country-tinged faith music about returning to Scripture and guidance.",
     "lyricsExcerpt": "Dusty Bibles Calling me back to the Word"
   },
@@ -797,7 +797,7 @@
   {
     "id": "heal-our-land",
     "title": "Heal Our Land",
-    "artists": "Sarah Nathalié",
+    "artists": "Sarah Nathali\u00e9",
     "genre": "Worship",
     "themes": [
       "hope",
@@ -815,7 +815,7 @@
     "spotifyTrackId": "2KAx4sWkuiCNMSkqTEtiKs",
     "spotifyUrl": "https://open.spotify.com/track/2KAx4sWkuiCNMSkqTEtiKs",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b3629a19c4df202b40984b94",
-    "songBlurb": "A hopeful prayer over a hurting world — restoration and healing for the land.",
+    "songBlurb": "A hopeful prayer over a hurting world \u2014 restoration and healing for the land.",
     "artistBlurb": "Worship artist praying hope over a hurting world.",
     "lyricsExcerpt": "Heal our land Restore what brokenness took"
   },
@@ -823,7 +823,7 @@
     "id": "napoli",
     "title": "Napoli",
     "artists": "Sarah Juers",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "peace",
       "presence"
@@ -839,7 +839,7 @@
     "spotifyTrackId": "70NhVppdtoUSdYMAfvVQUX",
     "spotifyUrl": "https://open.spotify.com/track/70NhVppdtoUSdYMAfvVQUX",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02667b18b48d9048f1b87c0e26",
-    "songBlurb": "Spacious indie peace — beauty, presence, and quiet rest like a sunlit city by the sea.",
+    "songBlurb": "Spacious indie peace \u2014 beauty, presence, and quiet rest like a sunlit city by the sea.",
     "artistBlurb": "Indie worship artist crafting spacious, grateful songs of peace and presence.",
     "lyricsExcerpt": "Quiet beauty all around Your presence in the still"
   },
@@ -847,7 +847,7 @@
     "id": "demons-josiah-queen",
     "title": "demons",
     "artists": "Josiah Queen",
-    "genre": "Country",
+    "genre": "Folk Christian",
     "themes": [
       "suffering",
       "faith"
@@ -861,14 +861,14 @@
     "spotifyTrackId": "5HXFe0eb5lCfJpsqoqIbRS",
     "spotifyUrl": "https://open.spotify.com/track/5HXFe0eb5lCfJpsqoqIbRS",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0223e818b00c0e2b2918c96a05",
-    "songBlurb": "An honest country confession about the battles within — naming darkness while leaning on faith.",
+    "songBlurb": "An honest country confession about the battles within \u2014 naming darkness while leaning on faith.",
     "artistBlurb": "Faith-rooted country artist with an honest, storytelling voice."
   },
   {
     "id": "take-your-time-joseph-o-brien",
     "title": "Take Your Time",
     "artists": "Joseph O'Brien",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "take",
@@ -882,7 +882,7 @@
     "id": "true-north-jervis-campbell",
     "title": "true north",
     "artists": "Jervis Campbell",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "true",
@@ -949,7 +949,7 @@
     "id": "the-future-is-bright-claudia-isaki",
     "title": "The Future Is Bright",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "future",
@@ -976,7 +976,7 @@
     "id": "blessed-be-sarah-juers-madison-ryann-ward",
     "title": "Blessed Be",
     "artists": "Sarah Juers, Madison Ryann Ward",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "blessed"
@@ -989,7 +989,7 @@
     "id": "lead-me-to-the-cross-sxxnt-austin-sebek",
     "title": "Lead Me To The Cross",
     "artists": "sxxnt., Austin Sebek",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "lead",
@@ -1035,7 +1035,7 @@
     "id": "marathon-claudia-isaki",
     "title": "Marathon",
     "artists": "Claudia Isaki",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "marathon"
@@ -1060,7 +1060,7 @@
   {
     "id": "lover-of-my-soul-damares-gomes",
     "title": "Lover Of My Soul",
-    "artists": "Dâmares Gomes",
+    "artists": "D\u00e2mares Gomes",
     "genre": "R&B",
     "themes": [
       "love",
@@ -1076,14 +1076,14 @@
     "spotifyTrackId": "0bMV7EnPQeKty8Jc8GQuwC",
     "spotifyUrl": "https://open.spotify.com/track/0bMV7EnPQeKty8Jc8GQuwC",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0253d4880eb96248f93aecf2d4",
-    "songBlurb": "A soulful R&B love song to the Lover of the soul — intimate and near.",
+    "songBlurb": "A soulful R&B love song to the Lover of the soul \u2014 intimate and near.",
     "artistBlurb": "R&B singer known for smooth vocals and intimate, faith-tinged storytelling."
   },
   {
     "id": "trust-in-you-antoine-bradford",
     "title": "Trust in You",
     "artists": "Antoine Bradford",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "trust"
@@ -1096,7 +1096,7 @@
     "id": "nothing-else-gatton-sxxnt",
     "title": "Nothing Else",
     "artists": "Gatton, sxxnt.",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "nothing",
@@ -1109,7 +1109,7 @@
   {
     "id": "trust-sarah-nathalie",
     "title": "Trust",
-    "artists": "Sarah Nathalié",
+    "artists": "Sarah Nathali\u00e9",
     "genre": "Indie",
     "themes": [],
     "keywords": [
@@ -1123,7 +1123,7 @@
     "id": "timeless-acoustic-g-e-s",
     "title": "Timeless - acoustic",
     "artists": "G.E.S",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "timeless",
@@ -1137,7 +1137,7 @@
     "id": "loving-kind-antoine-bradford",
     "title": "Loving Kind",
     "artists": "Antoine Bradford",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "love",
       "grace"
@@ -1152,14 +1152,14 @@
     "spotifyTrackId": "1TP5qfz8EGeJqV7WutuKC6",
     "spotifyUrl": "https://open.spotify.com/track/1TP5qfz8EGeJqV7WutuKC6",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b1d9c80e0734822f1483df92",
-    "songBlurb": "An intimate indie reflection on loving-kindness — grace that meets you gently.",
+    "songBlurb": "An intimate indie reflection on loving-kindness \u2014 grace that meets you gently.",
     "artistBlurb": "Indie faith artist with intimate, reflective songwriting."
   },
   {
     "id": "i-need-you-more-josiah-queen-henrik",
     "title": "i need you more",
     "artists": "Josiah Queen, Henrik",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [
       "presence",
       "faith"
@@ -1175,14 +1175,14 @@
     "spotifyTrackId": "0ajlZUEYHV9cTPr0Ddhsee",
     "spotifyUrl": "https://open.spotify.com/track/0ajlZUEYHV9cTPr0Ddhsee",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e023a25b35f2c6097c1772f7601",
-    "songBlurb": "An indie plea for more of God — presence that faith keeps reaching for.",
+    "songBlurb": "An indie plea for more of God \u2014 presence that faith keeps reaching for.",
     "artistBlurb": "Indie faith artists with intimate, reflective songwriting."
   },
   {
     "id": "dusty-bibles-1GvJ35",
     "title": "Dusty Bibles",
     "artists": "Josiah Queen",
-    "genre": "Country",
+    "genre": "Folk Christian",
     "themes": [
       "faith",
       "guidance"
@@ -1199,15 +1199,15 @@
     "spotifyTrackId": "1GvJ35amuk7oGjcnoYSKFA",
     "spotifyUrl": "https://open.spotify.com/track/1GvJ35amuk7oGjcnoYSKFA",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02538455e5e56e2725e885f54c",
-    "songBlurb": "Country faith about returning to Scripture — dusty pages opened again for guidance.",
+    "songBlurb": "Country faith about returning to Scripture \u2014 dusty pages opened again for guidance.",
     "artistBlurb": "Country-tinged faith music about returning to Scripture and guidance.",
     "lyricsExcerpt": "Dusty Bibles Calling me back to the Word"
   },
   {
     "id": "can-t-steal-my-joy-feat-brandon-lake-josiah-quee",
-    "title": "Can’t Steal My Joy (feat. Brandon Lake)",
+    "title": "Can\u2019t Steal My Joy (feat. Brandon Lake)",
     "artists": "Josiah Queen, Brandon Lake",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "can",
@@ -1225,7 +1225,7 @@
     "id": "my-promised-land-josiah-queen",
     "title": "My Promised Land",
     "artists": "Josiah Queen",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "promised",
@@ -1239,7 +1239,7 @@
     "id": "judas-josiah-queen",
     "title": "judas",
     "artists": "Josiah Queen",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "judas"
@@ -1252,7 +1252,7 @@
     "id": "jesus-is-paper-horses-taylor-leonhardt-jess-ray-",
     "title": "Jesus Is",
     "artists": "Paper Horses, Taylor Leonhardt, Jess Ray, Leslie Jordan, Sandra McCracken",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "jesus"
@@ -1265,7 +1265,7 @@
     "id": "please-don-t-love-me-son-of-cloud",
     "title": "Please Don't Love Me",
     "artists": "Son of Cloud",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "please",
@@ -1293,7 +1293,7 @@
     "id": "things-that-matter-josiah-queen",
     "title": "Things That Matter",
     "artists": "Josiah Queen",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "things",
@@ -1308,7 +1308,7 @@
     "id": "two-wooden-beams-josiah-queen",
     "title": "Two Wooden Beams",
     "artists": "Josiah Queen",
-    "genre": "Indie",
+    "genre": "Folk Christian",
     "themes": [],
     "keywords": [
       "two",
