@@ -1202,5 +1202,121 @@
     "songBlurb": "Country faith about returning to Scripture — dusty pages opened again for guidance.",
     "artistBlurb": "Country-tinged faith music about returning to Scripture and guidance.",
     "lyricsExcerpt": "Dusty Bibles Calling me back to the Word"
+  },
+  {
+    "id": "can-t-steal-my-joy-feat-brandon-lake-josiah-quee",
+    "title": "Can’t Steal My Joy (feat. Brandon Lake)",
+    "artists": "Josiah Queen, Brandon Lake",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "can",
+      "steal",
+      "joy",
+      "feat",
+      "brandon",
+      "lake"
+    ],
+    "spotifyTrackId": "3UZMfcbNTfMLvMqOK1PV4Q",
+    "spotifyUrl": "https://open.spotify.com/track/3UZMfcbNTfMLvMqOK1PV4Q",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02538455e5e56e2725e885f54c"
+  },
+  {
+    "id": "my-promised-land-josiah-queen",
+    "title": "My Promised Land",
+    "artists": "Josiah Queen",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "promised",
+      "land"
+    ],
+    "spotifyTrackId": "0sXSFQXGhkXzmdt07flWXl",
+    "spotifyUrl": "https://open.spotify.com/track/0sXSFQXGhkXzmdt07flWXl",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e58cec4bf807e528193065cf"
+  },
+  {
+    "id": "judas-josiah-queen",
+    "title": "judas",
+    "artists": "Josiah Queen",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "judas"
+    ],
+    "spotifyTrackId": "6m8jy0dNtYqVi5c4EtLZdM",
+    "spotifyUrl": "https://open.spotify.com/track/6m8jy0dNtYqVi5c4EtLZdM",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02617bf5a6b77b427e77532fb1"
+  },
+  {
+    "id": "jesus-is-paper-horses-taylor-leonhardt-jess-ray-",
+    "title": "Jesus Is",
+    "artists": "Paper Horses, Taylor Leonhardt, Jess Ray, Leslie Jordan, Sandra McCracken",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "jesus"
+    ],
+    "spotifyTrackId": "6lmQs5bqpwr4jvY0YV4at2",
+    "spotifyUrl": "https://open.spotify.com/track/6lmQs5bqpwr4jvY0YV4at2",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0220694d13c73d18de1efdaa8c"
+  },
+  {
+    "id": "please-don-t-love-me-son-of-cloud",
+    "title": "Please Don't Love Me",
+    "artists": "Son of Cloud",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "please",
+      "don't",
+      "love"
+    ],
+    "spotifyTrackId": "2JX0LclpXAm1JQewDVxhzj",
+    "spotifyUrl": "https://open.spotify.com/track/2JX0LclpXAm1JQewDVxhzj",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0236ec5ea0e03fe761d326d88a"
+  },
+  {
+    "id": "satisfy-me-blake-lacy",
+    "title": "Satisfy Me",
+    "artists": "Blake Lacy",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "satisfy"
+    ],
+    "spotifyTrackId": "7LWSEwqpoNFRa0byFcImeg",
+    "spotifyUrl": "https://open.spotify.com/track/7LWSEwqpoNFRa0byFcImeg",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02803765bf3ff97bb49c11c0c3"
+  },
+  {
+    "id": "things-that-matter-josiah-queen",
+    "title": "Things That Matter",
+    "artists": "Josiah Queen",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "things",
+      "that",
+      "matter"
+    ],
+    "spotifyTrackId": "3dI8ebqxaGBnbbqAyhbZsl",
+    "spotifyUrl": "https://open.spotify.com/track/3dI8ebqxaGBnbbqAyhbZsl",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e58cec4bf807e528193065cf"
+  },
+  {
+    "id": "two-wooden-beams-josiah-queen",
+    "title": "Two Wooden Beams",
+    "artists": "Josiah Queen",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "two",
+      "wooden",
+      "beams"
+    ],
+    "spotifyTrackId": "3FBFBpkR1ahmoVlGOqDaCw",
+    "spotifyUrl": "https://open.spotify.com/track/3FBFBpkR1ahmoVlGOqDaCw",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02538455e5e56e2725e885f54c"
   }
 ]
