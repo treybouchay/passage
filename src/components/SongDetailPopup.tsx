@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
+  getSongArtistBlurb,
   getSongBlurb,
   type PlaylistSong,
 } from '../data/songs'
@@ -83,6 +84,7 @@ export function SongDetailPopup({
   const [artistUrl, setArtistUrl] = useState<string | null>(null)
   const statusTimer = useRef<number | null>(null)
   const songBlurb = getSongBlurb(song)
+  const artistBlurb = getSongArtistBlurb(song)
   const themes = song.themes.filter(Boolean)
   const artist = primaryArtistName(song.artists)
   const fallbackArtistUrl = ticketmasterSearchUrl(artist)
@@ -222,6 +224,18 @@ export function SongDetailPopup({
               about the song
             </h4>
             <p className="song-detail-blurb">{songBlurb}</p>
+          </section>
+          <section
+            className="song-detail-blurb-block song-detail-blurb-block--artist"
+            aria-labelledby="song-detail-artist-label"
+          >
+            <h4
+              id="song-detail-artist-label"
+              className="song-detail-section-label song-detail-section-label--artist"
+            >
+              about the artist
+            </h4>
+            <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
           </section>
 
           <section

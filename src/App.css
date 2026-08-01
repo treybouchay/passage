@@ -2106,6 +2106,18 @@ a.prayer-secondary-btn:visited {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
+  animation: prayerSayingIn 0.35s ease both;
+}
+
+@keyframes prayerSayingIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes prayerHandsPulse {

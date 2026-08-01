@@ -84,7 +84,7 @@ function App() {
   const orderNotice = useOrderReturnNotice()
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setBooting(false), 700)
+    const timer = window.setTimeout(() => setBooting(false), 1600)
     return () => window.clearTimeout(timer)
   }, [])
 
@@ -152,7 +152,7 @@ function App() {
     >
       {booting ? (
         <div className="boot-loader-overlay">
-          <PrayerHandsLoader label="Preparing…" />
+          <PrayerHandsLoader />
         </div>
       ) : null}
 
