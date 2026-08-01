@@ -20,6 +20,7 @@ export const config = {
   spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? '',
   spotifyPlaylistId:
     process.env.SPOTIFY_PLAYLIST_ID ?? '3zweaDyE8UZiMdBAsPagxd',
+  ticketmasterApiKey: process.env.TICKETMASTER_API_KEY ?? '',
 }
 
 /** Retail prices in USD cents (update to match your margin). */

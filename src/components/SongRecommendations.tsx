@@ -4,9 +4,16 @@ import { SongLink } from './SongLink'
 interface SongRecommendationsProps {
   songs: MatchedSong[]
   onSeeMore?: () => void
+  favoriteSongIds?: string[]
+  onToggleFavoriteSong?: (id: string) => void
 }
 
-export function SongRecommendations({ songs, onSeeMore }: SongRecommendationsProps) {
+export function SongRecommendations({
+  songs,
+  onSeeMore,
+  favoriteSongIds = [],
+  onToggleFavoriteSong,
+}: SongRecommendationsProps) {
   if (songs.length === 0) return null
 
   return (
@@ -19,7 +26,11 @@ export function SongRecommendations({ songs, onSeeMore }: SongRecommendationsPro
       <ul className="song-recs-list">
         {songs.map((song) => (
           <li key={song.id}>
-            <SongLink song={song} />
+            <SongLink
+              song={song}
+              favoriteActive={favoriteSongIds.includes(song.id)}
+              onToggleFavorite={onToggleFavoriteSong}
+            />
           </li>
         ))}
       </ul>

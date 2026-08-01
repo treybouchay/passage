@@ -11,7 +11,15 @@ function genreHeadingId(genre: string): string {
   return `music-genre-${genre.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 }
 
-export function MusicSection() {
+interface MusicSectionProps {
+  favoriteSongIds?: string[]
+  onToggleFavoriteSong?: (id: string) => void
+}
+
+export function MusicSection({
+  favoriteSongIds = [],
+  onToggleFavoriteSong,
+}: MusicSectionProps) {
   const [genreFilter, setGenreFilter] = useState<SongGenre | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -185,7 +193,11 @@ export function MusicSection() {
                 <ul className="music-song-list">
                   {songs.map((song) => (
                     <li key={song.id}>
-                      <SongLink song={song} />
+                      <SongLink
+                        song={song}
+                        favoriteActive={favoriteSongIds.includes(song.id)}
+                        onToggleFavorite={onToggleFavoriteSong}
+                      />
                     </li>
                   ))}
                 </ul>

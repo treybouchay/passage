@@ -1,7 +1,9 @@
 import { passages, type Passage } from '../data/passages'
+import { playlistSongs, type PlaylistSong } from '../data/songs'
 
 const PRAYERS_KEY = 'passage:prayers'
 const FAVORITES_KEY = 'passage:favorites'
+const FAVORITE_SONGS_KEY = 'passage:favoriteSongs'
 
 export interface SavedPrayer {
   id: string
@@ -140,8 +142,34 @@ export function toggleFavoriteId(id: string): string[] {
   return next
 }
 
+export function loadFavoriteSongIds(): string[] {
+  return readJson<string[]>(FAVORITE_SONGS_KEY, [])
+}
+
+export function toggleFavoriteSongId(id: string): string[] {
+  const favorites = loadFavoriteSongIds()
+  const next = favorites.includes(id)
+    ? favorites.filter((f) => f !== id)
+    : [...favorites, id]
+  writeJson(FAVORITE_SONGS_KEY, next)
+  return next
+}
+
 export function getPassageById(id: string): Passage | undefined {
   return passages.find((p) => p.id === id)
+}
+
+export function getSongById(id: string): PlaylistSong | undefined {
+  return playlistSongs.find((s) => s.id === id)
+}
+
+export function resolveFavoriteSongs(favoriteSongIds: string[]): PlaylistSong[] {
+  const songs: PlaylistSong[] = []
+  for (const id of favoriteSongIds) {
+    const song = getSongById(id)
+    if (song) songs.push(song)
+  }
+  return songs
 }
 
 export function resolveFavorites(

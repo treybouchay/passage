@@ -5,11 +5,24 @@ import {
   getSongBlurb,
   type PlaylistSong,
 } from '../data/songs'
+import {
+  fetchArtistConcerts,
+  formatConcertDate,
+  formatConcertDistance,
+  formatConcertPlace,
+  getBrowserCoords,
+  primaryArtistName,
+  ticketmasterSearchUrl,
+  type ConcertEvent,
+} from '../lib/concerts'
 import { shareSong } from '../lib/shareSong'
+import { FavoriteButton } from './FavoriteButton'
 
 interface SongDetailPopupProps {
   song: PlaylistSong
   onClose: () => void
+  favoriteActive?: boolean
+  onToggleFavorite?: () => void
 }
 
 function ShareIcon({ className }: { className?: string }) {
@@ -56,13 +69,25 @@ function PlayIcon({ className }: { className?: string }) {
   )
 }
 
-export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
+export function SongDetailPopup({
+  song,
+  onClose,
+  favoriteActive = false,
+  onToggleFavorite,
+}: SongDetailPopupProps) {
   const [status, setStatus] = useState<string | null>(null)
   const [isSharing, setIsSharing] = useState(false)
+  const [concerts, setConcerts] = useState<ConcertEvent[] | null>(null)
+  const [concertsLoading, setConcertsLoading] = useState(true)
+  const [concertsError, setConcertsError] = useState(false)
+  const [concertsLocated, setConcertsLocated] = useState(false)
+  const [artistUrl, setArtistUrl] = useState<string | null>(null)
   const statusTimer = useRef<number | null>(null)
   const songBlurb = getSongBlurb(song)
   const artistBlurb = getSongArtistBlurb(song)
   const themes = song.themes.filter(Boolean)
+  const artist = primaryArtistName(song.artists)
+  const fallbackArtistUrl = ticketmasterSearchUrl(artist)
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -79,6 +104,35 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
       }
     }
   }, [onClose])
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadConcerts() {
+      setConcertsLoading(true)
+      setConcertsError(false)
+      try {
+        const coords = await getBrowserCoords()
+        const result = await fetchArtistConcerts(artist, coords)
+        if (cancelled) return
+        setConcerts(result.events)
+        setConcertsLocated(Boolean(result.located))
+        setArtistUrl(result.artistUrl ?? fallbackArtistUrl)
+      } catch {
+        if (cancelled) return
+        setConcerts([])
+        setConcertsError(true)
+        setArtistUrl(fallbackArtistUrl)
+      } finally {
+        if (!cancelled) setConcertsLoading(false)
+      }
+    }
+
+    void loadConcerts()
+    return () => {
+      cancelled = true
+    }
+  }, [artist, fallbackArtistUrl])
 
   function showStatus(message: string) {
     setStatus(message)
@@ -115,6 +169,19 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="song-detail-header">
+          {onToggleFavorite ? (
+            <div className="song-detail-actions" role="group" aria-label="Favorite">
+              <FavoriteButton
+                active={favoriteActive}
+                onToggle={onToggleFavorite}
+                label={
+                  favoriteActive
+                    ? `Remove ${song.title} from favorites`
+                    : `Add ${song.title} to favorites`
+                }
+              />
+            </div>
+          ) : null}
           <button
             type="button"
             className="wallpaper-modal-close"
@@ -172,6 +239,90 @@ export function SongDetailPopup({ song, onClose }: SongDetailPopupProps) {
               about the artist
             </h4>
             <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
+          </section>
+
+          <section
+            className="song-detail-blurb-block song-detail-blurb-block--concerts"
+            aria-labelledby="song-detail-concerts-label"
+          >
+            <h4
+              id="song-detail-concerts-label"
+              className="song-detail-section-label song-detail-section-label--concerts"
+            >
+              {concertsLocated ? 'nearby concerts' : 'upcoming concerts'}
+            </h4>
+            {concertsLoading ? (
+              <p className="song-detail-blurb song-detail-concerts-empty">
+                Looking up shows for {artist}…
+              </p>
+            ) : concerts && concerts.length > 0 ? (
+              <ul className="song-detail-concerts">
+                {concerts.map((event) => {
+                  const place = formatConcertPlace(event)
+                  const distance = formatConcertDistance(event.distanceKm)
+                  const billDiffers =
+                    !event.title.toLowerCase().includes(artist.toLowerCase())
+                  const content = (
+                    <>
+                      <span className="song-detail-concert-date">
+                        {formatConcertDate(event.datetime)}
+                      </span>
+                      <span className="song-detail-concert-venue">{event.venueName}</span>
+                      {place ? (
+                        <span className="song-detail-concert-place">{place}</span>
+                      ) : null}
+                      {billDiffers ? (
+                        <span className="song-detail-concert-bill">{event.title}</span>
+                      ) : null}
+                      {distance ? (
+                        <span className="song-detail-concert-distance">{distance}</span>
+                      ) : null}
+                    </>
+                  )
+
+                  return (
+                    <li key={event.id}>
+                      {event.url ? (
+                        <a
+                          className="song-detail-concert"
+                          href={event.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <div className="song-detail-concert">{content}</div>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            ) : (
+              <p className="song-detail-blurb song-detail-concerts-empty">
+                {concertsError
+                  ? `Couldn’t load shows right now.`
+                  : `No upcoming shows found for ${artist}.`}{' '}
+                <a
+                  className="song-detail-concerts-link"
+                  href={artistUrl ?? fallbackArtistUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Search Ticketmaster
+                </a>
+              </p>
+            )}
+            {!concertsLoading && concerts && concerts.length > 0 && artistUrl ? (
+              <a
+                className="song-detail-concerts-more"
+                href={artistUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                See all on Ticketmaster
+              </a>
+            ) : null}
           </section>
         </div>
 

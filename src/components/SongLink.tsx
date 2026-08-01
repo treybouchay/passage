@@ -5,9 +5,16 @@ import { SongDetailPopup } from './SongDetailPopup'
 interface SongLinkProps {
   song: PlaylistSong
   className?: string
+  favoriteActive?: boolean
+  onToggleFavorite?: (id: string) => void
 }
 
-export function SongLink({ song, className = 'song-rec' }: SongLinkProps) {
+export function SongLink({
+  song,
+  className = 'song-rec',
+  favoriteActive = false,
+  onToggleFavorite,
+}: SongLinkProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -39,7 +46,14 @@ export function SongLink({ song, className = 'song-rec' }: SongLinkProps) {
       </button>
 
       {open ? (
-        <SongDetailPopup song={song} onClose={() => setOpen(false)} />
+        <SongDetailPopup
+          song={song}
+          onClose={() => setOpen(false)}
+          favoriteActive={favoriteActive}
+          onToggleFavorite={
+            onToggleFavorite ? () => onToggleFavorite(song.id) : undefined
+          }
+        />
       ) : null}
     </>
   )

@@ -1062,8 +1062,26 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1rem;
-  margin: -0.15rem -0.25rem 0.55rem 0;
+  gap: 0.15rem;
+  margin: -0.15rem 0 0.55rem;
+}
+
+.song-detail-header .favorite-btn {
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  color: var(--accent);
+  border-radius: 0.3rem;
+}
+
+.song-detail-header .favorite-btn:hover {
+  color: var(--accent-deep);
+  background: rgba(57, 109, 84, 0.08);
+}
+
+.song-detail-header .wallpaper-modal-close {
+  width: 2rem;
+  height: 2rem;
 }
 
 .song-detail-hero {
@@ -1154,6 +1172,10 @@
   border-left-color: var(--sage);
 }
 
+.song-detail-blurb-block--concerts {
+  border-left-color: color-mix(in srgb, var(--accent) 55%, var(--sage));
+}
+
 .song-detail-section-label {
   margin: 0 0 0.4rem;
   font-family: var(--font-body);
@@ -1166,6 +1188,80 @@
 
 .song-detail-section-label--artist {
   color: var(--text-muted);
+}
+
+.song-detail-section-label--concerts {
+  color: var(--accent);
+}
+
+.song-detail-concerts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.song-detail-concert {
+  display: grid;
+  gap: 0.08rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 0.35rem;
+  transition: background 0.15s;
+}
+
+a.song-detail-concert:hover {
+  background: rgba(57, 109, 84, 0.06);
+}
+
+a.song-detail-concert:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.song-detail-concert-date {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.song-detail-concert-venue {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.song-detail-concert-place,
+.song-detail-concert-distance,
+.song-detail-concert-bill {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.song-detail-concerts-empty {
+  margin: 0;
+}
+
+.song-detail-concerts-link,
+.song-detail-concerts-more {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.song-detail-concerts-more {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
 }
 
 .song-detail-blurb {

@@ -15,8 +15,10 @@ import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matc
 import { matchSongs } from './lib/matchSongs'
 import {
   loadFavoriteIds,
+  loadFavoriteSongIds,
   loadPrayers,
   toggleFavoriteId,
+  toggleFavoriteSongId,
   type SavedPrayer,
 } from './lib/userContent'
 import './App.css'
@@ -46,6 +48,9 @@ function App() {
   const [results, setResults] = useState<MatchedPassage[]>([])
   const [hasSearched, setHasSearched] = useState(false)
   const [favoriteIds, setFavoriteIds] = useState<string[]>(() => loadFavoriteIds())
+  const [favoriteSongIds, setFavoriteSongIds] = useState<string[]>(() =>
+    loadFavoriteSongIds(),
+  )
   const [prayers, setPrayers] = useState<SavedPrayer[]>(() => loadPrayers())
   const [homeSuggestions] = useState(() => pickHomeSuggestions())
   const [resultsPage, setResultsPage] = useState(1)
@@ -89,6 +94,10 @@ function App() {
 
   function handleToggleFavorite(id: string) {
     setFavoriteIds(toggleFavoriteId(id))
+  }
+
+  function handleToggleFavoriteSong(id: string) {
+    setFavoriteSongIds(toggleFavoriteSongId(id))
   }
 
   function handleViewChange(next: AppView) {
@@ -217,6 +226,8 @@ function App() {
                 <SongRecommendations
                   songs={songRecs}
                   onSeeMore={() => handleViewChange('music')}
+                  favoriteSongIds={favoriteSongIds}
+                  onToggleFavoriteSong={handleToggleFavoriteSong}
                 />
               </section>
             )
@@ -235,13 +246,20 @@ function App() {
           {view === 'favorites' && unlocked ? (
             <FavoritesSection
               favoriteIds={favoriteIds}
+              favoriteSongIds={favoriteSongIds}
               prayers={prayers}
               onToggleFavorite={handleToggleFavorite}
+              onToggleFavoriteSong={handleToggleFavoriteSong}
               onPray={handlePrayFromPassage}
             />
           ) : null}
 
-          {view === 'music' && unlocked ? <MusicSection /> : null}
+          {view === 'music' && unlocked ? (
+            <MusicSection
+              favoriteSongIds={favoriteSongIds}
+              onToggleFavoriteSong={handleToggleFavoriteSong}
+            />
+          ) : null}
         </main>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { config } from './config.js'
+import { concertsRouter } from './routes/concerts.js'
 import { designsRouter } from './routes/designs.js'
 import { ordersRouter } from './routes/orders.js'
 import { stripeWebhookHandler } from './routes/webhooks.js'
@@ -32,6 +33,7 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/designs', designsRouter)
 app.use('/api/orders', ordersRouter)
+app.use('/api/concerts', concertsRouter)
 
 app.use(
   (

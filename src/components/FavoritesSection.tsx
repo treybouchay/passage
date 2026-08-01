@@ -4,22 +4,32 @@ import { FavoriteButton } from './FavoriteButton'
 import { PassageCard } from './PassageCard'
 import { PassagePreviewModal, PrayerPassageLink } from './PassagePreviewModal'
 import { PassageTranslationBar } from './PassageTranslationBar'
-import { formatPrayerDate, resolveFavorites, type SavedPrayer } from '../lib/userContent'
+import { SongLink } from './SongLink'
+import {
+  formatPrayerDate,
+  resolveFavorites,
+  resolveFavoriteSongs,
+  type SavedPrayer,
+} from '../lib/userContent'
 import { BibleTranslationProvider } from '../lib/bibleTranslationContext'
 
-type TypeFilter = 'all' | 'passages' | 'prayers'
+type TypeFilter = 'all' | 'passages' | 'prayers' | 'songs'
 
 interface FavoritesSectionProps {
   favoriteIds: string[]
+  favoriteSongIds: string[]
   prayers: SavedPrayer[]
   onToggleFavorite: (id: string) => void
+  onToggleFavoriteSong: (id: string) => void
   onPray?: (passage: Passage) => void
 }
 
 export function FavoritesSection({
   favoriteIds,
+  favoriteSongIds,
   prayers,
   onToggleFavorite,
+  onToggleFavoriteSong,
   onPray,
 }: FavoritesSectionProps) {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
@@ -30,6 +40,7 @@ export function FavoritesSection({
   const items = resolveFavorites(favoriteIds, prayers)
   const favoritePassages = items.filter((item) => item.kind === 'passage')
   const favoritePrayers = items.filter((item) => item.kind === 'prayer')
+  const favoriteSongs = resolveFavoriteSongs(favoriteSongIds)
 
   const passageThemes = useMemo(() => {
     const themes = new Set<string>()
@@ -51,11 +62,20 @@ export function FavoritesSection({
     return [...themes].sort()
   }, [favoritePrayers])
 
-  // Theme chips are limited to themes on favorited passages/prayers only — not the full library.
-  const availableThemes = useMemo(() => {
-    const themes = new Set([...passageThemes, ...prayerThemes])
+  const songThemes = useMemo(() => {
+    const themes = new Set<string>()
+    for (const song of favoriteSongs) {
+      for (const theme of song.themes) {
+        themes.add(theme)
+      }
+    }
     return [...themes].sort()
-  }, [passageThemes, prayerThemes])
+  }, [favoriteSongs])
+
+  const availableThemes = useMemo(() => {
+    const themes = new Set([...passageThemes, ...prayerThemes, ...songThemes])
+    return [...themes].sort()
+  }, [passageThemes, prayerThemes, songThemes])
 
   const filteredPassages = useMemo(() => {
     if (!themeFilter) return favoritePassages
@@ -67,13 +87,20 @@ export function FavoritesSection({
     return favoritePrayers.filter((item) => item.prayer.themes.includes(themeFilter))
   }, [favoritePrayers, themeFilter])
 
+  const filteredSongs = useMemo(() => {
+    if (!themeFilter) return favoriteSongs
+    return favoriteSongs.filter((song) => song.themes.includes(themeFilter))
+  }, [favoriteSongs, themeFilter])
+
   const showPassages = typeFilter === 'all' || typeFilter === 'passages'
   const showPrayers = typeFilter === 'all' || typeFilter === 'prayers'
-  const isEmpty = items.length === 0
+  const showSongs = typeFilter === 'all' || typeFilter === 'songs'
+  const isEmpty = items.length === 0 && favoriteSongs.length === 0
   const passagesEmpty = showPassages && filteredPassages.length === 0
   const prayersEmpty = showPrayers && filteredPrayers.length === 0
+  const songsEmpty = showSongs && filteredSongs.length === 0
   const nothingMatchesFilter =
-    !isEmpty && passagesEmpty && prayersEmpty
+    !isEmpty && passagesEmpty && prayersEmpty && songsEmpty
 
   const hasActiveFilters = typeFilter !== 'all' || themeFilter !== null
   const showThemeInTags = availableThemes.length > 0
@@ -84,12 +111,13 @@ export function FavoritesSection({
         favorites
       </h2>
       <p className="section-lead">
-        Passages and prayers you have marked with the halo.
+        Passages, prayers, and songs you have marked with the halo.
       </p>
 
       {isEmpty ? (
         <p className="favorites-empty">
-          Nothing saved yet. Tap the halo on a passage or prayer to add it here.
+          Nothing saved yet. Tap the halo on a passage, prayer, or song to add it
+          here.
         </p>
       ) : (
         <>
@@ -121,7 +149,7 @@ export function FavoritesSection({
                 <div className="favorites-filter-group" role="group" aria-label="Filter by type">
                   <span className="favorites-filter-label">type</span>
                   <div className="favorites-filter-chips">
-                    {(['all', 'passages', 'prayers'] as const).map((filter) => (
+                    {(['all', 'passages', 'prayers', 'songs'] as const).map((filter) => (
                       <button
                         key={filter}
                         type="button"
@@ -242,6 +270,29 @@ export function FavoritesSection({
                         </article>
                       ))}
                     </div>
+                  )}
+                </section>
+              ) : null}
+
+              {showSongs ? (
+                <section className="favorites-group" aria-labelledby="favorites-songs-heading">
+                  <h3 id="favorites-songs-heading" className="favorites-group-title">
+                    songs
+                  </h3>
+                  {filteredSongs.length === 0 ? (
+                    <p className="favorites-group-empty">No favorite songs yet.</p>
+                  ) : (
+                    <ul className="music-song-list favorites-song-list">
+                      {filteredSongs.map((song) => (
+                        <li key={song.id}>
+                          <SongLink
+                            song={song}
+                            favoriteActive
+                            onToggleFavorite={onToggleFavoriteSong}
+                          />
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </section>
               ) : null}
