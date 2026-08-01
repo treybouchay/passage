@@ -342,7 +342,7 @@ concertsRouter.get('/', async (req, res, next) => {
     const tmHost = inCanada ? 'www.ticketmaster.ca' : 'www.ticketmaster.com'
     res.json({
       artist,
-      events: mapped.slice(0, 5),
+      events: mapped.slice(0, 1),
       artistUrl: `https://${tmHost}/search?q=${encoded}`,
       located: usedNearby,
       source: 'ticketmaster',

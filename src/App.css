@@ -2010,6 +2010,116 @@ a.prayer-secondary-btn:visited {
   gap: 2.5rem;
 }
 
+.favorites-type-tabs {
+  margin: 0 0 1.25rem;
+}
+
+.favorites-song-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.favorite-song-card {
+  min-width: 0;
+}
+
+.favorite-song-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.favorite-song-card-top .favorite-btn {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.favorite-song-card-link.song-rec-trigger,
+.favorite-song-card-link {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  text-align: left;
+}
+
+.favorite-song-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.favorite-song-card-blurbs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.95rem;
+}
+
+.app--booting {
+  position: relative;
+}
+
+.app-shell--blurred {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.boot-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 247, 240, 0.28);
+  pointer-events: all;
+}
+
+.prayer-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--accent);
+}
+
+.prayer-loader-icon {
+  width: 2.75rem;
+  height: 3.65rem;
+  animation: prayerHandsPulse 1.6s ease-in-out infinite;
+}
+
+.prayer-loader-cross {
+  width: 2.4rem;
+  height: 3.35rem;
+  color: var(--accent);
+}
+
+
+.prayer-loader-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@keyframes prayerHandsPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-0.2rem) scale(1.04);
+  }
+}
+
 .favorites-group-title {
   font-size: 0.72rem;
   font-weight: 600;

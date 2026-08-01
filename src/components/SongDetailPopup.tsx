@@ -246,7 +246,7 @@ export function SongDetailPopup({
               id="song-detail-concerts-label"
               className="song-detail-section-label song-detail-section-label--concerts"
             >
-              {concertsLocated ? 'nearby concerts' : 'upcoming concerts'}
+              {concertsLocated ? 'nearest concert' : 'upcoming concert'}
             </h4>
             {concertsLoading ? (
               <p className="song-detail-blurb song-detail-concerts-empty">
@@ -254,7 +254,7 @@ export function SongDetailPopup({
               </p>
             ) : concerts && concerts.length > 0 ? (
               <ul className="song-detail-concerts">
-                {concerts.map((event) => {
+                {concerts.slice(0, 1).map((event) => {
                   const place = formatConcertPlace(event)
                   const distance = formatConcertDistance(event.distanceKm)
                   const billDiffers =

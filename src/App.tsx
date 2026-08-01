@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { SideNav, type AppView } from './components/SideNav'
 import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
 import { MusicSection } from './components/MusicSection'
 import { PassageCard } from './components/PassageCard'
 import { PassageTranslationBar } from './components/PassageTranslationBar'
+import { PrayerHandsLoader } from './components/PrayerHandsLoader'
 import { PrayerSection } from './components/PrayerSection'
 import { SongRecommendations } from './components/SongRecommendations'
 import { TraceGesture } from './components/TraceGesture'
@@ -24,6 +25,8 @@ import {
 import './App.css'
 
 const UNLOCK_SESSION_KEY = 'passage:unlocked'
+const VIEW_SESSION_KEY = 'passage:view'
+const VALID_VIEWS: AppView[] = ['passages', 'prayer', 'favorites', 'music']
 
 function loadUnlocked(): boolean {
   try {
@@ -41,9 +44,32 @@ function persistUnlocked(): void {
   }
 }
 
+function loadView(): AppView {
+  try {
+    const stored = sessionStorage.getItem(VIEW_SESSION_KEY)
+    if (stored && VALID_VIEWS.includes(stored as AppView)) {
+      return stored as AppView
+    }
+  } catch {
+    // ignore
+  }
+  return 'passages'
+}
+
+function persistView(view: AppView): void {
+  try {
+    sessionStorage.setItem(VIEW_SESSION_KEY, view)
+  } catch {
+    // ignore
+  }
+}
+
 function App() {
   const [unlocked, setUnlocked] = useState(() => loadUnlocked())
-  const [view, setView] = useState<AppView>('passages')
+  const [view, setView] = useState<AppView>(() =>
+    loadUnlocked() ? loadView() : 'passages',
+  )
+  const [booting, setBooting] = useState(true)
   const [input, setInput] = useState('')
   const [results, setResults] = useState<MatchedPassage[]>([])
   const [hasSearched, setHasSearched] = useState(false)
@@ -56,6 +82,11 @@ function App() {
   const [resultsPage, setResultsPage] = useState(1)
   const [prayerSeed, setPrayerSeed] = useState<Passage | null>(null)
   const orderNotice = useOrderReturnNotice()
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setBooting(false), 700)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   const clearPrayerSeed = useCallback(() => {
     setPrayerSeed(null)
@@ -105,15 +136,27 @@ function App() {
       setPrayerSeed(null)
     }
     setView(next)
+    persistView(next)
   }
 
   function handlePrayFromPassage(passage: Passage) {
     setPrayerSeed(passage)
     setView('prayer')
+    persistView('prayer')
   }
 
   return (
-    <div className={`app${unlocked ? ' app--with-sidebar' : ''}`}>
+    <div
+      className={`app${unlocked ? ' app--with-sidebar' : ''}${booting ? ' app--booting' : ''}`}
+      aria-busy={booting || undefined}
+    >
+      {booting ? (
+        <div className="boot-loader-overlay">
+          <PrayerHandsLoader label="Preparing…" />
+        </div>
+      ) : null}
+
+      <div className={`app-shell${booting ? ' app-shell--blurred' : ''}`}>
       {unlocked ? <SideNav view={view} onChange={handleViewChange} /> : null}
 
       <header className="header">
@@ -261,6 +304,7 @@ function App() {
             />
           ) : null}
         </main>
+      </div>
       </div>
     </div>
   )

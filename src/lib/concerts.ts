@@ -277,7 +277,7 @@ async function fetchTicketmasterDirect(
 
   return {
     artist,
-    events: events.slice(0, 5),
+    events: events.slice(0, 1),
     artistUrl: ticketmasterSearchUrl(artist, coords),
     located: usedNearby,
   }
