@@ -169,19 +169,6 @@ export function SongDetailPopup({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="song-detail-header">
-          {onToggleFavorite ? (
-            <div className="song-detail-actions" role="group" aria-label="Favorite">
-              <FavoriteButton
-                active={favoriteActive}
-                onToggle={onToggleFavorite}
-                label={
-                  favoriteActive
-                    ? `Remove ${song.title} from favorites`
-                    : `Add ${song.title} to favorites`
-                }
-              />
-            </div>
-          ) : null}
           <button
             type="button"
             className="wallpaper-modal-close"
@@ -206,9 +193,22 @@ export function SongDetailPopup({
             <span className="song-detail-art song-detail-art-placeholder" aria-hidden />
           )}
           <div className="song-detail-meta">
-            <h3 id="song-detail-title" className="song-detail-title">
-              {song.title}
-            </h3>
+            <div className="song-detail-title-row">
+              <h3 id="song-detail-title" className="song-detail-title">
+                {song.title}
+              </h3>
+              {onToggleFavorite ? (
+                <FavoriteButton
+                  active={favoriteActive}
+                  onToggle={onToggleFavorite}
+                  label={
+                    favoriteActive
+                      ? `Remove ${song.title} from favorites`
+                      : `Add ${song.title} to favorites`
+                  }
+                />
+              ) : null}
+            </div>
             <p className="song-detail-artists">{song.artists}</p>
             <div className="song-detail-tags" aria-label="Genre and themes">
               <span className="song-detail-genre-chip">{song.genre}</span>

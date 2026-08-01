@@ -1066,19 +1066,6 @@
   margin: -0.15rem 0 0.55rem;
 }
 
-.song-detail-header .favorite-btn {
-  width: 2rem;
-  height: 2rem;
-  margin: 0;
-  color: var(--accent);
-  border-radius: 0.3rem;
-}
-
-.song-detail-header .favorite-btn:hover {
-  color: var(--accent-deep);
-  background: rgba(57, 109, 84, 0.08);
-}
-
 .song-detail-header .wallpaper-modal-close {
   width: 2rem;
   height: 2rem;
@@ -1116,14 +1103,36 @@
   flex: 1;
 }
 
+.song-detail-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
 .song-detail-title {
   margin: 0;
+  flex: 1;
+  min-width: 0;
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 500;
   line-height: 1.22;
   color: var(--text-primary);
   text-wrap: balance;
+}
+
+.song-detail-title-row .favorite-btn {
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  color: var(--accent);
+  border-radius: 0.3rem;
+}
+
+.song-detail-title-row .favorite-btn:hover {
+  color: var(--accent-deep);
+  background: rgba(57, 109, 84, 0.08);
 }
 
 .song-detail-artists {
