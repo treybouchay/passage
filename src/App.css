@@ -2017,7 +2017,7 @@ a.prayer-secondary-btn:visited {
 .favorites-song-cards {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 16px;
 }
 
 .favorite-song-card {
@@ -2101,10 +2101,10 @@ a.prayer-secondary-btn:visited {
 
 .prayer-loader-label {
   font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.84rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--text-muted);
   animation: prayerSayingIn 0.35s ease both;
 }
