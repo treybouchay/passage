@@ -166,6 +166,92 @@ async function fetchEvents(params: URLSearchParams): Promise<TmEvent[]> {
   return payload._embedded?.events ?? []
 }
 
+function mergeEvents(...lists: TmEvent[][]): TmEvent[] {
+  const byId = new Map<string, TmEvent>()
+  for (const list of lists) {
+    for (const event of list) {
+      if (!event.id || byId.has(event.id)) continue
+      byId.set(event.id, event)
+    }
+  }
+  return [...byId.values()]
+}
+
+function withArtistFilter(
+  base: Record<string, string>,
+  attractionId: string | null,
+  artist: string,
+): URLSearchParams {
+  const params = new URLSearchParams(base)
+  if (attractionId) params.set('attractionId', attractionId)
+  else params.set('keyword', artist)
+  return params
+}
+
+/** Ticketmaster markets are siloed — query CA + US and merge. */
+async function fetchNorthAmericanEvents(
+  attractionId: string | null,
+  artist: string,
+  options: {
+    lat?: number | null
+    lng?: number | null
+    nearby?: boolean
+    preferredCanada?: boolean
+  } = {},
+): Promise<TmEvent[]> {
+  const { lat = null, lng = null, nearby = false, preferredCanada = false } = options
+  const shared: Record<string, string> = {
+    apikey: apiKey(),
+    classificationName: 'Music',
+    size: '8',
+  }
+
+  const queries: URLSearchParams[] = [
+    withArtistFilter(
+      {
+        ...shared,
+        countryCode: 'CA',
+        sort: 'date,asc',
+        preferredCountry: 'ca',
+      },
+      attractionId,
+      artist,
+    ),
+    withArtistFilter(
+      {
+        ...shared,
+        countryCode: 'US',
+        sort: 'date,asc',
+        preferredCountry: 'us',
+      },
+      attractionId,
+      artist,
+    ),
+  ]
+
+  if (nearby && lat !== null && lng !== null) {
+    queries.push(
+      withArtistFilter(
+        {
+          ...shared,
+          latlong: `${lat},${lng}`,
+          radius: '500',
+          unit: 'miles',
+          sort: 'distance,asc',
+          preferredCountry: preferredCanada ? 'ca' : 'us',
+        },
+        attractionId,
+        artist,
+      ),
+    )
+  }
+
+  const results = await Promise.all(
+    queries.map((params) => fetchEvents(params).catch(() => [] as TmEvent[])),
+  )
+  return mergeEvents(...results)
+}
+
 function isHotelPackage(event: TmEvent): boolean {
   const name = event.name?.toLowerCase() ?? ''
   return name.includes('hotel package') || name.includes('ticket + hotel')
@@ -217,53 +303,48 @@ concertsRouter.get('/', async (req, res, next) => {
     const lat = toNumber(req.query.lat as string | undefined)
     const lng = toNumber(req.query.lng as string | undefined)
     const located = lat !== null && lng !== null
+    const inCanada =
+      req.query.preferCanada === '1' ||
+      (located && lat! > 41 && lat! < 84 && lng! < -52 && lng! > -141)
     const attractionId = await findAttractionId(artist)
 
-    const params = new URLSearchParams({
-      apikey: apiKey(),
-      classificationName: 'Music',
-      size: '8',
-      sort: located ? 'distance,asc' : 'date,asc',
+    const rawEvents = await fetchNorthAmericanEvents(attractionId, artist, {
+      lat,
+      lng,
+      nearby: located,
+      preferredCanada: Boolean(inCanada),
     })
 
-    if (attractionId) {
-      params.set('attractionId', attractionId)
-    } else {
-      params.set('keyword', artist)
-    }
-
-    if (located) {
-      params.set('latlong', `${lat},${lng}`)
-      params.set('radius', '250')
-      params.set('unit', 'miles')
-    }
-
-    let rawEvents = await fetchEvents(params)
-
-    // If nearby search is empty, fall back to upcoming tour dates anywhere.
-    if (rawEvents.length === 0 && located) {
-      const worldwide = new URLSearchParams({
-        apikey: apiKey(),
-        classificationName: 'Music',
-        size: '8',
-        sort: 'date,asc',
-      })
-      if (attractionId) worldwide.set('attractionId', attractionId)
-      else worldwide.set('keyword', artist)
-      rawEvents = await fetchEvents(worldwide)
-    }
-
-    const events = dedupeAndRankEvents(rawEvents, artist)
+    const ranked = dedupeAndRankEvents(rawEvents, artist)
+    const mapped = ranked
       .map((event) => mapEvent(event, lat, lng))
       .filter((event): event is ConcertEvent => event !== null)
-      .slice(0, 5)
+
+    mapped.sort((a, b) => {
+      if (a.distanceKm != null && b.distanceKm != null && a.distanceKm !== b.distanceKm) {
+        return a.distanceKm - b.distanceKm
+      }
+      if (inCanada) {
+        const ca = a.country.toUpperCase() === 'CA' ? 0 : 1
+        const cb = b.country.toUpperCase() === 'CA' ? 0 : 1
+        if (ca !== cb) return ca - cb
+      }
+      return a.datetime.localeCompare(b.datetime)
+    })
+
+    const nearbyMiles = 500
+    const usedNearby = mapped.some(
+      (event) =>
+        event.distanceKm !== null && event.distanceKm <= nearbyMiles * 1.609344,
+    )
 
     const encoded = encodeURIComponent(artist)
+    const tmHost = inCanada ? 'www.ticketmaster.ca' : 'www.ticketmaster.com'
     res.json({
       artist,
-      events,
-      artistUrl: `https://www.ticketmaster.com/search?q=${encoded}`,
-      located,
+      events: mapped.slice(0, 5),
+      artistUrl: `https://${tmHost}/search?q=${encoded}`,
+      located: usedNearby,
       source: 'ticketmaster',
     })
   } catch (error) {

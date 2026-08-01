@@ -112,19 +112,29 @@ export function SongDetailPopup({
       setConcertsLoading(true)
       setConcertsError(false)
       try {
-        const coords = await getBrowserCoords()
-        const result = await fetchArtistConcerts(artist, coords)
+        // Don't block the first fetch on geolocation — mobile permission prompts
+        // are slow/flaky and were a common cause of empty/error states.
+        const result = await fetchArtistConcerts(artist, null)
         if (cancelled) return
         setConcerts(result.events)
         setConcertsLocated(Boolean(result.located))
         setArtistUrl(result.artistUrl ?? fallbackArtistUrl)
+        setConcertsLoading(false)
+
+        const coords = await getBrowserCoords()
+        if (cancelled || !coords) return
+
+        const nearby = await fetchArtistConcerts(artist, coords)
+        if (cancelled) return
+        setConcerts(nearby.events)
+        setConcertsLocated(Boolean(nearby.located))
+        setArtistUrl(nearby.artistUrl ?? ticketmasterSearchUrl(artist, coords))
       } catch {
         if (cancelled) return
         setConcerts([])
         setConcertsError(true)
         setArtistUrl(fallbackArtistUrl)
-      } finally {
-        if (!cancelled) setConcertsLoading(false)
+        setConcertsLoading(false)
       }
     }
 
@@ -193,22 +203,9 @@ export function SongDetailPopup({
             <span className="song-detail-art song-detail-art-placeholder" aria-hidden />
           )}
           <div className="song-detail-meta">
-            <div className="song-detail-title-row">
-              <h3 id="song-detail-title" className="song-detail-title">
-                {song.title}
-              </h3>
-              {onToggleFavorite ? (
-                <FavoriteButton
-                  active={favoriteActive}
-                  onToggle={onToggleFavorite}
-                  label={
-                    favoriteActive
-                      ? `Remove ${song.title} from favorites`
-                      : `Add ${song.title} to favorites`
-                  }
-                />
-              ) : null}
-            </div>
+            <h3 id="song-detail-title" className="song-detail-title">
+              {song.title}
+            </h3>
             <p className="song-detail-artists">{song.artists}</p>
             <div className="song-detail-tags" aria-label="Genre and themes">
               <span className="song-detail-genre-chip">{song.genre}</span>
@@ -328,6 +325,17 @@ export function SongDetailPopup({
 
         <div className="song-detail-footer">
           <div className="song-detail-actions" role="group" aria-label="Song actions">
+            {onToggleFavorite ? (
+              <FavoriteButton
+                active={favoriteActive}
+                onToggle={onToggleFavorite}
+                label={
+                  favoriteActive
+                    ? `Remove ${song.title} from favorites`
+                    : `Add ${song.title} to favorites`
+                }
+              />
+            ) : null}
             <button
               type="button"
               className="song-detail-action"
