@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import {
-  getSongArtistBlurb,
   getSongBlurb,
   type PlaylistSong,
 } from '../data/songs'
@@ -27,7 +26,6 @@ export function FavoriteSongCard({
   onToggleFavorite,
 }: FavoriteSongCardProps) {
   const songBlurb = getSongBlurb(song)
-  const artistBlurb = getSongArtistBlurb(song)
   const themes = song.themes.filter(Boolean)
   const artist = primaryArtistName(song.artists)
   const fallbackArtistUrl = ticketmasterSearchUrl(artist)
@@ -118,18 +116,6 @@ export function FavoriteSongCard({
             about the song
           </h4>
           <p className="song-detail-blurb">{songBlurb}</p>
-        </section>
-        <section
-          className="song-detail-blurb-block song-detail-blurb-block--artist"
-          aria-labelledby={`fav-song-${song.id}-artist`}
-        >
-          <h4
-            id={`fav-song-${song.id}-artist`}
-            className="song-detail-section-label song-detail-section-label--artist"
-          >
-            about the artist
-          </h4>
-          <p className="song-detail-blurb song-detail-blurb-artist">{artistBlurb}</p>
         </section>
 
         <section
