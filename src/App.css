@@ -874,12 +874,39 @@
   margin-bottom: 2.5rem;
 }
 
+.prayer-linked-passage {
+  margin-bottom: 1rem;
+}
+
 .prayer-passage-link {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+
+.prayer-passage-preview {
+  padding: 0.85rem 0.95rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 0.95rem;
+  background: rgba(57, 109, 84, 0.05);
+}
+
+.passage-translation-bar--prayer-preview {
+  margin-bottom: 0.65rem;
+}
+
+.passage-translation-bar--prayer-preview .bible-translation-tab {
+  font-size: 0.66rem;
+  padding-bottom: 0.4rem;
+}
+
+.prayer-passage-preview-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text);
 }
 
 .passage-theme-tag--removable {
@@ -2017,7 +2044,7 @@ a.prayer-secondary-btn:visited {
 .favorites-song-cards {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 4rem;
 }
 
 .favorite-song-card {

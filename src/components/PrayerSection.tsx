@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { allThemes, type Passage } from '../data/passages'
+import { BibleTranslationProvider } from '../lib/bibleTranslationContext'
 import { FavoriteButton } from './FavoriteButton'
 import { PassagePreviewModal, PrayerPassageLink } from './PassagePreviewModal'
+import { PassageText } from './PassageText'
+import { PassageTranslationBar } from './PassageTranslationBar'
 import { PrayerCardModal } from './PrayerCardModal'
 import { SavedPrayerCards } from './SavedPrayerCards'
 import { loadSavedPrayerCardIds, removeSavedPrayerCard } from '../lib/savedPrayerCards'
@@ -148,25 +151,38 @@ export function PrayerSection({
 
       <form className="prayer-form" onSubmit={handleSave}>
         {linkedPassage ? (
-          <div className="prayer-passage-link" role="group" aria-label="Linked passage">
-            <span className="passage-theme-tag passage-theme-tag--removable">
-              <button
-                type="button"
-                className="passage-theme-tag-label"
-                onClick={() => setPreviewLinkedPassage(true)}
-                aria-label={`Preview ${linkedPassage.reference}`}
-              >
-                {linkedPassage.reference}
-              </button>
-              <button
-                type="button"
-                className="passage-theme-tag-x"
-                onClick={() => setLinkedPassage(null)}
-                aria-label={`Remove ${linkedPassage.reference}`}
-              >
-                ×
-              </button>
-            </span>
+          <div className="prayer-linked-passage" role="group" aria-label="Linked passage">
+            <div className="prayer-passage-link">
+              <span className="passage-theme-tag passage-theme-tag--removable">
+                <button
+                  type="button"
+                  className="passage-theme-tag-label"
+                  onClick={() => setPreviewLinkedPassage(true)}
+                  aria-label={`Open larger preview of ${linkedPassage.reference}`}
+                >
+                  {linkedPassage.reference}
+                </button>
+                <button
+                  type="button"
+                  className="passage-theme-tag-x"
+                  onClick={() => setLinkedPassage(null)}
+                  aria-label={`Remove ${linkedPassage.reference}`}
+                >
+                  ×
+                </button>
+              </span>
+            </div>
+            {linkedPassage.text ? (
+              <aside className="prayer-passage-preview" aria-label={`${linkedPassage.reference} text`}>
+                <BibleTranslationProvider>
+                  <PassageTranslationBar className="passage-translation-bar passage-translation-bar--prayer-preview" />
+                  <PassageText
+                    passage={linkedPassage}
+                    className="passage-text prayer-passage-preview-text"
+                  />
+                </BibleTranslationProvider>
+              </aside>
+            ) : null}
           </div>
         ) : null}
         <label htmlFor="prayer-draft" className="sr-only">
