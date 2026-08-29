@@ -5,6 +5,7 @@ import { FavoriteButton } from './FavoriteButton'
 import { PassagePreviewModal, PrayerPassageLink } from './PassagePreviewModal'
 import { PassageText } from './PassageText'
 import { PassageTranslationBar } from './PassageTranslationBar'
+import { PassagePrayerReflections } from './PassagePrayerReflections'
 import { PrayerCardModal } from './PrayerCardModal'
 import { SavedPrayerCards } from './SavedPrayerCards'
 import { loadSavedPrayerCardIds, removeSavedPrayerCard } from '../lib/savedPrayerCards'
@@ -31,7 +32,7 @@ function toggleTheme(themes: string[], theme: string): string[] {
     : [...themes, theme]
 }
 
-type LibraryTab = 'prayers' | 'cards'
+type LibraryTab = 'prayers' | 'reflections' | 'cards'
 
 export function PrayerSection({
   favoriteIds,
@@ -277,6 +278,17 @@ export function PrayerSection({
             <button
               type="button"
               role="tab"
+              id="saved-library-tab-reflections"
+              aria-selected={libraryTab === 'reflections'}
+              aria-controls="saved-library-panel-reflections"
+              className={`favorites-filter-chip${libraryTab === 'reflections' ? ' favorites-filter-chip--active' : ''}`}
+              onClick={() => setLibraryTab('reflections')}
+            >
+              reflections
+            </button>
+            <button
+              type="button"
+              role="tab"
               id="saved-library-tab-cards"
               aria-selected={libraryTab === 'cards'}
               aria-controls="saved-library-panel-cards"
@@ -390,6 +402,15 @@ export function PrayerSection({
                   ))}
                 </ul>
               )}
+            </div>
+          ) : libraryTab === 'reflections' ? (
+            <div
+              id="saved-library-panel-reflections"
+              role="tabpanel"
+              aria-labelledby="saved-library-tab-reflections"
+              className="saved-library-panel"
+            >
+              <PassagePrayerReflections prayers={prayers} onEdit={handleEdit} />
             </div>
           ) : (
             <div

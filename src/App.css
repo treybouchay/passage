@@ -31,12 +31,297 @@
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 2.5rem;
   width: 100%;
   overflow: visible;
   padding-top: max(29px, env(safe-area-inset-top, 0px) + 16px);
   padding-left: max(1.25rem, 39px);
   padding-right: 1.25rem;
+}
+
+.activity-bell {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.activity-bell-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.activity-bell-btn:hover,
+.activity-bell-btn--open {
+  color: var(--accent-deep);
+  background: none;
+  border-color: transparent;
+}
+
+.activity-bell-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.activity-bell-badge {
+  position: absolute;
+  top: -0.15rem;
+  right: -0.1rem;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.25rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.05rem;
+  text-align: center;
+  color: #fff;
+  background: var(--accent-deep);
+  border-radius: 999px;
+}
+
+.activity-bell-panel {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  right: 0;
+  z-index: 30;
+  width: min(19.5rem, calc(100vw - 2.5rem));
+  max-height: min(26rem, 60vh);
+  overflow: auto;
+  padding: 0 0 0.35rem;
+  background: var(--bg);
+  border: none;
+  border-radius: 1.1rem;
+  box-shadow: 0 16px 40px rgba(46, 64, 54, 0.12);
+}
+
+.activity-bell-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.15rem 1.15rem 0.65rem;
+}
+
+.activity-bell-panel-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--accent-deep);
+}
+
+.activity-bell-clear {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.activity-bell-clear:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.activity-bell-empty-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0.25rem 1.15rem 1.35rem;
+}
+
+.activity-bell-empty {
+  margin: 0 0 1.35rem;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.activity-bell-section-label {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+}
+
+.activity-bell-examples,
+.activity-bell-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.activity-bell-list {
+  padding: 0.35rem 1.15rem 1.15rem;
+}
+
+.activity-bell-row {
+  display: block;
+  width: 100%;
+  padding: 0.15rem 0 0.15rem 0.85rem;
+  text-align: left;
+  border-left: 2px solid var(--accent);
+}
+
+.activity-bell-examples li:nth-child(3n + 2) .activity-bell-row,
+.activity-bell-list li:nth-child(3n + 2) .activity-bell-row {
+  border-left-color: var(--sage);
+}
+
+.activity-bell-examples li:nth-child(3n) .activity-bell-row,
+.activity-bell-list li:nth-child(3n) .activity-bell-row {
+  border-left-color: var(--sage-light);
+}
+
+.activity-bell-row--button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.activity-bell-row--button:hover .activity-bell-item-title {
+  color: var(--accent-deep);
+}
+
+.activity-bell-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.activity-bell-row-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  height: auto;
+  margin: 0;
+  color: var(--sage-light);
+}
+
+.activity-bell-row-icon--unread {
+  color: var(--sage);
+}
+
+.activity-bell-kind-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+}
+
+.activity-bell-item-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.activity-bell-item-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.activity-bell-detail-art {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: cover;
+  border-radius: 0.15rem;
+  background: var(--sage-light);
+  box-shadow: 0 1px 2px rgb(45 58 42 / 8%);
+}
+
+.activity-bell-simulate {
+  align-self: flex-start;
+  margin-top: 1.35rem;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.activity-bell-simulate:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.activity-bell-simulate--footer {
+  margin: 0.35rem 0 0;
+  padding: 0 1.15rem 1.15rem;
+  width: 100%;
+  text-align: left;
+}
+
+.activity-bell-item-title {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.activity-bell-item-title--unread {
+  color: var(--accent-deep);
+}
+
+.activity-bell-when {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.activity-bell-item-detail {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  margin-top: 0;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--text-muted);
 }
 
 .logo {
@@ -82,11 +367,21 @@
     margin-bottom: 0;
     padding-top: 0;
     padding-left: 0;
+    padding-right: 0;
     z-index: 10;
+    justify-content: flex-start;
   }
 
   .app--with-sidebar .header {
     left: 1.7rem;
+  }
+
+  .activity-bell {
+    position: fixed;
+    top: max(29px, env(safe-area-inset-top, 0px) + 12px);
+    right: 2.5rem;
+    margin-left: 0;
+    z-index: 10;
   }
 
   .app-body .main,
@@ -1636,6 +1931,147 @@ a.prayer-secondary-btn:visited {
 
 .saved-library-panel {
   animation: fadeIn 0.3s ease;
+}
+
+.passage-reflections-lead {
+  margin: 0 0 1.35rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.passage-reflections-empty {
+  padding: 1.25rem 1.1rem;
+  border: 1px dashed var(--line);
+  border-radius: 0.95rem;
+  background: rgba(57, 109, 84, 0.04);
+}
+
+.passage-reflections-empty-lead {
+  margin: 0 0 0.65rem;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.passage-reflections-empty-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.passage-reflection-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.passage-reflection-group {
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--forest-muted);
+}
+
+.passage-reflection-header {
+  margin-bottom: 0.75rem;
+}
+
+.passage-reflection-ref {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  word-spacing: 0.35em;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.passage-reflection-ref:hover {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.passage-reflection-meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.passage-reflection-note {
+  margin: 0 0 0.95rem;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.passage-reflection-scripture {
+  margin-bottom: 1.1rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: rgba(57, 109, 84, 0.05);
+}
+
+.passage-translation-bar--reflection {
+  margin-bottom: 0.55rem;
+}
+
+.passage-translation-bar--reflection .bible-translation-tab {
+  font-size: 0.64rem;
+  padding-bottom: 0.35rem;
+}
+
+.passage-reflection-scripture-text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.62;
+}
+
+.passage-reflection-prayers-label {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--text-secondary);
+}
+
+.passage-reflection-prayer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.passage-reflection-prayer {
+  padding-top: 0.15rem;
+}
+
+.passage-reflection-prayer .prayer-date {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.passage-reflection-prayer .passage-text--prayer {
+  margin-bottom: 0.55rem;
+}
+
+.passage-reflection-prayer .prayer-text-btn {
+  margin-top: 0.15rem;
 }
 
 .saved-cards {

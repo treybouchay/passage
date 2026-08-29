@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ActivityBell } from './components/ActivityBell'
 import { SideNav, type AppView } from './components/SideNav'
 import { FavoritesSection } from './components/FavoritesSection'
 import { Logo } from './components/Logo'
@@ -15,6 +16,7 @@ import { useOrderReturnNotice } from './lib/useOrderReturnNotice'
 import { matchPassages, RESULTS_PER_PAGE, type MatchedPassage } from './lib/matchPassages'
 import { matchSongs } from './lib/matchSongs'
 import {
+  getPassageById,
   loadFavoriteIds,
   loadFavoriteSongIds,
   loadPrayers,
@@ -22,6 +24,17 @@ import {
   toggleFavoriteSongId,
   type SavedPrayer,
 } from './lib/userContent'
+import {
+  countUnreadActivities,
+  loadActivities,
+  logFavoritePassageActivity,
+  logFavoriteSongActivity,
+  logPassagePrayerActivity,
+  markActivitiesRead,
+  seedSampleActivities,
+  syncLibrarySongActivities,
+  type ActivityItem,
+} from './lib/activityFeed'
 import './App.css'
 
 const UNLOCK_SESSION_KEY = 'passage:unlocked'
@@ -81,7 +94,24 @@ function App() {
   const [homeSuggestions] = useState(() => pickHomeSuggestions())
   const [resultsPage, setResultsPage] = useState(1)
   const [prayerSeed, setPrayerSeed] = useState<Passage | null>(null)
+  const [activities, setActivities] = useState<ActivityItem[]>(() => loadActivities())
+  const [activityOpen, setActivityOpen] = useState(false)
   const orderNotice = useOrderReturnNotice()
+
+  const unreadActivityCount = useMemo(
+    () => countUnreadActivities(activities),
+    [activities],
+  )
+
+  const refreshActivities = useCallback(() => {
+    setActivities(loadActivities())
+  }, [])
+
+  useEffect(() => {
+    if (!unlocked) return
+    syncLibrarySongActivities()
+    refreshActivities()
+  }, [unlocked, refreshActivities])
 
   useEffect(() => {
     const timer = window.setTimeout(() => setBooting(false), 1600)
@@ -124,12 +154,46 @@ function App() {
   }
 
   function handleToggleFavorite(id: string) {
-    setFavoriteIds(toggleFavoriteId(id))
+    const wasFavorite = favoriteIds.includes(id)
+    const next = toggleFavoriteId(id)
+    setFavoriteIds(next)
+    if (!wasFavorite && next.includes(id) && getPassageById(id)) {
+      setActivities(logFavoritePassageActivity(id))
+    }
   }
 
   function handleToggleFavoriteSong(id: string) {
-    setFavoriteSongIds(toggleFavoriteSongId(id))
+    const wasFavorite = favoriteSongIds.includes(id)
+    const next = toggleFavoriteSongId(id)
+    setFavoriteSongIds(next)
+    if (!wasFavorite && next.includes(id)) {
+      setActivities(logFavoriteSongActivity(id))
+    }
   }
+
+  function handlePrayersChange(next: SavedPrayer[]) {
+    const previousIds = new Set(prayers.map((prayer) => prayer.id))
+    for (const prayer of next) {
+      if (!previousIds.has(prayer.id) && (prayer.passageId || prayer.passageReference)) {
+        setActivities(logPassagePrayerActivity(prayer))
+        break
+      }
+    }
+    setPrayers(next)
+  }
+
+  function handleActivityNavigate(view: AppView) {
+    handleViewChange(view)
+    setActivityOpen(false)
+  }
+
+  const markActivityRead = useCallback(() => {
+    setActivities(markActivitiesRead())
+  }, [])
+
+  const handleSimulateActivities = useCallback(() => {
+    setActivities(seedSampleActivities())
+  }, [])
 
   function handleViewChange(next: AppView) {
     if (next !== 'prayer') {
@@ -161,6 +225,18 @@ function App() {
 
       <header className="header">
         <Logo />
+        {unlocked ? (
+          <ActivityBell
+            activities={activities}
+            unreadCount={unreadActivityCount}
+            open={activityOpen}
+            onToggle={() => setActivityOpen((open) => !open)}
+            onClose={() => setActivityOpen(false)}
+            onMarkAllRead={markActivityRead}
+            onNavigate={handleActivityNavigate}
+            onSimulateExamples={handleSimulateActivities}
+          />
+        ) : null}
       </header>
 
       {orderNotice ? <p className="order-notice">{orderNotice}</p> : null}
@@ -280,7 +356,7 @@ function App() {
             <PrayerSection
               favoriteIds={favoriteIds}
               onToggleFavorite={handleToggleFavorite}
-              onPrayersChange={setPrayers}
+              onPrayersChange={handlePrayersChange}
               seedPassage={prayerSeed}
               onSeedConsumed={clearPrayerSeed}
             />
