@@ -56,15 +56,22 @@ export function loadActivities(): ActivityItem[] {
   return readJson<ActivityItem[]>(ACTIVITIES_KEY, [])
     .map((item) => normalizeActivity(item))
     .filter((item): item is ActivityItem => item !== null)
+    .filter((item) => !item.id.startsWith('sample-'))
+    .filter((item) => isUserActivity(item))
     .sort((a, b) => b.at - a.at)
+}
+
+/** Activity kinds tied to this user's actions in local storage. */
+function isUserActivity(item: ActivityItem): boolean {
+  return (
+    item.kind === 'passage-prayer' ||
+    item.kind === 'favorite-passage' ||
+    item.kind === 'favorite-song'
+  )
 }
 
 function saveActivities(items: ActivityItem[]): void {
   writeJson(ACTIVITIES_KEY, items.slice(0, MAX_ACTIVITIES))
-}
-
-function loadKnownSongIds(): string[] {
-  return readJson<string[]>(KNOWN_SONGS_KEY, [])
 }
 
 function saveKnownSongIds(ids: string[]): void {
@@ -114,36 +121,21 @@ export function countUnreadActivities(items: ActivityItem[] = loadActivities()):
   return items.filter((item) => !item.read).length
 }
 
-export function syncLibrarySongActivities(): ActivityItem[] {
+export function syncKnownSongCatalog(): void {
   const currentIds = playlistSongs.map((song) => song.id)
-  const knownIds = loadKnownSongIds()
-
-  if (knownIds.length === 0) {
-    saveKnownSongIds(currentIds)
-    return loadActivities()
-  }
-
-  const newIds = currentIds.filter((id) => !knownIds.includes(id))
-  if (newIds.length === 0) {
-    saveKnownSongIds(currentIds)
-    return loadActivities()
-  }
-
-  for (const id of newIds) {
-    const song = getSongById(id)
-    if (!song) continue
-    addActivity({
-      kind: 'new-song',
-      at: Date.now(),
-      title: 'New song in library',
-      detail: `${song.title} · ${song.artists}`,
-      entityId: song.id,
-      targetView: 'music',
-    })
-  }
-
   saveKnownSongIds(currentIds)
-  return loadActivities()
+}
+
+/** @deprecated Library sync no longer creates activity items — use syncKnownSongCatalog. */
+export function syncLibrarySongActivities(): ActivityItem[] {
+  syncKnownSongCatalog()
+  return purgeNonUserActivities()
+}
+
+export function purgeNonUserActivities(): ActivityItem[] {
+  const next = loadActivities()
+  saveActivities(next)
+  return next
 }
 
 export function logPassagePrayerActivity(prayer: SavedPrayer): ActivityItem[] {
@@ -302,7 +294,12 @@ export function seedSampleActivities(): ActivityItem[] {
 }
 
 export function clearSampleActivities(): ActivityItem[] {
-  const next = loadActivities().filter((item) => !item.id.startsWith('sample-'))
+  const stored = readJson<ActivityItem[]>(ACTIVITIES_KEY, [])
+  const next = stored
+    .map((item) => normalizeActivity(item))
+    .filter((item): item is ActivityItem => item !== null)
+    .filter((item) => !item.id.startsWith('sample-'))
+    .filter((item) => isUserActivity(item))
   saveActivities(next)
   return next
 }

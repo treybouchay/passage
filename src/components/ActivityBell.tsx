@@ -15,8 +15,10 @@ import {
 } from '../lib/activityFeed'
 import { getSongById } from '../lib/userContent'
 
+const showDevActivityTools = import.meta.env.DEV
+
 function songArtUrl(kind: ActivityKind, entityId?: string): string | undefined {
-  if (kind !== 'new-song' && kind !== 'favorite-song') return undefined
+  if (kind !== 'favorite-song') return undefined
   if (!entityId) return undefined
   return getSongById(entityId)?.albumArtUrl
 }
@@ -85,8 +87,7 @@ function ActivityRowContent({
   unread?: boolean
 }) {
   const albumArtUrl = songArtUrl(kind, entityId)
-  const showTitleArt =
-    Boolean(albumArtUrl) && (kind === 'new-song' || kind === 'favorite-song')
+  const showDetailArt = Boolean(albumArtUrl)
 
   return (
     <div className="activity-bell-row-body">
@@ -108,7 +109,7 @@ function ActivityRowContent({
         ) : null}
       </div>
       <div className="activity-bell-item-detail-row">
-        {showTitleArt ? (
+        {showDetailArt ? (
           <img
             className="activity-bell-detail-art"
             src={albumArtUrl}
@@ -136,6 +137,7 @@ export function ActivityBell({
   onSimulateExamples,
 }: ActivityBellProps) {
   const panelRef = useRef<HTMLDivElement>(null)
+  const devSimulate = showDevActivityTools ? onSimulateExamples : undefined
 
   useEffect(() => {
     if (!open) return
@@ -205,31 +207,37 @@ export function ActivityBell({
           {activities.length === 0 ? (
             <div className="activity-bell-empty-wrap">
               <p className="activity-bell-empty">
-                Passage prayers, new library songs, and favorites will show up here.
+                {showDevActivityTools
+                  ? 'Your passage prayers and favorites will show up here.'
+                  : 'Passage prayers you write and passages or songs you favorite will show up here.'}
               </p>
-              <p className="activity-bell-section-label">examples</p>
-              <ul className="activity-bell-examples" aria-label="Activity examples">
-                {ACTIVITY_EXAMPLES.map((example) => (
-                  <li key={`${example.kind}-${example.title}`}>
-                    <div className="activity-bell-row activity-bell-row--example">
-                      <ActivityRowContent
-                        kind={example.kind}
-                        title={example.title}
-                        detail={example.detail}
-                        entityId={example.entityId}
-                      />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              {onSimulateExamples ? (
-                <button
-                  type="button"
-                  className="activity-bell-simulate"
-                  onClick={onSimulateExamples}
-                >
-                  load examples
-                </button>
+              {showDevActivityTools ? (
+                <>
+                  <p className="activity-bell-section-label">examples</p>
+                  <ul className="activity-bell-examples" aria-label="Activity examples">
+                    {ACTIVITY_EXAMPLES.map((example) => (
+                      <li key={`${example.kind}-${example.title}`}>
+                        <div className="activity-bell-row activity-bell-row--example">
+                          <ActivityRowContent
+                            kind={example.kind}
+                            title={example.title}
+                            detail={example.detail}
+                            entityId={example.entityId}
+                          />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  {devSimulate ? (
+                    <button
+                      type="button"
+                      className="activity-bell-simulate"
+                      onClick={devSimulate}
+                    >
+                      load examples
+                    </button>
+                  ) : null}
+                </>
               ) : null}
             </div>
           ) : (
@@ -256,11 +264,11 @@ export function ActivityBell({
             </ul>
           )}
 
-          {activities.length > 0 && onSimulateExamples ? (
+          {activities.length > 0 && devSimulate ? (
             <button
               type="button"
               className="activity-bell-simulate activity-bell-simulate--footer"
-              onClick={onSimulateExamples}
+              onClick={devSimulate}
             >
               reload examples
             </button>

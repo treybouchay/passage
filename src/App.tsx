@@ -25,6 +25,7 @@ import {
   type SavedPrayer,
 } from './lib/userContent'
 import {
+  clearSampleActivities,
   countUnreadActivities,
   loadActivities,
   logFavoritePassageActivity,
@@ -32,7 +33,7 @@ import {
   logPassagePrayerActivity,
   markActivitiesRead,
   seedSampleActivities,
-  syncLibrarySongActivities,
+  syncKnownSongCatalog,
   type ActivityItem,
 } from './lib/activityFeed'
 import './App.css'
@@ -94,7 +95,9 @@ function App() {
   const [homeSuggestions] = useState(() => pickHomeSuggestions())
   const [resultsPage, setResultsPage] = useState(1)
   const [prayerSeed, setPrayerSeed] = useState<Passage | null>(null)
-  const [activities, setActivities] = useState<ActivityItem[]>(() => loadActivities())
+  const [activities, setActivities] = useState<ActivityItem[]>(() =>
+    import.meta.env.PROD ? clearSampleActivities() : loadActivities(),
+  )
   const [activityOpen, setActivityOpen] = useState(false)
   const orderNotice = useOrderReturnNotice()
 
@@ -109,8 +112,12 @@ function App() {
 
   useEffect(() => {
     if (!unlocked) return
-    syncLibrarySongActivities()
-    refreshActivities()
+    syncKnownSongCatalog()
+    if (import.meta.env.PROD) {
+      setActivities(clearSampleActivities())
+    } else {
+      refreshActivities()
+    }
   }, [unlocked, refreshActivities])
 
   useEffect(() => {
@@ -192,6 +199,7 @@ function App() {
   }, [])
 
   const handleSimulateActivities = useCallback(() => {
+    if (!import.meta.env.DEV) return
     setActivities(seedSampleActivities())
   }, [])
 
@@ -234,7 +242,9 @@ function App() {
             onClose={() => setActivityOpen(false)}
             onMarkAllRead={markActivityRead}
             onNavigate={handleActivityNavigate}
-            onSimulateExamples={handleSimulateActivities}
+            onSimulateExamples={
+              import.meta.env.DEV ? handleSimulateActivities : undefined
+            }
           />
         ) : null}
       </header>
