@@ -6,11 +6,15 @@ import type { FrameStyle, PrintSize } from './types.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 loadEnv({ path: resolve(__dirname, '../../.env') })
 
+const dataRoot = process.env.DATA_DIR
+  ? resolve(process.env.DATA_DIR)
+  : resolve(__dirname, '../data')
+
 export const config = {
   port: Number(process.env.PORT ?? 3001),
   clientOrigin: process.env.CLIENT_ORIGIN ?? 'http://localhost:5176',
-  dataDir: resolve(__dirname, '../data'),
-  uploadsDir: resolve(__dirname, '../data/uploads'),
+  dataDir: dataRoot,
+  uploadsDir: resolve(dataRoot, 'uploads'),
   stripeSecretKey: process.env.STRIPE_SECRET_KEY ?? '',
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? '',
   printfulApiKey: process.env.PRINTFUL_API_KEY ?? '',
