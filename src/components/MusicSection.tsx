@@ -5,7 +5,6 @@ import {
   SONG_THEME_ORDER,
   type SongGenre,
 } from '../data/songs'
-import { NearbyShows } from './NearbyShows'
 import { SongLink } from './SongLink'
 
 function genreHeadingId(genre: string): string {
@@ -72,8 +71,6 @@ export function MusicSection({
       <p className="section-lead">
         Curated songs, grouped by genre.
       </p>
-
-      <NearbyShows />
 
       <div className="music-search">
         <label className="favorites-filter-label" htmlFor="music-search">
