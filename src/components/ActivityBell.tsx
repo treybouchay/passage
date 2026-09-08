@@ -18,7 +18,7 @@ import { getSongById } from '../lib/userContent'
 const showDevActivityTools = import.meta.env.DEV
 
 function songArtUrl(kind: ActivityKind, entityId?: string): string | undefined {
-  if (kind !== 'favorite-song') return undefined
+  if (kind !== 'new-song' && kind !== 'favorite-song') return undefined
   if (!entityId) return undefined
   return getSongById(entityId)?.albumArtUrl
 }
@@ -209,7 +209,7 @@ export function ActivityBell({
               <p className="activity-bell-empty">
                 {showDevActivityTools
                   ? 'Your passage prayers and favorites will show up here.'
-                  : 'Passage prayers you write and passages or songs you favorite will show up here.'}
+                  : 'Passage prayers you write, songs added to the library, and passages or songs you favorite will show up here.'}
               </p>
               {showDevActivityTools ? (
                 <>
