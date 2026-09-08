@@ -236,11 +236,6 @@
   color: var(--sage);
 }
 
-.activity-bell-row-icon--inline {
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
 .activity-bell-kind-icon {
   width: 1.15rem;
   height: 1.15rem;
@@ -266,12 +261,6 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-}
-
-.activity-bell-item-detail-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
 }
 
 .activity-bell-simulate {

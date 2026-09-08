@@ -120,18 +120,7 @@ function ActivityRowContent({
           </time>
         ) : null}
       </div>
-      <div className="activity-bell-item-detail-row">
-        {showAlbumArt ? (
-          <span
-            className={`activity-bell-row-icon activity-bell-row-icon--inline${unread ? ' activity-bell-row-icon--unread' : ''}`}
-            role="img"
-            aria-label={activityKindAriaLabel(kind)}
-          >
-            <ActivityKindIcon kind={kind} />
-          </span>
-        ) : null}
-        <span className="activity-bell-item-detail">{detail}</span>
-      </div>
+      <span className="activity-bell-item-detail">{detail}</span>
     </div>
   )
 }
