@@ -57,17 +57,22 @@ export function loadActivities(): ActivityItem[] {
     .map((item) => normalizeActivity(item))
     .filter((item): item is ActivityItem => item !== null)
     .filter((item) => !item.id.startsWith('sample-'))
-    .filter((item) => isUserActivity(item))
+    .filter((item) => isFeedActivity(item))
     .sort((a, b) => b.at - a.at)
 }
 
-/** Activity kinds tied to this user's actions in local storage. */
-function isUserActivity(item: ActivityItem): boolean {
+/** Kinds shown in the activity bell (user actions + library updates). */
+function isFeedActivity(item: ActivityItem): boolean {
   return (
     item.kind === 'passage-prayer' ||
     item.kind === 'favorite-passage' ||
-    item.kind === 'favorite-song'
+    item.kind === 'favorite-song' ||
+    item.kind === 'new-song'
   )
+}
+
+function loadKnownSongIds(): string[] {
+  return readJson<string[]>(KNOWN_SONGS_KEY, [])
 }
 
 function saveActivities(items: ActivityItem[]): void {
@@ -121,21 +126,44 @@ export function countUnreadActivities(items: ActivityItem[] = loadActivities()):
   return items.filter((item) => !item.read).length
 }
 
+/** Baseline catalog without creating notifications (first visit / silent update). */
 export function syncKnownSongCatalog(): void {
   const currentIds = playlistSongs.map((song) => song.id)
   saveKnownSongIds(currentIds)
 }
 
-/** @deprecated Library sync no longer creates activity items — use syncKnownSongCatalog. */
+/**
+ * Compare the current playlist to the last-seen catalog and create
+ * "New song in library" activities for any newly added tracks.
+ * First visit only baselines IDs so existing songs don't flood the bell.
+ */
 export function syncLibrarySongActivities(): ActivityItem[] {
-  syncKnownSongCatalog()
-  return purgeNonUserActivities()
-}
+  const currentIds = playlistSongs.map((song) => song.id)
+  const knownIds = loadKnownSongIds()
 
-export function purgeNonUserActivities(): ActivityItem[] {
-  const next = loadActivities()
-  saveActivities(next)
-  return next
+  if (knownIds.length === 0) {
+    saveKnownSongIds(currentIds)
+    return loadActivities()
+  }
+
+  const knownSet = new Set(knownIds)
+  const newIds = currentIds.filter((id) => !knownSet.has(id))
+
+  for (const id of newIds) {
+    const song = getSongById(id)
+    if (!song) continue
+    addActivity({
+      kind: 'new-song',
+      at: Date.now(),
+      title: 'New song in library',
+      detail: `${song.title} · ${song.artists}`,
+      entityId: song.id,
+      targetView: 'music',
+    })
+  }
+
+  saveKnownSongIds(currentIds)
+  return loadActivities()
 }
 
 export function logPassagePrayerActivity(prayer: SavedPrayer): ActivityItem[] {
@@ -299,7 +327,7 @@ export function clearSampleActivities(): ActivityItem[] {
     .map((item) => normalizeActivity(item))
     .filter((item): item is ActivityItem => item !== null)
     .filter((item) => !item.id.startsWith('sample-'))
-    .filter((item) => isUserActivity(item))
+    .filter((item) => isFeedActivity(item))
   saveActivities(next)
   return next
 }

@@ -33,7 +33,7 @@ import {
   logPassagePrayerActivity,
   markActivitiesRead,
   seedSampleActivities,
-  syncKnownSongCatalog,
+  syncLibrarySongActivities,
   type ActivityItem,
 } from './lib/activityFeed'
 import './App.css'
@@ -106,19 +106,13 @@ function App() {
     [activities],
   )
 
-  const refreshActivities = useCallback(() => {
-    setActivities(loadActivities())
-  }, [])
-
   useEffect(() => {
     if (!unlocked) return
-    syncKnownSongCatalog()
     if (import.meta.env.PROD) {
-      setActivities(clearSampleActivities())
-    } else {
-      refreshActivities()
+      clearSampleActivities()
     }
-  }, [unlocked, refreshActivities])
+    setActivities(syncLibrarySongActivities())
+  }, [unlocked])
 
   useEffect(() => {
     const timer = window.setTimeout(() => setBooting(false), 1600)
