@@ -65,6 +65,12 @@ export function NearbyShows() {
         <p className="music-nearby-status">Couldn’t load nearby shows right now.</p>
       ) : null}
 
+      {status === 'unavailable' ? (
+        <p className="music-nearby-status">
+          Nearby shows will appear once the Passage API is connected.
+        </p>
+      ) : null}
+
       {status === 'ok' && items.length > 0 ? (
         <ul className="music-nearby-list">
           {items.map((item) => {

@@ -41,7 +41,7 @@ In **Apps → passage → api → Settings → Environment variables**:
 | `CLIENT_ORIGIN` | Yes | `https://mypassage.io` |
 | `DATA_DIR` | Yes | `/data` (matches volume mount in spec) |
 | `NODE_ENV` | Yes | `production` |
-| `TICKETMASTER_API_KEY` | Optional | Your Ticketmaster Discovery key (concerts) |
+| `TICKETMASTER_API_KEY` | Yes (for concerts) | Free key from [Ticketmaster developers](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/) |
 | `STRIPE_SECRET_KEY` | Later | Live/test secret when enabling payments |
 | `STRIPE_WEBHOOK_SECRET` | Later | From Stripe webhook endpoint |
 | `PRINTFUL_API_KEY` | Later | Printful API key |
@@ -51,6 +51,18 @@ In **Apps → passage → api → Settings → Environment variables**:
 **Do not** set `VITE_API_URL` on the static site in production — leave it empty so the browser calls `/api` on the same origin.
 
 Redeploy after changing env vars.
+
+### Already have a static-only Passage app?
+
+Your live site is static today (`/api/health` returns 404). Concerts and nearby shows need the **api** service:
+
+1. App → **Settings** → **App Spec** → **Edit**
+2. Replace with [`.do/app.yaml`](.do/app.yaml) (keeps your domain; adds `api` + volume + `/api` routing)
+3. On the **api** component, set `CLIENT_ORIGIN`, `DATA_DIR=/data`, and `TICKETMASTER_API_KEY`
+4. Save / redeploy
+5. Confirm `https://mypassage.io/api/health` returns `{ "ok": true }`
+
+Get a free Ticketmaster Discovery key (the public sample key is rate-limited and will fail in production).
 
 ---
 

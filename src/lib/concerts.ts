@@ -302,10 +302,21 @@ export async function fetchArtistConcerts(
       return (await response.json()) as ConcertsResponse
     }
   } catch {
-    // Fall through to direct Ticketmaster (common on phone LAN / no API).
+    // Fall through.
   }
 
-  return fetchTicketmasterDirect(artist, coords)
+  // Ticketmaster Discovery is not reliable from the browser (CORS + shared sample
+  // key rate limits). Use the direct fallback in local/dev only.
+  if (import.meta.env.DEV) {
+    return fetchTicketmasterDirect(artist, coords)
+  }
+
+  return {
+    artist,
+    events: [],
+    artistUrl: ticketmasterSearchUrl(artist, coords),
+    located: false,
+  }
 }
 
 export function formatConcertDate(iso: string): string {
@@ -366,7 +377,13 @@ export interface NearbyArtistShow {
   songId?: string
 }
 
-export type NearbyShowsStatus = 'ok' | 'loading' | 'no-location' | 'empty' | 'error'
+export type NearbyShowsStatus =
+  | 'ok'
+  | 'loading'
+  | 'no-location'
+  | 'empty'
+  | 'error'
+  | 'unavailable'
 
 interface PlaylistArtistMeta {
   artist: string
@@ -397,133 +414,117 @@ export function uniquePlaylistArtists(
   return out
 }
 
-async function fetchNearbyMusicEvents(
-  coords: { lat: number; lng: number },
-  radiusMiles: number,
-): Promise<TmEvent[]> {
-  const params = new URLSearchParams({
-    apikey: TM_FALLBACK_KEY,
-    classificationName: 'Music',
-    latlong: `${coords.lat},${coords.lng}`,
-    radius: String(radiusMiles),
-    unit: 'miles',
-    sort: 'distance,asc',
-    size: '100',
-    preferredCountry: prefersCanadaRegion(coords) ? 'ca' : 'us',
-  })
+const NEARBY_CACHE_KEY = 'passage:nearbyShows'
+const NEARBY_CACHE_MS = 60 * 60 * 1000
+
+function readNearbyCache(
+  limit: number,
+): { items: NearbyArtistShow[]; located: boolean; status: 'ok' } | null {
   try {
-    const payload = await tmJson<{ _embedded?: { events?: TmEvent[] } }>(
-      `https://app.ticketmaster.com/discovery/v2/events.json?${params}`,
-    )
-    return (payload._embedded?.events ?? []).filter((event) => !isHotelPackage(event))
+    const raw = sessionStorage.getItem(NEARBY_CACHE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as {
+      at: number
+      limit: number
+      items: NearbyArtistShow[]
+      located: boolean
+    }
+    if (Date.now() - parsed.at > NEARBY_CACHE_MS) return null
+    if (parsed.limit !== limit) return null
+    if (!Array.isArray(parsed.items) || parsed.items.length === 0) return null
+    return { items: parsed.items, located: parsed.located, status: 'ok' }
   } catch {
-    return []
+    return null
   }
 }
 
-function eventMatchesArtist(event: TmEvent, artist: string): boolean {
-  const attractions = event._embedded?.attractions ?? []
-  if (attractions.length === 0) return false
-  return attractions.some((item) => item.name && namesMatch(item.name, artist))
+function writeNearbyCache(
+  limit: number,
+  items: NearbyArtistShow[],
+  located: boolean,
+): void {
+  try {
+    sessionStorage.setItem(
+      NEARBY_CACHE_KEY,
+      JSON.stringify({ at: Date.now(), limit, items, located }),
+    )
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
+async function fetchNearbyViaApi(
+  artists: PlaylistArtistMeta[],
+  coords: { lat: number; lng: number } | null,
+  limit: number,
+): Promise<{
+  items: NearbyArtistShow[]
+  located: boolean
+  status: Exclude<NearbyShowsStatus, 'loading'>
+} | null> {
+  try {
+    const response = await fetch(`${API_BASE}/api/concerts/nearby`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        artists,
+        lat: coords?.lat,
+        lng: coords?.lng,
+        limit,
+      }),
+    })
+    if (!response.ok) return null
+    const data = (await response.json()) as {
+      items?: NearbyArtistShow[]
+      located?: boolean
+      status?: Exclude<NearbyShowsStatus, 'loading'>
+    }
+    return {
+      items: Array.isArray(data.items) ? data.items : [],
+      located: Boolean(data.located),
+      status: data.status ?? (data.items?.length ? 'ok' : 'empty'),
+    }
+  } catch {
+    return null
+  }
 }
 
 /**
  * Find up to `limit` playlist artists with the closest upcoming shows.
- * Uses a nearby Ticketmaster sweep first, then probes individual artists.
+ * Prefers the Passage API (server-side Ticketmaster). Avoids blasting the
+ * public sample key from the browser when the API is unavailable.
  */
 export async function fetchClosestPlaylistShows(
   songs: { id: string; artists: string; albumArtUrl?: string }[],
   limit = 3,
-): Promise<{ items: NearbyArtistShow[]; located: boolean; status: Exclude<NearbyShowsStatus, 'loading'> }> {
+): Promise<{
+  items: NearbyArtistShow[]
+  located: boolean
+  status: Exclude<NearbyShowsStatus, 'loading'>
+}> {
   const artists = uniquePlaylistArtists(songs)
   if (artists.length === 0) {
     return { items: [], located: false, status: 'empty' }
   }
 
+  const cached = readNearbyCache(limit)
+  if (cached) return cached
+
   const coords = await getBrowserCoords()
-  const bestByArtist = new Map<string, NearbyArtistShow>()
 
-  const consider = (meta: PlaylistArtistMeta, event: ConcertEvent | null) => {
-    if (!event) return
-    const key = artistKey(meta.artist)
-    const existing = bestByArtist.get(key)
-    if (
-      !existing ||
-      (event.distanceKm != null &&
-        (existing.event.distanceKm == null ||
-          event.distanceKm < existing.event.distanceKm))
-    ) {
-      bestByArtist.set(key, {
-        artist: meta.artist,
-        event,
-        albumArtUrl: meta.albumArtUrl,
-        songId: meta.songId,
-      })
+  const fromApi = await fetchNearbyViaApi(artists, coords, limit)
+  if (fromApi) {
+    if (fromApi.items.length > 0) {
+      writeNearbyCache(limit, fromApi.items, fromApi.located)
     }
+    return fromApi
   }
 
-  try {
-    if (coords) {
-      for (const radius of [150, 350]) {
-        const nearbyEvents = await fetchNearbyMusicEvents(coords, radius)
-        for (const event of nearbyEvents) {
-          for (const meta of artists) {
-            if (!eventMatchesArtist(event, meta.artist)) continue
-            consider(meta, mapTmEvent(event, coords))
-          }
-        }
-        if (bestByArtist.size >= limit) break
-      }
-    }
-
-    if (bestByArtist.size < limit) {
-      const remaining = artists.filter((meta) => !bestByArtist.has(artistKey(meta.artist)))
-      const maxProbe = coords ? 16 : 8
-      for (let i = 0; i < remaining.length && i < maxProbe && bestByArtist.size < limit; i += 4) {
-        const chunk = remaining.slice(i, i + 4)
-        const results = await Promise.all(
-          chunk.map(async (meta) => {
-            try {
-              const result = await fetchArtistConcerts(meta.artist, coords)
-              return { meta, event: result.events[0] ?? null }
-            } catch {
-              return { meta, event: null }
-            }
-          }),
-        )
-        for (const { meta, event } of results) {
-          if (!event) continue
-          if (coords && event.distanceKm == null) continue
-          consider(meta, event)
-        }
-      }
-    }
-  } catch {
-    return { items: [], located: Boolean(coords), status: 'error' }
-  }
-
-  const items = [...bestByArtist.values()]
-    .sort((a, b) => {
-      if (a.event.distanceKm != null && b.event.distanceKm != null) {
-        return a.event.distanceKm - b.event.distanceKm
-      }
-      if (a.event.distanceKm != null) return -1
-      if (b.event.distanceKm != null) return 1
-      return a.event.datetime.localeCompare(b.event.datetime)
-    })
-    .slice(0, limit)
-
-  if (items.length === 0) {
-    return {
-      items: [],
-      located: Boolean(coords),
-      status: coords ? 'empty' : 'no-location',
-    }
-  }
-
+  // Static hosting (no /api): don't hammer Ticketmaster from the browser —
+  // the public sample key is rate-limited and Discovery is not CORS-friendly.
   return {
-    items,
-    located: Boolean(coords) && items.some((item) => item.event.distanceKm != null),
-    status: 'ok',
+    items: [],
+    located: Boolean(coords),
+    status: 'unavailable',
   }
 }

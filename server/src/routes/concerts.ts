@@ -351,3 +351,179 @@ concertsRouter.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
+interface NearbyArtistInput {
+  artist?: string
+  albumArtUrl?: string
+  songId?: string
+}
+
+async function fetchNearbyMusicEvents(
+  lat: number,
+  lng: number,
+  radiusMiles: number,
+  preferredCanada: boolean,
+): Promise<TmEvent[]> {
+  const params = new URLSearchParams({
+    apikey: apiKey(),
+    classificationName: 'Music',
+    latlong: `${lat},${lng}`,
+    radius: String(radiusMiles),
+    unit: 'miles',
+    sort: 'distance,asc',
+    size: '100',
+    preferredCountry: preferredCanada ? 'ca' : 'us',
+  })
+  return fetchEvents(params).catch(() => [] as TmEvent[])
+}
+
+/**
+ * Closest upcoming shows for a list of playlist artists.
+ * POST /api/concerts/nearby
+ * body: { artists: [{ artist, albumArtUrl?, songId? }], lat?, lng?, limit? }
+ */
+concertsRouter.post('/nearby', async (req, res, next) => {
+  try {
+    const rawArtists = Array.isArray(req.body?.artists) ? req.body.artists : []
+    const artists = (rawArtists as NearbyArtistInput[])
+      .map((item) => ({
+        artist: String(item.artist ?? '').trim(),
+        albumArtUrl: item.albumArtUrl ? String(item.albumArtUrl) : undefined,
+        songId: item.songId ? String(item.songId) : undefined,
+      }))
+      .filter((item) => item.artist)
+      .slice(0, 80)
+
+    if (artists.length === 0) {
+      res.status(400).json({ error: 'artists are required' })
+      return
+    }
+
+    const lat = toNumber(req.body?.lat)
+    const lng = toNumber(req.body?.lng)
+    const limit = Math.min(Math.max(Number(req.body?.limit) || 3, 1), 6)
+    const located = lat !== null && lng !== null
+    const inCanada =
+      located && lat! > 41 && lat! < 84 && lng! < -52 && lng! > -141
+
+    type NearbyItem = {
+      artist: string
+      event: ConcertEvent
+      albumArtUrl?: string
+      songId?: string
+    }
+    const bestByArtist = new Map<string, NearbyItem>()
+
+    const consider = (
+      meta: { artist: string; albumArtUrl?: string; songId?: string },
+      event: ConcertEvent | null,
+    ) => {
+      if (!event) return
+      const key = normalizeName(meta.artist)
+      const existing = bestByArtist.get(key)
+      if (
+        !existing ||
+        (event.distanceKm != null &&
+          (existing.event.distanceKm == null ||
+            event.distanceKm < existing.event.distanceKm))
+      ) {
+        bestByArtist.set(key, {
+          artist: meta.artist,
+          event,
+          albumArtUrl: meta.albumArtUrl,
+          songId: meta.songId,
+        })
+      }
+    }
+
+    if (located) {
+      for (const radius of [150, 350]) {
+        const nearbyEvents = await fetchNearbyMusicEvents(
+          lat!,
+          lng!,
+          radius,
+          Boolean(inCanada),
+        )
+        for (const event of nearbyEvents) {
+          if (isHotelPackage(event)) continue
+          for (const meta of artists) {
+            if (!eventIncludesArtist(event, meta.artist)) continue
+            // Require a named attraction match (eventIncludesArtist returns true when empty)
+            const attractions = event._embedded?.attractions ?? []
+            if (attractions.length === 0) continue
+            if (!attractions.some((item) => item.name && namesMatch(item.name, meta.artist))) {
+              continue
+            }
+            consider(meta, mapEvent(event, lat, lng))
+          }
+        }
+        if (bestByArtist.size >= limit) break
+      }
+    }
+
+    if (bestByArtist.size < limit) {
+      const remaining = artists.filter(
+        (meta) => !bestByArtist.has(normalizeName(meta.artist)),
+      )
+      const maxProbe = located ? 12 : 6
+      for (let i = 0; i < remaining.length && i < maxProbe && bestByArtist.size < limit; i += 3) {
+        const chunk = remaining.slice(i, i + 3)
+        const results = await Promise.all(
+          chunk.map(async (meta) => {
+            try {
+              const attractionId = await findAttractionId(meta.artist)
+              const rawEvents = await fetchNorthAmericanEvents(attractionId, meta.artist, {
+                lat,
+                lng,
+                nearby: located,
+                preferredCanada: Boolean(inCanada),
+              })
+              const ranked = dedupeAndRankEvents(rawEvents, meta.artist)
+              const mapped = ranked
+                .map((event) => mapEvent(event, lat, lng))
+                .filter((event): event is ConcertEvent => event !== null)
+              mapped.sort((a, b) => {
+                if (
+                  a.distanceKm != null &&
+                  b.distanceKm != null &&
+                  a.distanceKm !== b.distanceKm
+                ) {
+                  return a.distanceKm - b.distanceKm
+                }
+                return a.datetime.localeCompare(b.datetime)
+              })
+              return { meta, event: mapped[0] ?? null }
+            } catch {
+              return { meta, event: null }
+            }
+          }),
+        )
+        for (const { meta, event } of results) {
+          if (!event) continue
+          if (located && event.distanceKm == null) continue
+          consider(meta, event)
+        }
+      }
+    }
+
+    const items = [...bestByArtist.values()]
+      .sort((a, b) => {
+        if (a.event.distanceKm != null && b.event.distanceKm != null) {
+          return a.event.distanceKm - b.event.distanceKm
+        }
+        if (a.event.distanceKm != null) return -1
+        if (b.event.distanceKm != null) return 1
+        return a.event.datetime.localeCompare(b.event.datetime)
+      })
+      .slice(0, limit)
+
+    res.json({
+      items,
+      located: located && items.some((item) => item.event.distanceKm != null),
+      status: items.length > 0 ? 'ok' : located ? 'empty' : 'no-location',
+      source: 'ticketmaster',
+    })
+  } catch (error) {
+    next(error)
+  }
+})
