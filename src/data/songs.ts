@@ -49,6 +49,8 @@ export interface PlaylistSong {
   spotifyUrl: string
   spotifyTrackId?: string
   albumArtUrl?: string
+  /** ISO date when the track first entered the catalog (set by playlist sync). */
+  addedAt?: string
   /** Short curated note about the song; falls back via getSongBlurb. */
   songBlurb?: string
   /** Short curated note about the artist; falls back via getSongArtistBlurb. */

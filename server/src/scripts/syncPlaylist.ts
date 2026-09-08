@@ -44,6 +44,8 @@ interface PlaylistSong {
   spotifyUrl: string
   spotifyTrackId?: string
   albumArtUrl?: string
+  /** ISO date when first added to the catalog. */
+  addedAt?: string
   songBlurb?: string
   artistBlurb?: string
   lyricsExcerpt?: string
@@ -299,6 +301,7 @@ function mergeSongs(
         spotifyTrackId: track.id,
         spotifyUrl,
         albumArtUrl,
+        ...(prev.addedAt ? { addedAt: prev.addedAt } : {}),
         ...(prev.songBlurb ? { songBlurb: prev.songBlurb } : {}),
         ...(prev.artistBlurb ? { artistBlurb: prev.artistBlurb } : {}),
         ...(prev.lyricsExcerpt ? { lyricsExcerpt: prev.lyricsExcerpt } : {}),
@@ -317,6 +320,7 @@ function mergeSongs(
       spotifyTrackId: track.id,
       spotifyUrl,
       albumArtUrl,
+      addedAt: new Date().toISOString(),
     } satisfies PlaylistSong
   })
 

@@ -132,29 +132,50 @@ export function syncKnownSongCatalog(): void {
   saveKnownSongIds(currentIds)
 }
 
+const RECENT_SONG_WINDOW_MS = 14 * 24 * 60 * 60 * 1000
+
 /**
  * Compare the current playlist to the last-seen catalog and create
- * "New song in library" activities for any newly added tracks.
- * First visit only baselines IDs so existing songs don't flood the bell.
+ * "New song in library" activities for newly added tracks.
+ *
+ * Also catch up on songs stamped with `addedAt` in the last 14 days that
+ * the user has never been notified about (covers silent baselines).
  */
 export function syncLibrarySongActivities(): ActivityItem[] {
   const currentIds = playlistSongs.map((song) => song.id)
   const knownIds = loadKnownSongIds()
+  const knownSet = new Set(knownIds)
+  const alreadyNotified = new Set(
+    loadActivities()
+      .filter((item) => item.kind === 'new-song' && item.entityId)
+      .map((item) => item.entityId as string),
+  )
 
-  if (knownIds.length === 0) {
-    saveKnownSongIds(currentIds)
-    return loadActivities()
+  const candidateIds = new Set<string>()
+
+  if (knownIds.length > 0) {
+    for (const id of currentIds) {
+      if (!knownSet.has(id)) candidateIds.add(id)
+    }
   }
 
-  const knownSet = new Set(knownIds)
-  const newIds = currentIds.filter((id) => !knownSet.has(id))
+  const now = Date.now()
+  for (const song of playlistSongs) {
+    if (!song.addedAt || alreadyNotified.has(song.id)) continue
+    const addedAt = Date.parse(song.addedAt)
+    if (!Number.isFinite(addedAt)) continue
+    if (now - addedAt > RECENT_SONG_WINDOW_MS) continue
+    candidateIds.add(song.id)
+  }
 
-  for (const id of newIds) {
+  for (const id of candidateIds) {
+    if (alreadyNotified.has(id)) continue
     const song = getSongById(id)
     if (!song) continue
+    const addedAt = song.addedAt ? Date.parse(song.addedAt) : Date.now()
     addActivity({
       kind: 'new-song',
-      at: Date.now(),
+      at: Number.isFinite(addedAt) ? addedAt : Date.now(),
       title: 'New song in library',
       detail: `${song.title} · ${song.artists}`,
       entityId: song.id,
