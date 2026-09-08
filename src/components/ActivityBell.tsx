@@ -87,17 +87,29 @@ function ActivityRowContent({
   unread?: boolean
 }) {
   const albumArtUrl = songArtUrl(kind, entityId)
-  const showDetailArt = Boolean(albumArtUrl)
+  const showAlbumArt = Boolean(albumArtUrl)
 
   return (
     <div className="activity-bell-row-body">
-      <span
-        className={`activity-bell-row-icon${unread ? ' activity-bell-row-icon--unread' : ''}`}
-        role="img"
-        aria-label={activityKindAriaLabel(kind)}
-      >
-        <ActivityKindIcon kind={kind} />
-      </span>
+      {showAlbumArt ? (
+        <img
+          className={`activity-bell-lead-art${unread ? ' activity-bell-lead-art--unread' : ''}`}
+          src={albumArtUrl}
+          alt=""
+          width={28}
+          height={28}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span
+          className={`activity-bell-row-icon${unread ? ' activity-bell-row-icon--unread' : ''}`}
+          role="img"
+          aria-label={activityKindAriaLabel(kind)}
+        >
+          <ActivityKindIcon kind={kind} />
+        </span>
+      )}
       <div className="activity-bell-item-head">
         <span className={`activity-bell-item-title${unread ? ' activity-bell-item-title--unread' : ''}`}>
           {title}
@@ -109,16 +121,14 @@ function ActivityRowContent({
         ) : null}
       </div>
       <div className="activity-bell-item-detail-row">
-        {showDetailArt ? (
-          <img
-            className="activity-bell-detail-art"
-            src={albumArtUrl}
-            alt=""
-            width={28}
-            height={28}
-            loading="lazy"
-            decoding="async"
-          />
+        {showAlbumArt ? (
+          <span
+            className={`activity-bell-row-icon activity-bell-row-icon--inline${unread ? ' activity-bell-row-icon--unread' : ''}`}
+            role="img"
+            aria-label={activityKindAriaLabel(kind)}
+          >
+            <ActivityKindIcon kind={kind} />
+          </span>
         ) : null}
         <span className="activity-bell-item-detail">{detail}</span>
       </div>

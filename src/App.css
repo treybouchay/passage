@@ -236,10 +236,29 @@
   color: var(--sage);
 }
 
+.activity-bell-row-icon--inline {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
 .activity-bell-kind-icon {
   width: 1.15rem;
   height: 1.15rem;
   display: block;
+}
+
+.activity-bell-lead-art {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: cover;
+  border-radius: 0.15rem;
+  background: var(--sage-light);
+  box-shadow: 0 1px 2px rgb(45 58 42 / 8%);
+}
+
+.activity-bell-lead-art--unread {
+  box-shadow: 0 1px 3px rgb(45 58 42 / 14%);
 }
 
 .activity-bell-item-head {
@@ -253,16 +272,6 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-}
-
-.activity-bell-detail-art {
-  flex-shrink: 0;
-  width: 1.75rem;
-  height: 1.75rem;
-  object-fit: cover;
-  border-radius: 0.15rem;
-  background: var(--sage-light);
-  box-shadow: 0 1px 2px rgb(45 58 42 / 8%);
 }
 
 .activity-bell-simulate {
