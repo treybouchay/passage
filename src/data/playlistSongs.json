@@ -1898,5 +1898,36 @@
     "spotifyUrl": "https://open.spotify.com/track/1wlhrrJhwMuVCulN7Fjetu",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0211c39267e69b623796721993",
     "addedAt": "2026-09-06T02:48:04.000Z"
+  },
+  {
+    "id": "better-me-for-you-brown-eyes-max-mcnown",
+    "title": "Better Me For You (Brown Eyes)",
+    "artists": "Max McNown",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "better",
+      "brown",
+      "eyes"
+    ],
+    "spotifyTrackId": "4Iu73sdCNxZXZUIyClMoPZ",
+    "spotifyUrl": "https://open.spotify.com/track/4Iu73sdCNxZXZUIyClMoPZ",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e020eb26fce888d263b2cdf5614",
+    "addedAt": "2026-09-22T03:11:02.492Z"
+  },
+  {
+    "id": "wanna-be-loved-the-red-clay-strays",
+    "title": "Wanna Be Loved",
+    "artists": "The Red Clay Strays",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "wanna",
+      "loved"
+    ],
+    "spotifyTrackId": "0htNDNNRkFmQuESkq4eoqj",
+    "spotifyUrl": "https://open.spotify.com/track/0htNDNNRkFmQuESkq4eoqj",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02cb058dd5b85ac743f633fbbd",
+    "addedAt": "2026-09-22T03:11:02.492Z"
   }
 ]
