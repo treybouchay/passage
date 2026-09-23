@@ -1929,5 +1929,51 @@
     "spotifyUrl": "https://open.spotify.com/track/0htNDNNRkFmQuESkq4eoqj",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02cb058dd5b85ac743f633fbbd",
     "addedAt": "2026-09-22T03:11:02.492Z"
+  },
+  {
+    "id": "more-jimmy-clifton",
+    "title": "More",
+    "artists": "Jimmy Clifton",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "more"
+    ],
+    "spotifyTrackId": "547HhfWu4C3wg2waoBjZKG",
+    "spotifyUrl": "https://open.spotify.com/track/547HhfWu4C3wg2waoBjZKG",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e025860ed27cea3b23ed0248266",
+    "addedAt": "2026-09-23T03:11:04.341Z"
+  },
+  {
+    "id": "no-longer-bound-i-m-free-maverick-city-music-cha",
+    "title": "No Longer Bound (I'm Free)",
+    "artists": "Maverick City Music, Chandler Moore",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "longer",
+      "bound",
+      "i'm",
+      "free"
+    ],
+    "spotifyTrackId": "7JxHM7ioNtHLF2pJLcXHkp",
+    "spotifyUrl": "https://open.spotify.com/track/7JxHM7ioNtHLF2pJLcXHkp",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02b6be490d63a421c009280a3c",
+    "addedAt": "2026-09-23T03:11:04.341Z"
+  },
+  {
+    "id": "fishes-and-loaves-josiah-queen",
+    "title": "Fishes and Loaves",
+    "artists": "Josiah Queen",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "fishes",
+      "loaves"
+    ],
+    "spotifyTrackId": "1z3xl8JTN2SzNQezpKIDWG",
+    "spotifyUrl": "https://open.spotify.com/track/1z3xl8JTN2SzNQezpKIDWG",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02e58cec4bf807e528193065cf",
+    "addedAt": "2026-09-23T03:11:04.341Z"
   }
 ]
