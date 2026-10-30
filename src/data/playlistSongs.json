@@ -2022,5 +2022,202 @@
     "spotifyUrl": "https://open.spotify.com/track/5uLwJ8sGkPMZAXn1HKoIQ7",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02111268f1bfdeae3900d0e163",
     "addedAt": "2026-10-30T15:59:52.617Z"
+  },
+  {
+    "id": "currency-brogan-gaskill",
+    "title": "Currency",
+    "artists": "Brogan Gaskill",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "currency"
+    ],
+    "spotifyTrackId": "0O9Uv908uRUlOCzJz9CwIh",
+    "spotifyUrl": "https://open.spotify.com/track/0O9Uv908uRUlOCzJz9CwIh",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e020f2272a379cdb3a5b0c2cfe2",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "steadfast-josh-garrels",
+    "title": "Steadfast",
+    "artists": "Josh Garrels",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "steadfast"
+    ],
+    "spotifyTrackId": "22msy9K99UO5qX51FVlT3V",
+    "spotifyUrl": "https://open.spotify.com/track/22msy9K99UO5qX51FVlT3V",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0217f753e85ebc4ee44afdfa2e",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "blessed-are-those-who-follow-you-chris-renzema",
+    "title": "Blessed Are Those Who Follow You",
+    "artists": "Chris Renzema",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "blessed",
+      "are",
+      "those",
+      "who",
+      "follow"
+    ],
+    "spotifyTrackId": "4OHRAntzIdPJG2J1gWajNs",
+    "spotifyUrl": "https://open.spotify.com/track/4OHRAntzIdPJG2J1gWajNs",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02421b3bb4acd7dadd08f4a63a",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "middle-of-june-northwest-stories",
+    "title": "Middle of June",
+    "artists": "Northwest Stories",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "middle",
+      "june"
+    ],
+    "spotifyTrackId": "6HSUh0fn2sZAT2QbrTDPvE",
+    "spotifyUrl": "https://open.spotify.com/track/6HSUh0fn2sZAT2QbrTDPvE",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0243c20c8e7e9eb98183d1a922",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "all-in-all-josh-garrels",
+    "title": "All in All",
+    "artists": "Josh Garrels",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "all"
+    ],
+    "spotifyTrackId": "38dAGjrag68Gt64wnySlT2",
+    "spotifyUrl": "https://open.spotify.com/track/38dAGjrag68Gt64wnySlT2",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02c9da1a919b993fed318b609e",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "house-of-my-heart-james-david-william-yaz-willia",
+    "title": "House of My Heart",
+    "artists": "James David William, Yaz Williams, Faithlife Creative",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "house",
+      "heart"
+    ],
+    "spotifyTrackId": "5kJQwuHOOHudAbhNRqgojC",
+    "spotifyUrl": "https://open.spotify.com/track/5kJQwuHOOHudAbhNRqgojC",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e024ce46aa9ae35b661e39c8838",
+    "addedAt": "2026-10-30T17:41:09.548Z"
+  },
+  {
+    "id": "not-sure-of-much-jacob-neverhill-damares-gomes",
+    "title": "Not Sure of Much",
+    "artists": "Jacob Neverhill, Dâmares Gomes",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "not",
+      "sure",
+      "much"
+    ],
+    "spotifyTrackId": "1djXO3qsPThrnDmVjZX1pF",
+    "spotifyUrl": "https://open.spotify.com/track/1djXO3qsPThrnDmVjZX1pF",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02541a47adddeca1d790bed5c9",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "the-gospel-is-rest-elias-dummer-land-of-color",
+    "title": "The Gospel is Rest",
+    "artists": "Elias Dummer, Land of Color",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "gospel",
+      "rest"
+    ],
+    "spotifyTrackId": "3l1Su7D1jgzjLkYhdeyPYS",
+    "spotifyUrl": "https://open.spotify.com/track/3l1Su7D1jgzjLkYhdeyPYS",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e024d1373b5a7546450732e535f",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "sweet-comfort-sandra-mccracken",
+    "title": "Sweet Comfort",
+    "artists": "Sandra McCracken",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "sweet",
+      "comfort"
+    ],
+    "spotifyTrackId": "2w7wtOh23u4Exz9MpFsFke",
+    "spotifyUrl": "https://open.spotify.com/track/2w7wtOh23u4Exz9MpFsFke",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e023a8533e63789fc4c9e937d95",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "why-you-brought-me-here-andy-gullahorn",
+    "title": "Why You Brought Me Here",
+    "artists": "Andy Gullahorn",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "why",
+      "brought",
+      "here"
+    ],
+    "spotifyTrackId": "7H0EpU3c74UWlI57uQhEsD",
+    "spotifyUrl": "https://open.spotify.com/track/7H0EpU3c74UWlI57uQhEsD",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e023857fd03ed592810ef46790c",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "seed-and-stone-austin-sebek",
+    "title": "Seed and Stone",
+    "artists": "Austin Sebek",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "seed",
+      "stone"
+    ],
+    "spotifyTrackId": "3aVdYrSCCOgibFYA9VKdOo",
+    "spotifyUrl": "https://open.spotify.com/track/3aVdYrSCCOgibFYA9VKdOo",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0237ecb5c7c9f3d3bd8f2d3e71",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "hopefully-tomorrow-andy-gullahorn",
+    "title": "Hopefully Tomorrow",
+    "artists": "Andy Gullahorn",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "hopefully",
+      "tomorrow"
+    ],
+    "spotifyTrackId": "5HqG2VmWjo05EVmSiQsldY",
+    "spotifyUrl": "https://open.spotify.com/track/5HqG2VmWjo05EVmSiQsldY",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02a8812c08e8aade8468579d26",
+    "addedAt": "2026-10-30T17:41:09.549Z"
+  },
+  {
+    "id": "happy-camper-northwest-stories-brook-st",
+    "title": "Happy Camper",
+    "artists": "Northwest Stories, Brook St",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "happy",
+      "camper"
+    ],
+    "spotifyTrackId": "2jax7HOKamlK7kGp1ItFGH",
+    "spotifyUrl": "https://open.spotify.com/track/2jax7HOKamlK7kGp1ItFGH",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e0284ed33560abf3c1db7013cd9",
+    "addedAt": "2026-10-30T17:41:09.549Z"
   }
 ]
