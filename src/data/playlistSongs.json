@@ -2008,5 +2008,19 @@
     "spotifyUrl": "https://open.spotify.com/track/2VVa0XEKwO5qMEQlXM8FYm",
     "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02ab1f1493a0dde743b6f5a9a1",
     "addedAt": "2026-10-13T05:21:10.713Z"
+  },
+  {
+    "id": "hopeful-arbour-season",
+    "title": "Hopeful",
+    "artists": "Arbour Season",
+    "genre": "Indie",
+    "themes": [],
+    "keywords": [
+      "hopeful"
+    ],
+    "spotifyTrackId": "5uLwJ8sGkPMZAXn1HKoIQ7",
+    "spotifyUrl": "https://open.spotify.com/track/5uLwJ8sGkPMZAXn1HKoIQ7",
+    "albumArtUrl": "https://i.scdn.co/image/ab67616d00001e02111268f1bfdeae3900d0e163",
+    "addedAt": "2026-10-30T15:59:52.617Z"
   }
 ]
