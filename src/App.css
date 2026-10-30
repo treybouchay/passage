@@ -1682,12 +1682,12 @@ a.song-detail-concert:focus-visible {
 .song-detail-actions {
   display: flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.25rem;
 }
 
 .song-detail-actions .favorite-btn {
-  width: 2rem;
-  height: 2rem;
+  width: 2.35rem;
+  height: 2.35rem;
   margin: 0;
   color: var(--accent);
   border-radius: 0.3rem;
@@ -1702,8 +1702,8 @@ a.song-detail-concert:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.35rem;
+  height: 2.35rem;
   padding: 0;
   color: var(--accent);
   background: transparent;
@@ -1712,6 +1712,11 @@ a.song-detail-concert:focus-visible {
   cursor: pointer;
   text-decoration: none;
   transition: color 0.15s, background 0.15s;
+}
+
+.song-detail-action--youtube {
+  width: auto;
+  padding: 0 0.45rem;
 }
 
 .song-detail-action:hover:not(:disabled) {
@@ -1731,9 +1736,17 @@ a.song-detail-concert:focus-visible {
 
 .song-detail-icon {
   display: block;
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.35rem;
+  height: 1.35rem;
   flex-shrink: 0;
+}
+
+.song-detail-youtube-word {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
 }
 
 .song-detail-status {

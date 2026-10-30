@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import {
   getSongArtistBlurb,
   getSongBlurb,
+  youtubeSearchUrl,
   type PlaylistSong,
 } from '../data/songs'
 import {
@@ -33,19 +34,14 @@ function ShareIcon({ className }: { className?: string }) {
       fill="none"
       aria-hidden="true"
     >
+      <circle cx="18" cy="5" r="2.4" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="6" cy="12" r="2.4" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="18" cy="19" r="2.4" stroke="currentColor" strokeWidth="1.6" />
       <path
-        d="M14.5 7.5 20 3.5v5M20 3.5l-8.5 7.5"
+        d="M8.2 10.9 15.8 6.9M8.2 13.1l7.6 4"
         stroke="currentColor"
         strokeWidth="1.6"
         strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M10.5 5.5H7.75A2.75 2.75 0 0 0 5 8.25v8.5A2.75 2.75 0 0 0 7.75 19.5h8.5A2.75 2.75 0 0 0 19 16.75V14"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   )
@@ -351,7 +347,7 @@ export function SongDetailPopup({
                 href={song.spotifyUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Play"
+                aria-label="Open on Spotify"
               >
                 <PlayIcon className="song-detail-icon" />
               </a>
@@ -360,11 +356,22 @@ export function SongDetailPopup({
                 type="button"
                 className="song-detail-action"
                 disabled
-                aria-label="Play"
+                aria-label="Open on Spotify"
               >
                 <PlayIcon className="song-detail-icon" />
               </button>
             )}
+            <a
+              className="song-detail-action song-detail-action--youtube"
+              href={youtubeSearchUrl(song.title, song.artists)}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Search on YouTube"
+            >
+              <span className="song-detail-youtube-word" aria-hidden="true">
+                YouTube
+              </span>
+            </a>
           </div>
           {status ? <p className="song-detail-status">{status}</p> : null}
         </div>

@@ -148,6 +148,12 @@ export const SPOTIFY_PLAYLIST = {
  */
 export const playlistSongs: PlaylistSong[] = playlistSongsJson as PlaylistSong[]
 
+/** YouTube search results for a track (no API key — opens search, not a fixed video). */
+export function youtubeSearchUrl(title: string, artists: string): string {
+  const query = `${title} ${artists}`.trim()
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`
+}
+
 export function songsByGenre(
   songs: PlaylistSong[] = playlistSongs,
 ): { genre: SongGenre; songs: PlaylistSong[] }[] {
